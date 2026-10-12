@@ -22,15 +22,58 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,400..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="src/styles/tokens.css" />
-    <link rel="stylesheet" href="src/styles/base.css" />
-    <link rel="stylesheet" href="src/styles/phone.css" />
-    <link rel="stylesheet" href="src/styles/page.css" />
-    <link rel="stylesheet" href="src/styles/overlays.css" />
   </head>
   <body>
     <main id="root"></main>
-    <script src="src/vendor/motion.js"></script>
-    <script type="module" src="src/main.js"></script>
+    <script>
+      // The host lets browsers reuse each file for ten minutes, so just after a deploy a page
+      // could mix old and new files (a new script with an old stylesheet, say). Before starting,
+      // check every stylesheet and script with the server, which also refreshes the browser's
+      // copy; the page is then built from files that all belong to the same version.
+      (async function () {
+        var styles = ["tokens", "base", "phone", "page", "overlays"].map(function (name) {
+          return "src/styles/" + name + ".css";
+        });
+        var motion = "src/vendor/motion.js";
+        var entry = new URL("src/main.js", location.href).href;
+
+        var checked = new Set();
+        function check(url) {
+          return fetch(url, { cache: "no-cache" }).then(function (response) {
+            return response.text();
+          });
+        }
+        // Modules are followed through their relative imports, so new files need no listing here.
+        async function checkModule(url) {
+          if (checked.has(url)) return;
+          checked.add(url);
+          var source = await check(url);
+          var imports = Array.from(source.matchAll(/(?:from|import)\s+"(\.[^"]+)"/g), function (match) {
+            return new URL(match[1], url).href;
+          });
+          await Promise.all(imports.map(checkModule));
+        }
+        try {
+          await Promise.all(styles.map(check).concat(check(motion), checkModule(entry)));
+        } catch (error) {
+          // Offline or blocked: carry on with whatever the browser already has.
+        }
+
+        function add(tag, attributes, parent) {
+          return new Promise(function (resolve) {
+            var element = Object.assign(document.createElement(tag), attributes);
+            element.onload = element.onerror = resolve;
+            parent.append(element);
+          });
+        }
+        await Promise.all(
+          styles.map(function (href) {
+            return add("link", { rel: "stylesheet", href: href }, document.head);
+          }),
+        );
+        await add("script", { src: motion }, document.body); // classic script: must run before the modules
+        add("script", { type: "module", src: entry }, document.body);
+      })();
+    </script>
   </body>
 </html>

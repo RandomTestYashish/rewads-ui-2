@@ -71,7 +71,7 @@ function playIntro(section, count) {
     animate(
       letter,
       { opacity: [0, 1], y: [22, 0], scale: [1.25, 1], filter: ["blur(10px)", "blur(0px)"] },
-      { duration: 0.7, delay: 0.28 + index * 0.055, ease },
+      { duration: 0.85, delay: 0.3 + index * 0.075, ease },
     ),
   );
   all(".unclaimed__badge").forEach((badge, index) =>
@@ -85,7 +85,7 @@ function playIntro(section, count) {
   // The sheen crosses the word once the last letter has landed.
   const word = q(".unclaimed__word");
   word.classList.remove("is-shining");
-  setTimeout(() => word.classList.add("is-shining"), 1150);
+  setTimeout(() => word.classList.add("is-shining"), 1400);
 
   // "6" runs up from zero.
   const number = q("[data-count]");
@@ -150,20 +150,35 @@ export function Unclaimed() {
     animate(done, { opacity: [0, 1], y: [12, 0] }, transition("reveal"));
   }
 
-  // Play the entrance whenever the band scrolls into view, having been out of it.
+  // Play the entrance whenever the band scrolls into view, having been out of it. The first
+  // run waits for the fonts and images, so it is not spent while the page is still loading.
   if (!reducedMotion.matches) {
+    const settled = Promise.race([
+      Promise.all([document.fonts.ready, new Promise((resolve) => (document.readyState === "complete" ? resolve() : window.addEventListener("load", resolve, { once: true })))]),
+      new Promise((resolve) => setTimeout(resolve, 2500)),
+    ]).then(() => new Promise((resolve) => setTimeout(resolve, 350)));
+
+    let visible = false;
+    const play = () => {
+      section.classList.remove("is-waiting");
+      playIntro(section, unclaimed().length);
+    };
     section.classList.add("is-waiting");
     new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && section.classList.contains("is-waiting")) {
-          section.classList.remove("is-waiting");
-          playIntro(section, unclaimed().length);
-        } else if (!entry.isIntersecting && entry.intersectionRatio === 0) {
+      async ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible && section.classList.contains("is-waiting")) {
+          await settled;
+          if (visible && section.classList.contains("is-waiting")) play();
+        } else if (!visible) {
           section.classList.add("is-waiting");
         }
       },
       { threshold: [0, 0.35] },
     ).observe(section);
+
+    // Tapping the heading plays it again.
+    section.querySelector(".unclaimed__title").addEventListener("click", play);
   }
 
   subscribe((change) => {

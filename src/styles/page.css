@@ -570,6 +570,7 @@
   line-height: 34px;
   text-align: center;
   font-kerning: none; /* letters are separate boxes; keep the sheen copy on the same metrics */
+  cursor: pointer;
 }
 
 .unclaimed__word {
