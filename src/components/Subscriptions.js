@@ -36,7 +36,7 @@ const row = (item) => `
 export function Subscriptions() {
   const section = el(`
     <section class="subs reveal" id="subscriptions">
-      ${sectionHead({ title: "Active Subscriptions", sub: "View and manage your subscriptions in one place.", icon: "play", tone: "green" })}
+      ${sectionHead({ title: "Active Subscriptions", sub: "View and manage your subscriptions in one place.", logo: "ott" })}
       <div class="subs__panel">
         <div class="pills scroll-x" role="tablist" aria-label="Subscription type">
           ${FILTERS.map((filter, index) => `<button class="pill pressable" type="button" role="tab" aria-selected="${index === 0}" data-filter="${filter.id}">${filter.label}</button>`).join("")}

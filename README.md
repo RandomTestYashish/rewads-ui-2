@@ -20,14 +20,14 @@ and `?theme=light` or `?theme=dark` to open in one of the two frames.
 
 `src/styles/page.css` holds the Figma frames' own offsets. `src/styles/polish.css` is loaded after it and
 puts the page on one 16px side grid with an even rhythm (40px between sections, 16px under a heading),
-adds the icon chips on the section headings, and turns colour and motion up.
+puts each section's own logo on its heading, and turns colour and motion up.
 
 ## What is interactive
 
 - **Header**: turns to glass once the page scrolls; the coin balance opens the coins sheet.
-- **Shortcuts**: Spin the wheel has a thin white ring with a slow arc of light circling it. The OTT disc rolls through Netflix, Prime Video and Xstream Play. OTT, Insider and Advantage Club scroll to their sections; Spin the wheel opens the game.
+- **Shortcuts**: Spin the wheel's needle spins and settles under a passing shimmer. The OTT disc rolls through Netflix, Prime Video and Xstream Play. OTT, Insider and Advantage Club scroll to their sections; Spin the wheel opens the game.
 - **Unclaimed rewards**: the heading animates in a loop while it is on screen (streaks, letter-by-letter REWARDS, spinning badges, a sheen, then out and in again); the count-up and the cards sliding in play once. Claim Now claims a reward, flies a coin to the balance and removes the card.
-- **What's New**: a snapping carousel; Register and Claim switch state, the banner opens its details.
+- **What's New**: the title's letters jump in a wave with emoji popping around it; a snapping carousel; Register and Claim switch state, the banner opens its details.
 - **Play and win**: a scratch card and a spin wheel, both of which add coins.
 - **Active subscriptions**: the pills filter the list, View all expands it.
 - **Included in your plan / Airtel Insider / The Advantage Club**: rows and buttons open detail sheets.

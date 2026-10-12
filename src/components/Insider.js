@@ -15,7 +15,7 @@ const OFFERS = [
 export function Insider() {
   const section = el(`
     <section class="insider reveal" id="insider">
-      ${sectionHead({ title: "Airtel Insider", sub: "Unlock special deals and experiences", icon: "crown", tone: "rose" })}
+      ${sectionHead({ title: "Airtel Insider", sub: "Unlock special deals and experiences", logo: "insider" })}
       <div class="stamp" aria-hidden="true">
         <svg class="stamp__ring" viewBox="0 0 92 92">
           <defs><path id="stamp-path" d="M46,46 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" /></defs>

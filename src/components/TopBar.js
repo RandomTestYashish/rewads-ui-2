@@ -25,14 +25,10 @@ export function TopBar(screen) {
         <strong>My Rewards</strong>
         <span>9716317865</span>
       </div>
-      <button class="coin only-dark pressable" type="button" aria-label="Coins balance" data-press="0.92">
-        <img class="coin__glow" src="${asset("ellipse-2.svg")}" alt="" />
-        <img class="coin__art" src="${asset("screenshot-20260908-at-100950-am-1.png")}" alt="" />
-        <span class="coin__pill" data-balance="dark"></span>
-      </button>
-      <button class="points only-light pressable" type="button" aria-label="Points balance" data-press="0.94">
+      <button class="points pressable" type="button" aria-label="Coins balance" data-press="0.94">
         <img src="${asset("light/point-shiny-front.png")}" alt="" />
-        <span data-balance="light"></span>
+        <span class="only-dark" data-balance="dark"></span>
+        <span class="only-light" data-balance="light"></span>
       </button>
     </header>
   `);
@@ -58,8 +54,7 @@ export function TopBar(screen) {
       render(from + (to - from) * (1 - Math.pow(1 - progress, 3)));
       if (progress < 1) requestAnimationFrame(tick);
     })(started);
-    const badge = bar.querySelector(screen.dataset.theme === "light" ? ".points" : ".coin");
-    animate(badge, { scale: [1, 1.14, 1] }, transition("pop"));
+    animate(bar.querySelector(".points"), { scale: [1, 1.14, 1] }, transition("pop"));
   });
 
   function openBalance() {
@@ -83,14 +78,13 @@ export function TopBar(screen) {
       title: "Your balance",
       content: `
         <div class="balance">
-          <img src="${asset(light ? "light/point-shiny-front.png" : "screenshot-20260908-at-100950-am-1.png")}" alt="" />
+          <img src="${asset("light/point-shiny-front.png")}" alt="" />
           <strong>${format(START_BALANCE[light ? "light" : "dark"] + state.earned)}</strong>
         </div>
         <div class="sheet-list">${rows}</div>`,
     });
   }
 
-  bar.querySelector(".coin").addEventListener("click", openBalance);
   bar.querySelector(".points").addEventListener("click", openBalance);
   bar.querySelector(".topbar__back").addEventListener("click", () => toast("This prototype starts at My Rewards"));
 

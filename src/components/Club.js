@@ -6,7 +6,7 @@ import { sectionHead } from "./PlayAndWin.js";
 export function Club() {
   const section = el(`
     <section class="club reveal" id="club">
-      ${sectionHead({ title: "The advantage Club", sub: "Postpaid exclusive", icon: "ticket", tone: "red" })}
+      ${sectionHead({ title: "The advantage Club", sub: "Postpaid exclusive", logo: "club" })}
       <div class="club__banner"></div>
     </section>
   `);

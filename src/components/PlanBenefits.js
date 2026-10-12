@@ -53,7 +53,7 @@ function openBenefit(item) {
 export function PlanBenefits() {
   const section = el(`
     <section class="plan reveal" id="plan">
-      ${sectionHead({ title: "Included in your ₹399 plan", sub: "Postpaid ₹399 · at no extra cost", icon: "shield", tone: "blue", all: true })}
+      ${sectionHead({ title: "Included in your ₹399 plan", sub: "Postpaid ₹399 · at no extra cost", logo: "airtel", all: true })}
       <div class="plan__list">
         ${BENEFITS.slice(0, VISIBLE)
           .map(

@@ -528,10 +528,6 @@
   height: 24.9px;
 }
 
-.insider .sec-head {
-  margin-right: 100px; /* clear of the stamp */
-}
-
 .insider__card {
   box-shadow: 0 20px 50px -26px #e0405f;
 }
@@ -717,6 +713,189 @@
   .sub-row__dot::after,
   .logo-strip__track,
   .insider__pulse {
+    animation: none;
+  }
+}
+
+/* ---------- Header: the coin pill in both themes ---------- */
+[data-theme="dark"] .points {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.points {
+  justify-content: center;
+  padding: 8px 12px 8px 8px;
+}
+
+.points span {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Spin the wheel: the needle spins and a shimmer passes ---------- */
+.shortcut__wheel {
+  position: absolute;
+  overflow: visible;
+}
+
+.wheel-needle {
+  transform-box: view-box;
+  transform-origin: 14.5683px 15px;
+}
+
+.shortcut__wheel--live .wheel-needle {
+  animation: needle 3.4s cubic-bezier(0.12, 0.7, 0.2, 1) infinite;
+}
+
+/* Three and a half turns that slow to a stop, a small settle, then a rest */
+@keyframes needle {
+  0% {
+    transform: rotate(0deg);
+  }
+  58% {
+    transform: rotate(1268deg);
+  }
+  66% {
+    transform: rotate(1256deg);
+  }
+  72%,
+  100% {
+    transform: rotate(1260deg);
+  }
+}
+
+.shortcut__shimmer {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 22px;
+  height: 120%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: translateX(-40px) rotate(18deg);
+  animation: shimmer 3.4s var(--ease-in-out) infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0%,
+  55% {
+    transform: translateX(-40px) rotate(18deg);
+  }
+  85%,
+  100% {
+    transform: translateX(100px) rotate(18deg);
+  }
+}
+
+/* ---------- Section headings: the section's own logo, in the shortcut disc at half size ---------- */
+.sec-head__logo {
+  position: relative;
+  flex: none;
+  width: 36px;
+  height: 36px;
+}
+
+.sec-head__logo .shortcut__disc {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+}
+
+.shortcut__airtel {
+  left: 17px;
+  top: 17.5px;
+  width: 34px;
+  height: 33.8px;
+}
+
+.faq__heading .sec-head__icon {
+  border-radius: 50%;
+  background: linear-gradient(157.012deg, rgb(87, 82, 82) 9.4387%, rgb(0, 0, 0) 83.259%);
+  box-shadow: inset 0 1px 0 rgba(239, 239, 239, 0.5);
+}
+
+/* ---------- What's New: letters jump in a wave, emoji pop around the title ---------- */
+.whats-new__title--live i {
+  display: inline-block;
+  font-style: normal;
+  animation: wave 3.4s var(--ease-in-out) infinite;
+  animation-delay: calc(var(--i) * 70ms);
+}
+
+[data-theme="dark"] .whats-new__title--live {
+  background: none;
+}
+
+[data-theme="dark"] .whats-new__title--live i {
+  color: transparent;
+  background-image: linear-gradient(160.829deg, rgb(225, 2, 3) 17.844%, rgb(255, 229, 80) 44.527%, rgb(255, 229, 80) 57.005%);
+  background-size: 214.127px 43.595px;
+  background-position: var(--x, 0) 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@keyframes wave {
+  0%,
+  26%,
+  100% {
+    transform: none;
+  }
+  9% {
+    transform: translateY(-9px) rotate(-5deg) scale(1.1);
+  }
+  17% {
+    transform: translateY(2px) scale(0.97);
+  }
+}
+
+.whats-new__emoji {
+  position: absolute;
+  font-size: 18px;
+  font-style: normal;
+  line-height: 1;
+  opacity: 0;
+  animation: pop-float 4.2s var(--ease-out) infinite;
+  pointer-events: none;
+}
+
+@keyframes pop-float {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0) rotate(-20deg);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0) scale(1.25) rotate(8deg);
+  }
+  18% {
+    transform: translateY(-2px) scale(1) rotate(0deg);
+  }
+  45% {
+    opacity: 1;
+  }
+  60%,
+  100% {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.8) rotate(16deg);
+  }
+}
+
+.flame img {
+  animation-duration: 1.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shortcut__wheel--live .wheel-needle,
+  .shortcut__shimmer,
+  .whats-new__title--live i,
+  .whats-new__emoji {
     animation: none;
   }
 }

@@ -102,7 +102,7 @@ export function toast(message) {
 
 /** Flies a coin from `from` to the balance in the header, then calls `onLand`. */
 export function flyCoin(from, onLand) {
-  const target = host.querySelector(host.dataset.theme === "light" ? ".points img" : ".coin__art");
+  const target = host.querySelector(".points img");
   const scale = renderedScale(host);
   const frame = host.getBoundingClientRect();
   const center = (node) => {
@@ -111,8 +111,7 @@ export function flyCoin(from, onLand) {
   };
   const start = center(from);
   const end = center(target);
-  const light = host.dataset.theme === "light";
-  const coin = el(`<img class="fly-coin" src="${asset(light ? "light/point-shiny-front.png" : "screenshot-20260908-at-100950-am-1.png")}" alt="" />`);
+  const coin = el(`<img class="fly-coin" src="${asset("light/point-shiny-front.png")}" alt="" />`);
   host.append(coin);
   animate(
     coin,

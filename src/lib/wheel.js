@@ -1,0 +1,15 @@
+// The spin-wheel icon from Figma (group-1597881919.svg), inlined so its needle can turn on its own.
+export const wheelIcon = (className) => `
+  <svg class="${className}" viewBox="0 0 30 33.4076" fill="none" aria-hidden="true">
+    <path d="M6.07294 31.8931L9.45318 26.2594C9.6339 25.9582 9.95941 25.7739 10.3107 25.7739H19.8511C20.2083 25.7739 20.5385 25.9645 20.7171 26.2739L23.9697 31.9076C24.3546 32.5743 23.8735 33.4076 23.1037 33.4076H6.93044C6.15314 33.4076 5.67303 32.5597 6.07294 31.8931Z" fill="#302D6A"/>
+    <rect x="0.5" y="29.5" width="29" height="29" rx="14.5" transform="rotate(-90 0.5 29.5)" fill="url(#wheel-face)" stroke="url(#wheel-rim)"/>
+    <g class="wheel-needle">
+      <path d="M5.21162 15.8192L14.4304 17.1144C14.7313 17.1567 15 16.9231 15 16.6193V13.4194C15 13.1026 14.7091 12.8656 14.3988 12.9297L5.18001 14.8344C4.63059 14.948 4.65604 15.7412 5.21162 15.8192Z" fill="#FFE550"/>
+      <circle cx="14.5683" cy="15" r="2.19447" fill="white"/>
+      <circle cx="14.5683" cy="15" r="1.44192" fill="#883699"/>
+    </g>
+    <defs>
+      <linearGradient id="wheel-face" x1="24.4634" y1="41.2933" x2="4.02723" y2="57.1881" gradientUnits="userSpaceOnUse"><stop stop-color="#501D5A"/><stop offset="1" stop-color="#526AE3"/></linearGradient>
+      <linearGradient id="wheel-rim" x1="30" y1="45" x2="0" y2="45" gradientUnits="userSpaceOnUse"><stop stop-color="#ECECEC"/><stop offset="1"/></linearGradient>
+    </defs>
+  </svg>`;

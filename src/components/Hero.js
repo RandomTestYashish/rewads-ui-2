@@ -1,5 +1,6 @@
 import { asset, el, themed } from "../lib/dom.js";
 import { animate, reducedMotion, transition } from "../lib/motion.js";
+import { wheelIcon } from "../lib/wheel.js";
 
 /** The Advantage Club lockup: wordmark, airtel mark and the "Delhi Edition" tag. */
 export function lockup({ width, height, left, top, tag, mark, name, variant = "" }) {
@@ -48,9 +49,23 @@ const SHORTCUTS = [
     id: "spin",
     label: "Spin the wheel",
     x: 323,
-    art: `<img class="shortcut__wheel" src="${asset("group-1597881919.svg")}" alt="" />`,
+    // The needle whips round and settles, again and again, under a passing shimmer.
+    art: `${wheelIcon("shortcut__wheel shortcut__wheel--live")}<span class="shortcut__shimmer"></span>`,
   },
 ];
+
+// The same identities at half size, for the section headings further down the page.
+const BRAND_ART = {
+  ott: `<img class="shortcut__netflix" src="${asset("netflix-logo-icon-1709191.png")}" alt="" />`,
+  airtel: `<img class="shortcut__airtel" src="${asset("vector-4.svg")}" alt="" />`,
+  spin: wheelIcon("shortcut__wheel"),
+};
+
+/** A shortcut disc carrying a section's own logo: ott, insider, club, spin or airtel. */
+export function brandDisc(id) {
+  const art = BRAND_ART[id] ?? SHORTCUTS.find((item) => item.id === id).art;
+  return `<span class="sec-head__logo"><span class="shortcut__disc">${art}</span></span>`;
+}
 
 /** Top of the page: the soft glow behind the header and the four round shortcuts. */
 export function Hero({ onShortcut }) {
@@ -63,7 +78,6 @@ export function Hero({ onShortcut }) {
             <button class="shortcut" type="button" style="left:${item.x}px" data-shortcut="${item.id}" data-press="0.92">
               <span class="shortcut__orb" data-press-target>
                 <span class="shortcut__disc">${item.art}</span>
-                ${item.id === "spin" ? `<span class="shortcut__ring"></span>` : ""}
               </span>
               <span class="shortcut__label">${item.label}</span>
             </button>`,
@@ -79,8 +93,6 @@ export function Hero({ onShortcut }) {
     const delay = 0.12 + index * 0.07;
     animate(button.querySelector(".shortcut__disc"), { scale: [0.6, 1], opacity: [0, 1] }, { ...transition("pop"), delay });
     animate(button.querySelector(".shortcut__label"), { opacity: [0, 1], y: [6, 0] }, { duration: 0.4, delay: delay + 0.12 });
-    const ring = button.querySelector(".shortcut__ring");
-    if (ring) animate(ring, { opacity: [0, 1] }, { duration: 1.2, delay: delay + 0.4 });
   });
 
   cycleLogos([...hero.querySelectorAll("[data-ott]")]);
