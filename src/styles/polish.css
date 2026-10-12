@@ -1162,30 +1162,12 @@
   --color-card: #f6f7fa;
 }
 
-/* Shortcuts: light and brand-coloured discs */
+/* Shortcuts: the same dark discs as the dark theme */
 [data-theme="light"] .shortcut__disc {
   background:
-    linear-gradient(157.012deg, #ffffff 9.4387%, #e9edf5 83.259%) padding-box,
-    linear-gradient(180deg, #ffffff, #dfe4ee) border-box;
-  box-shadow: 0 10px 20px -12px rgba(20, 40, 90, 0.4);
-}
-
-[data-theme="light"] [data-shortcut="insider"] .shortcut__disc {
-  background:
-    linear-gradient(157.012deg, #d65b6c 9.4387%, #a92c46 83.259%) padding-box,
-    linear-gradient(180deg, #f3b3bf, #c8405a) border-box;
-}
-
-[data-theme="light"] [data-shortcut="club"] .shortcut__disc {
-  background:
-    linear-gradient(157.012deg, #ff5b02 9.4387%, #e10203 83.259%) padding-box,
-    linear-gradient(180deg, #ffb48a, #e10203) border-box;
-}
-
-[data-theme="light"] [data-shortcut="spin"] .shortcut__disc {
-  background:
-    linear-gradient(157.012deg, #f1edff 9.4387%, #d5d0fb 83.259%) padding-box,
-    linear-gradient(180deg, #ffffff, #c4bdf5) border-box;
+    linear-gradient(157.012deg, rgb(87, 82, 82) 9.4387%, rgb(0, 0, 0) 83.259%) padding-box,
+    linear-gradient(180deg, #efefef 0%, rgba(239, 239, 239, 0.16) 30%, rgba(239, 239, 239, 0.04) 100%) border-box;
+  box-shadow: 0 10px 20px -12px rgba(20, 40, 90, 0.55);
 }
 
 /* Unclaimed rewards: a light band, red-to-orange lettering, white cards */
@@ -1380,4 +1362,253 @@
 
 [data-theme="light"] .phone__home-indicator {
   background: #9aa3b2;
+}
+
+/* ---------- "View all": a tertiary link in blue, everywhere ---------- */
+[data-theme="dark"] {
+  --color-cta: #5aa2ff;
+}
+
+[data-theme="light"] {
+  --color-cta: #075ee8;
+}
+
+.sec-head__all,
+.unclaimed__all,
+[data-theme="light"] .unclaimed__all,
+.subs__all {
+  background: none;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  text-decoration: none;
+  color: var(--color-cta);
+}
+
+.sec-head__all {
+  gap: 2px;
+  width: auto;
+  height: 34px;
+  margin-right: -4px;
+  padding: 0 0 0 8px;
+  border-radius: 8px;
+}
+
+.sec-head__all svg {
+  width: 14px;
+  height: 14px;
+}
+
+.unclaimed__all {
+  top: 368px;
+  padding: 8px 12px;
+}
+
+/* ---------- Unclaimed cards, light theme: an even tint from the top, and a shadow that fits the rail ---------- */
+[data-theme="light"] .claim-card__wash {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  filter: none;
+  opacity: 0.16;
+  -webkit-mask: linear-gradient(180deg, #000 0%, transparent 78%);
+  mask: linear-gradient(180deg, #000 0%, transparent 78%);
+}
+
+[data-theme="light"] .claim-card {
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(180deg, #dfe3ec, #e9ecf2) border-box;
+  box-shadow: 0 4px 8px -4px rgba(20, 40, 90, 0.18);
+}
+
+/* ---------- Active subscriptions, light theme: pills above the card, as in the dark theme ---------- */
+[data-theme="light"] .subs__panel {
+  margin-top: 6.53px;
+  padding-top: 9.47px;
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+}
+
+[data-theme="light"] .pills {
+  margin-left: -17px;
+}
+
+[data-theme="light"] .subs__card {
+  margin-top: 16px;
+  border-color: var(--color-card-border);
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(0, 189, 61, 0.1), transparent 60%),
+    #fff;
+  box-shadow: 0 12px 26px -20px rgba(20, 40, 90, 0.4);
+}
+
+[data-theme="light"] .sub-row {
+  border-bottom-color: #eceef3;
+}
+
+/* ---------- Insider stamp: tucked further behind the top of the card ---------- */
+.stamp {
+  top: -6px;
+}
+
+/* ---------- Play and win: richer cards ---------- */
+[data-theme="dark"] .play-card--scratch {
+  background: radial-gradient(130% 90% at 50% 0%, #b3224a 0%, #5a1026 52%, #1a050c 100%);
+}
+
+[data-theme="dark"] .play-card--spin {
+  background: radial-gradient(130% 90% at 50% 0%, #4a58e0 0%, #232680 52%, #0b0b2a 100%);
+}
+
+.play-card__beam {
+  opacity: 0.55;
+}
+
+.play-card__rays {
+  position: absolute;
+  left: 50%;
+  top: 96px;
+  width: 320px;
+  height: 320px;
+  margin: -160px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.1) 0deg 7deg, rgba(255, 255, 255, 0) 7deg 18deg);
+  -webkit-mask: radial-gradient(closest-side, #000 10%, rgba(0, 0, 0, 0.5) 45%, transparent 85%);
+  mask: radial-gradient(closest-side, #000 10%, rgba(0, 0, 0, 0.5) 45%, transparent 85%);
+  animation: turn 36s linear infinite;
+  pointer-events: none;
+}
+
+.play-card__badge {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 9px 0 4px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.play-card__badge img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.play-card__word {
+  font-size: 21px;
+}
+
+.play-card__word--top {
+  top: 72px;
+}
+
+.play-card__word--glow {
+  top: 74.4px;
+  filter: blur(4px);
+}
+
+.play-card__coin {
+  position: absolute;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+  animation: coin-float 3.4s ease-in-out infinite;
+}
+
+@keyframes coin-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-8deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(10deg);
+  }
+}
+
+.play-card__halo {
+  position: absolute;
+  left: 50%;
+  top: 90px;
+  width: 130px;
+  height: 130px;
+  margin: -65px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(150, 170, 255, 0.75), rgba(150, 170, 255, 0) 100%);
+  animation: glow 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.play-card__wheel {
+  left: 38px;
+  top: 40px;
+  width: 86px;
+  height: 95.8px;
+  overflow: visible;
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 20, 0.45));
+}
+
+.play-card .wheel-needle {
+  animation: needle 3.4s cubic-bezier(0.12, 0.7, 0.2, 1) infinite;
+  animation-delay: -1.2s;
+}
+
+.play-card__label,
+[data-theme="light"] .play-card__label {
+  left: 50%;
+  right: auto;
+  top: 164px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 24px;
+  padding: 0 8px 0 11px;
+  transform: translateX(-50%);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 24px;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.play-card--scratch .play-card__label,
+.play-card--spin .play-card__label {
+  right: auto;
+}
+
+.play-card__label svg {
+  width: 12px;
+  height: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play-card__rays,
+  .play-card__coin,
+  .play-card__halo,
+  .play-card .wheel-needle {
+    animation: none;
+  }
+}
+
+/* Heading to pills: 16px, like every other heading-to-content gap */
+.subs__panel,
+[data-theme="light"] .subs__panel {
+  padding-top: 8.47px;
 }

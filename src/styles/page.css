@@ -27,12 +27,6 @@
 }
 
 /* Theme-only pieces */
-[data-theme="light"] .shortcut__disc {
-  background:
-    linear-gradient(157.012deg, rgb(87, 82, 82) 9.4387%, rgb(0, 0, 0) 83.259%) padding-box,
-    linear-gradient(180deg, #efefef, #efefef) border-box;
-}
-
 [data-theme="dark"] .only-light,
 [data-theme="light"] .only-dark {
   display: none !important;

@@ -1,5 +1,8 @@
 import { asset, el } from "../lib/dom.js";
 import { icons } from "../lib/icons.js";
+import { wheelIcon } from "../lib/wheel.js";
+
+const COIN = "light/point-shiny-front.png";
 import { openScratch, openSpin } from "./games.js";
 import { openSheet } from "./overlays.js";
 
@@ -11,7 +14,7 @@ export function sectionHead({ title, sub, all = false }) {
         <h2 class="sec-head__title">${title}</h2>
         <p class="sec-head__sub">${sub}</p>
       </div>
-      ${all ? `<button class="sec-head__all pressable" type="button" aria-label="View all">${icons.arrow}</button>` : ""}
+      ${all ? `<button class="sec-head__all pressable" type="button">View all${icons.caret}</button>` : ""}
     </header>`;
 }
 
@@ -23,22 +26,29 @@ export function PlayAndWin() {
       <div class="play__cards">
         <button class="play-card play-card--scratch" type="button" data-game="scratch" data-press="0.96">
           <span class="play-card__beam"></span>
+          <span class="play-card__rays"></span>
+          <span class="play-card__badge"><img src="${asset(COIN)}" alt="" />Win up to 100</span>
           <span class="play-card__word play-card__word--glow" aria-hidden="true">First <br />time travel</span>
           <span class="play-card__word play-card__word--top">First <br />time travel</span>
-          <span class="play-card__label">Scratch and Claim</span>
+          <img class="play-card__coin" style="left:8px;top:132px;width:26px" src="${asset(COIN)}" alt="" />
+          <img class="play-card__coin" style="left:124px;top:46px;width:20px;animation-delay:-1.4s" src="${asset(COIN)}" alt="" />
+          <span class="play-card__label">Scratch and Claim${icons.caret}</span>
           <span class="play-card__shine"></span>
-          <i class="play-card__star" style="left:22px;top:26px">${icons.sparkle}</i>
-          <i class="play-card__star" style="left:124px;top:44px;width:9px;animation-delay:-1.1s">${icons.sparkle}</i>
-          <i class="play-card__star" style="left:112px;top:132px;width:11px;animation-delay:-2s">${icons.sparkle}</i>
+          <i class="play-card__star" style="left:20px;top:44px">${icons.sparkle}</i>
+          <i class="play-card__star" style="left:132px;top:118px;width:10px;animation-delay:-1.1s">${icons.sparkle}</i>
         </button>
         <button class="play-card play-card--spin" type="button" data-game="spin" data-press="0.96">
           <span class="play-card__beam"></span>
-          <span class="play-card__label">Spin and win</span>
-          <img class="play-card__wheel" src="${asset("group-1597881920.svg")}" alt="" />
-          <span class="play-card__shadow"><img src="${asset("ellipse-19136.svg")}" alt="" /></span>
+          <span class="play-card__rays"></span>
+          <span class="play-card__badge"><img src="${asset(COIN)}" alt="" />Win up to 500</span>
+          <span class="play-card__halo"></span>
+          ${wheelIcon("play-card__wheel")}
+          <img class="play-card__coin" style="left:14px;top:52px;width:20px;animation-delay:-0.7s" src="${asset(COIN)}" alt="" />
+          <img class="play-card__coin" style="left:122px;top:112px;width:26px;animation-delay:-2s" src="${asset(COIN)}" alt="" />
+          <span class="play-card__label">Spin and win${icons.caret}</span>
           <span class="play-card__shine" style="animation-delay:-1.6s"></span>
-          <i class="play-card__star" style="left:20px;top:22px;width:10px;animation-delay:-0.6s">${icons.sparkle}</i>
-          <i class="play-card__star" style="left:128px;top:112px;animation-delay:-1.7s">${icons.sparkle}</i>
+          <i class="play-card__star" style="left:128px;top:40px;width:10px;animation-delay:-0.6s">${icons.sparkle}</i>
+          <i class="play-card__star" style="left:22px;top:122px;animation-delay:-1.7s">${icons.sparkle}</i>
         </button>
       </div>
     </section>

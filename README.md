@@ -20,7 +20,7 @@ and `?theme=light` or `?theme=dark` to open in one of the two frames.
 
 `src/styles/page.css` holds the Figma frames' own offsets. `src/styles/polish.css` is loaded after it and
 puts the page on one 16px side grid with an even rhythm (40px between sections, 16px under a heading),
-and turns colour and motion up. What's New is a black card with a white stroke in the dark theme, the light theme has no black surfaces (its own block at the end of the file), and the Airtel Insider card is drawn there in CSS (gradient, turning rays, glow) rather than from the exported image.
+and turns colour and motion up. What's New is a black card with a white stroke in the dark theme, the light theme has its own block of rules there, and the Airtel Insider card is drawn there in CSS (gradient, turning rays, glow) rather than from the exported image.
 
 ## What is interactive
 
