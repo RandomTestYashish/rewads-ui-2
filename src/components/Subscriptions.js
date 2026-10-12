@@ -22,8 +22,8 @@ const SUBSCRIPTIONS = [
 
 const COLLAPSED = 2;
 
-const row = (item) => `
-  <button class="sub-row" type="button" data-sub="${item.name}">
+const row = (item, index, list) => `
+  <button class="sub-row ${index === list.length - 1 ? "sub-row--last" : ""}" type="button" data-sub="${item.name}">
     <span class="sub-row__logo ${item.logoClass ?? ""}"><img src="${asset(item.logo)}" alt="" /></span>
     <span class="sub-row__text">
       <p class="sub-row__name">${item.name}</p>
@@ -59,7 +59,7 @@ export function Subscriptions() {
     const shown = expanded ? matches : matches.slice(0, COLLAPSED);
     rows.innerHTML =
       (shown.length ? shown.map(row).join("") : `<p class="subs__empty">Nothing here yet.<br />Subscriptions you add will show up in this list.</p>`) +
-      (matches.length > COLLAPSED ? `<button class="subs__all" type="button">${expanded ? "Show less" : "View all"}</button>` : `<div style="height:14px"></div>`);
+      (matches.length > COLLAPSED ? `<button class="subs__all" type="button">${expanded ? "Show less" : "View all"}</button>` : "");
     if (!animated) return;
 
     // Resize the card with a spring and bring the rows in one after another.

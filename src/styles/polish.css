@@ -1750,3 +1750,421 @@
     animation: none;
   }
 }
+
+/* =====================================================================================
+   8pt grid. Every offset, gap, padding and control height below is a multiple of 8
+   (4 for the smallest steps inside a row). The Figma artwork itself (banner art, the
+   Coming soon cards) keeps its drawn size.
+   ===================================================================================== */
+
+/* Header */
+.topbar__back {
+  top: calc(var(--status-bar-h) + 16px);
+}
+
+.topbar__back-caret {
+  left: 8px;
+  top: 8px;
+}
+
+[data-theme="dark"] .topbar__back-caret {
+  filter: invert(1); /* the caret is drawn dark for the light frame */
+}
+
+.topbar__title {
+  top: calc(var(--status-bar-h) + 16px);
+}
+
+.topbar__title strong {
+  line-height: 20px;
+}
+
+.topbar__title span {
+  margin-top: 4px;
+  line-height: 16px;
+}
+
+.points {
+  top: calc(var(--status-bar-h) + 16px);
+  padding: 8px 16px 8px 8px;
+}
+
+/* Shortcuts */
+.hero {
+  height: calc(var(--status-bar-h) + 216px);
+}
+
+.shortcuts {
+  top: calc(var(--status-bar-h) + 96px);
+}
+
+.shortcut__label {
+  margin-top: 8px;
+  line-height: 16px;
+}
+
+/* Unclaimed rewards */
+.unclaimed {
+  height: 424px;
+}
+
+.unclaimed__eyebrow {
+  top: 24px;
+  line-height: 16px;
+}
+
+.unclaimed__title {
+  top: 40px;
+  line-height: 32px;
+}
+
+.unclaimed__streak {
+  top: 47px;
+}
+
+.unclaimed__badge {
+  top: 48px;
+  width: 16px;
+  height: 16px;
+}
+
+.unclaimed__text {
+  top: 80px;
+  line-height: 16px;
+}
+
+.unclaimed__rail {
+  top: 120px;
+  height: 256px;
+  padding-top: 8px;
+}
+
+.claim-card {
+  width: 176px;
+  height: 240px;
+}
+
+.claim-card__art {
+  top: 24px;
+}
+
+.claim-card__art--netflix {
+  left: -3px;
+}
+
+.claim-card__name {
+  top: 112px;
+  line-height: 16px;
+}
+
+.claim-card__text {
+  top: 132px;
+  line-height: 16px;
+}
+
+.claim-button {
+  top: 184px;
+  width: 120px;
+  height: 32px;
+  margin-left: -60px;
+  line-height: 32px;
+}
+
+.unclaimed__all {
+  top: 376px;
+  padding: 8px 16px;
+  line-height: 16px;
+}
+
+.unclaimed__done {
+  top: 144px;
+  padding: 48px 24px;
+}
+
+/* What's New */
+.whats-new__rail {
+  gap: 16px;
+}
+
+.whats-new__rail::after {
+  margin-left: -16px;
+  width: 1px;
+}
+
+.whats-new__dots {
+  bottom: 8px;
+  gap: 4px;
+}
+
+/* Section headings */
+.sec-head {
+  height: 32px;
+  gap: 8px;
+}
+
+.sec-head__sub,
+[data-theme="light"] .sec-head__sub {
+  margin-top: 0;
+  line-height: 16px;
+}
+
+.sec-head__all {
+  height: 32px;
+  line-height: 16px;
+}
+
+/* Play and win */
+.play__cards {
+  gap: 16px;
+}
+
+.play-card {
+  flex: 1;
+  width: auto;
+}
+
+.play-card__word--top {
+  top: 48px;
+}
+
+.play-card__word--glow {
+  top: 50px;
+}
+
+.play-card__wheel {
+  left: 50%;
+  top: 32px;
+  margin-left: -43px;
+}
+
+.play-card__label,
+[data-theme="light"] .play-card__label {
+  top: 160px;
+  padding: 0 8px 0 12px;
+}
+
+/* Active subscriptions: rows spaced like the plan list, dividers only between rows */
+.subs__panel,
+[data-theme="dark"] .subs__panel,
+[data-theme="light"] .subs__panel {
+  margin-top: 16px;
+  padding-top: 0;
+  border: 0;
+}
+
+.pills {
+  height: 32px;
+  margin: 0 -16px;
+}
+
+[data-theme="dark"] .pills,
+[data-theme="light"] .pills {
+  margin-left: -16px;
+}
+
+.pill {
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 16px;
+}
+
+.subs__card,
+[data-theme="light"] .subs__card {
+  margin: 16px 0 0;
+}
+
+.sub-row,
+.sub-row:first-child {
+  align-items: center;
+  width: calc(100% - 32px);
+  height: 72px;
+  margin: 0 16px;
+  padding: 0;
+}
+
+.sub-row,
+[data-theme="dark"] .sub-row,
+[data-theme="light"] .sub-row {
+  border-bottom: 1px solid var(--color-card-border);
+}
+
+.sub-row.sub-row--last:last-child {
+  border-bottom: 0; /* nothing follows it: no "View all" under this list */
+}
+
+.sub-row__plan {
+  margin-top: 0;
+  line-height: 16px;
+}
+
+.sub-row__status {
+  padding-top: 0;
+}
+
+.sub-row__status span {
+  margin-top: 0;
+}
+
+.subs__all {
+  height: 48px;
+  padding-bottom: 0;
+  line-height: 16px;
+}
+
+.subs__empty {
+  padding: 32px 24px;
+}
+
+/* Included in your plan */
+.plan__list {
+  padding: 0 16px;
+}
+
+.plan-row {
+  gap: 12px;
+  padding: 16px 0;
+  border-top-width: 1px;
+}
+
+.plan-row__logo {
+  width: 40px;
+  height: 40px;
+}
+
+.plan-row__name {
+  line-height: 20px;
+}
+
+.plan-row__sub {
+  margin-top: 0;
+  line-height: 16px;
+}
+
+.plan-row__go {
+  width: 32px;
+  height: 32px;
+}
+
+.logo-strip {
+  margin-top: 16px;
+}
+
+.logo-strip__label {
+  margin-bottom: 8px;
+  line-height: 16px;
+}
+
+.logo-strip__track {
+  gap: 8px;
+  padding-left: 8px;
+}
+
+.logo-strip__tile {
+  width: 48px;
+  height: 48px;
+}
+
+/* Airtel Insider */
+.insider__card {
+  height: 400px;
+}
+
+.insider__button {
+  bottom: 24px;
+}
+
+.stamp {
+  top: -8px;
+}
+
+/* Coming soon */
+.soon {
+  height: 376px;
+}
+
+.soon__title {
+  line-height: 40px;
+}
+
+.soon__stack {
+  top: 72px;
+}
+
+/* Questions */
+.faq__heading,
+[data-theme="light"] .faq__heading {
+  height: 24px;
+  line-height: 24px;
+}
+
+.faq__q,
+[data-theme="light"] .faq__q {
+  gap: 8px;
+  padding: 8px 12px 8px 16px;
+}
+
+.faq__chip {
+  width: 32px;
+  height: 32px;
+}
+
+.faq__a p,
+.faq__q[aria-expanded="true"] + .faq__a p {
+  padding: 0 56px 16px 16px;
+  line-height: 20px;
+}
+
+/* Sheets and toast */
+.sheet__panel {
+  padding: 8px 16px 32px;
+}
+
+.sheet__grabber {
+  height: 4px;
+  margin-bottom: 16px;
+}
+
+.sheet__close {
+  right: 16px;
+  top: 16px;
+}
+
+.sheet__title {
+  margin-top: 8px;
+  padding-right: 40px;
+}
+
+.sheet__text {
+  line-height: 20px;
+}
+
+.sheet__facts {
+  margin-top: 16px;
+}
+
+.sheet__facts li {
+  padding: 12px 16px;
+  line-height: 16px;
+}
+
+.sheet__cta {
+  margin-top: 24px;
+}
+
+.sheet-list {
+  margin-top: 16px;
+}
+
+.sheet-row {
+  padding: 12px 0;
+}
+
+.sheet-row__sub {
+  margin-top: 0;
+  line-height: 16px;
+}
+
+.toast {
+  padding: 12px 16px;
+  line-height: 16px;
+}

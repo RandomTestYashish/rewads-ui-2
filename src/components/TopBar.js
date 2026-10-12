@@ -17,9 +17,7 @@ export function TopBar(screen) {
         <div class="status-bar__time">${themed("941.svg")}</div>
       </div>
       <button class="topbar__back pressable" type="button" aria-label="Back" data-press="0.9">
-        <img class="topbar__back-ring only-dark" src="${asset("header-icon-dark-icon.svg")}" alt="" />
-        <img class="topbar__back-arrow only-dark" src="${asset("live-container.svg")}" alt="" />
-        <img class="topbar__back-caret only-light" src="${asset("light/ph-regular-caret-left.svg")}" alt="" />
+        <img class="topbar__back-caret" src="${asset("light/ph-regular-caret-left.svg")}" alt="" />
       </button>
       <div class="topbar__title">
         <strong>My Rewards</strong>

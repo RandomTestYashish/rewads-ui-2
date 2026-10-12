@@ -3,6 +3,8 @@ import { enableDragX } from "../lib/dragX.js";
 import { reducedMotion } from "../lib/motion.js";
 import { BANNERS, Banner } from "./Banner.js";
 
+const BANNER_STEP = 296; // a banner and the gap after it
+
 // Emoji that pop up around the title and drift off: [emoji, left, top, delay in seconds]
 const EMOJI = [
   ["✨", 54, 14, 0],
@@ -40,7 +42,7 @@ export function WhatsNew() {
 
   // The dots follow whichever banner is resting at the left edge.
   function mark() {
-    const index = Math.min(BANNERS.length - 1, Math.round(rail.scrollLeft / 292));
+    const index = Math.min(BANNERS.length - 1, Math.round(rail.scrollLeft / BANNER_STEP));
     dots.forEach((dot, i) => dot.setAttribute("aria-current", String(i === index)));
   }
   rail.addEventListener("scroll", mark, { passive: true });
@@ -53,8 +55,8 @@ export function WhatsNew() {
   ["pointerdown", "wheel", "touchstart"].forEach((type) => rail.addEventListener(type, () => (touched = true), { passive: true }));
   setInterval(() => {
     if (!visible || touched || reducedMotion.matches || document.hidden || document.querySelector(".sheet")) return;
-    const next = Math.round(rail.scrollLeft / 292) + 1;
-    rail.scrollTo({ left: next >= BANNERS.length ? 0 : next * 292, behavior: "smooth" });
+    const next = Math.round(rail.scrollLeft / BANNER_STEP) + 1;
+    rail.scrollTo({ left: next >= BANNERS.length ? 0 : next * BANNER_STEP, behavior: "smooth" });
   }, 3800);
 
   return section;
