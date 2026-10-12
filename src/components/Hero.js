@@ -17,7 +17,11 @@ const SHORTCUTS = [
     id: "ott",
     label: "OTT",
     x: 52,
-    art: `<img class="shortcut__netflix" src="${asset("netflix-logo-icon-1709191.png")}" alt="" />`,
+    // Netflix is the logo drawn in Figma; the disc then rolls through the other OTT apps.
+    art: `
+      <img class="shortcut__netflix" data-ott src="${asset("netflix-logo-icon-1709191.png")}" alt="" />
+      <img class="shortcut__prime" data-ott src="${asset("ott-prime.svg")}" alt="" />
+      <img class="shortcut__xstream" data-ott src="${asset("logo.png")}" alt="" />`,
   },
   {
     id: "insider",
@@ -74,5 +78,23 @@ export function Hero({ onShortcut }) {
     animate(button.querySelector(".shortcut__label"), { opacity: [0, 1], y: [6, 0] }, { duration: 0.4, delay: 0.24 + index * 0.07 });
   });
 
+  cycleLogos([...hero.querySelectorAll("[data-ott]")]);
+
   return hero;
+}
+
+const OTT_HOLD = 2200; // how long each logo rests in the disc
+
+/** Rolls the OTT disc through its logos: the current one leaves upwards as the next rises in. */
+function cycleLogos(logos) {
+  logos.slice(1).forEach((logo) => (logo.style.opacity = 0));
+  if (reducedMotion.matches) return;
+  let current = 0;
+  setInterval(() => {
+    if (document.hidden) return;
+    const next = (current + 1) % logos.length;
+    animate(logos[current], { y: [0, -26], scale: [1, 0.7], opacity: [1, 0] }, { duration: 0.32, ease: [0.4, 0, 1, 1] });
+    animate(logos[next], { y: [26, 0], scale: [0.7, 1], opacity: [0, 1] }, { ...transition("pop"), delay: 0.12 });
+    current = next;
+  }, OTT_HOLD);
 }
