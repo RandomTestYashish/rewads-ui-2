@@ -182,3 +182,20 @@
   border-radius: 17px;
   font-size: 11px;
 }
+
+/* ---------- Layout switch (Option 1 / Option 2), above the theme switch ---------- */
+.option-switch {
+  top: 20px;
+}
+
+.option-switch + .theme-switch {
+  top: 76px;
+}
+
+.is-mobile .option-switch {
+  top: calc(44% - 96px);
+}
+
+.is-mobile .option-switch + .theme-switch {
+  top: 44%;
+}

@@ -1,0 +1,1271 @@
+/* Option 2: the rewards page laid out after the reference screens (see Option2.js).
+   Everything here is scoped to [data-option="2"], or to the o2- classes it alone uses. */
+
+.topbar__home,
+.topbar__drop {
+  display: none;
+}
+
+.is-mobile .option-switch {
+  top: calc(44% - 104px);
+}
+
+[data-option="2"][data-theme="dark"] {
+  --color-surface: #101013;
+  --o2-card: #1b1b20;
+  --o2-card-2: #15151a;
+  --o2-line: rgba(255, 255, 255, 0.09);
+  --o2-gold: #f6d37a;
+  --o2-gold-2: #e8a93a;
+  --o2-blue: #8fb0ff;
+  --o2-float: rgba(34, 32, 40, 0.86);
+}
+
+[data-option="2"][data-theme="light"] {
+  --color-surface: #f6f6f9;
+  --o2-card: #ffffff;
+  --o2-card-2: #f1f2f6;
+  --o2-line: #e4e6ed;
+  --o2-gold: #9a6200;
+  --o2-gold-2: #c98200;
+  --o2-blue: #075ee8;
+  --o2-float: rgba(255, 255, 255, 0.9);
+}
+
+/* ---------- Header: round home button, title to the left with a drop caret ---------- */
+[data-option="2"] .topbar__back {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+
+[data-option="2"] .topbar__back-caret {
+  display: none;
+}
+
+[data-option="2"] .topbar__home {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+[data-option="2"] .topbar__home svg {
+  width: 20px;
+  height: 20px;
+}
+
+[data-option="2"] .topbar__title {
+  left: 68px;
+  text-align: left;
+}
+
+[data-option="2"] .topbar__title strong {
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  color: #fff;
+}
+
+[data-option="2"] .topbar__title span {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+[data-option="2"] .topbar__drop {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+[data-option="2"] .topbar__drop svg {
+  display: block;
+  width: 100%;
+}
+
+[data-option="2"] .topbar__glass {
+  background: rgba(16, 16, 24, 0.72);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-option="2"] .points {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+[data-option="2"] .status-bar img {
+  filter: none;
+}
+
+[data-option="2"][data-theme="light"] .status-bar img {
+  filter: invert(1);
+}
+
+/* ---------- Shared pieces ---------- */
+[data-option="2"] .page__content > section {
+  margin-top: 32px;
+}
+
+[data-option="2"] .page__content > section:first-child {
+  margin-top: 0;
+}
+
+.o2-heading {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 16px 16px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  color: var(--color-text);
+}
+
+.o2-heading svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Centred display heading between two stars, as in "IN THE SPOTLIGHT" */
+.o2-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 16px 16px;
+  font-family: "Anton", "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--o2-gold);
+}
+
+.o2-display span {
+  color: transparent;
+  background: linear-gradient(180deg, var(--o2-gold), var(--o2-gold-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.o2-star {
+  width: 10px;
+  color: var(--color-text);
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.o2-star:last-child {
+  animation-delay: -1.5s;
+}
+
+.o2-star svg {
+  display: block;
+  width: 100%;
+}
+
+[data-option="2"] .scroll-x {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px;
+  scroll-padding: 0 16px;
+  scroll-snap-type: x proximity;
+}
+
+[data-option="2"] .scroll-x > * {
+  flex: none;
+  scroll-snap-align: start;
+}
+
+/* ---------- Hero ---------- */
+.o2-hero {
+  position: relative;
+  padding: calc(var(--status-bar-h) + 96px) 0 24px;
+  overflow: clip;
+  border-radius: 0 0 24px 24px;
+  background: linear-gradient(180deg, #1a1560 0%, #2a1d86 38%, #1b1552 72%, #14123a 100%);
+  color: #fff;
+  text-align: center;
+}
+
+.o2-hero__glow {
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  width: 420px;
+  height: 320px;
+  margin-left: -210px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(140, 110, 255, 0.75), rgba(140, 110, 255, 0));
+  animation: glow 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.o2-hero__art {
+  position: absolute;
+  font-size: 54px;
+  font-style: normal;
+  line-height: 1;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 20, 0.5));
+  animation: o2-float 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.o2-hero__art--a {
+  left: -8px;
+  top: calc(var(--status-bar-h) + 84px);
+  transform: rotate(-14deg);
+}
+
+.o2-hero__art--b {
+  right: -4px;
+  top: calc(var(--status-bar-h) + 76px);
+  animation-delay: -1.3s;
+}
+
+.o2-hero__art--c {
+  right: 26px;
+  top: calc(var(--status-bar-h) + 156px);
+  font-size: 34px;
+  animation-delay: -2.4s;
+}
+
+@keyframes o2-float {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: -6deg;
+  }
+  50% {
+    translate: 0 -8px;
+    rotate: 6deg;
+  }
+}
+
+.o2-hero__title {
+  position: relative;
+  font-family: "Anton", "Inter", sans-serif;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 48px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.o2-hero__title span {
+  display: block;
+  color: transparent;
+  background: linear-gradient(180deg, #ffe9a8 10%, #f3b63f 60%, #c97c12 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 3px 0 rgba(40, 10, 80, 0.6));
+}
+
+.o2-hero__sub {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.o2-hero__sub b {
+  font-weight: 800;
+  color: #fff;
+}
+
+.o2-hero__sub svg {
+  width: 9px;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.o2-hero__rail {
+  position: relative;
+  margin-top: 24px;
+}
+
+/* A reward as a promo tile: name, arrow button, the app's mark tilted in the corner */
+.o2-promo {
+  position: relative;
+  width: 152px;
+  height: 96px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  overflow: clip;
+  background:
+    radial-gradient(90% 90% at 100% 100%, color-mix(in srgb, var(--wash) 70%, transparent), transparent 70%),
+    linear-gradient(140deg, #5560f0 0%, #3a35b8 55%, #2a2390 100%);
+  color: #fff;
+  text-align: left;
+}
+
+.o2-promo__label {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  max-width: 84px;
+  font-family: "Anton", "Inter", sans-serif;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.o2-promo__go {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+
+.o2-promo__go svg {
+  width: 12px;
+  height: 12px;
+}
+
+.o2-promo__logo {
+  position: absolute;
+  right: -6px;
+  bottom: -8px;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  overflow: clip;
+  background: #000;
+  transform: rotate(-10deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 30, 0.5);
+}
+
+.o2-promo__logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.o2-promo__logo--inset img {
+  left: -19.44%;
+  top: -19.44%;
+  width: 138.89%;
+  height: 138.89%;
+}
+
+.o2-promo.is-claimed {
+  background: linear-gradient(140deg, #18b85a, #0a7f3a);
+}
+
+/* ---------- Explore by ---------- */
+.o2-explore__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 16px 16px;
+}
+
+.o2-explore__head .o2-heading {
+  margin: 0;
+}
+
+.o2-toggle {
+  position: relative;
+  display: flex;
+  padding: 4px;
+  border: 1px solid var(--o2-line);
+  border-radius: 24px;
+  background: var(--o2-card);
+}
+
+.o2-toggle button {
+  position: relative;
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: color var(--dur-standard) var(--ease-out);
+}
+
+.o2-toggle button[aria-selected="true"] {
+  font-weight: 600;
+  color: var(--color-surface);
+}
+
+.o2-toggle__thumb {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  height: 32px;
+  border-radius: 16px;
+  background: var(--color-text);
+}
+
+[data-option="2"] .o2-grid {
+  display: grid;
+  grid-template-rows: repeat(2, 128px);
+  grid-auto-flow: column;
+  grid-auto-columns: 100px;
+}
+
+.o2-tile {
+  position: relative;
+  border: 1px solid var(--o2-line);
+  border-radius: 16px;
+  overflow: clip;
+  background:
+    radial-gradient(90% 60% at 50% 105%, color-mix(in srgb, var(--tone) 60%, transparent), transparent 75%),
+    linear-gradient(180deg, var(--o2-card), var(--o2-card-2));
+}
+
+.o2-tile__label {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.o2-tile__art {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  height: 64px;
+  transition: transform var(--dur-large) var(--ease-out);
+}
+
+.o2-tile:active .o2-tile__art {
+  transform: scale(1.12) rotate(-4deg);
+}
+
+.o2-tile__art i {
+  font-size: 50px;
+  font-style: normal;
+  line-height: 1;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.35));
+}
+
+.o2-tile__img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.35));
+}
+
+.o2-tile__wheel {
+  width: 52px;
+  height: 58px;
+  overflow: visible;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.35));
+}
+
+.o2-tile__wheel .wheel-needle {
+  animation: needle 3.4s cubic-bezier(0.12, 0.7, 0.2, 1) infinite;
+}
+
+.o2-tile__logo {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  overflow: clip;
+  background: #000;
+  box-shadow: 0 10px 16px -6px rgba(0, 0, 0, 0.5);
+}
+
+.o2-tile__logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.o2-tile__logo--inset img {
+  left: -19.44%;
+  top: -19.44%;
+  width: 138.89%;
+  height: 138.89%;
+}
+
+.o2-tile__logo--light {
+  background: #fff;
+}
+
+.o2-tile__logo--light img {
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  object-fit: contain;
+}
+
+/* ---------- Wide banner ---------- */
+.o2-wide {
+  position: relative;
+  display: block;
+  width: calc(100% - 32px);
+  height: 128px;
+  margin: 0 16px;
+  border-radius: 16px;
+  overflow: clip;
+  background: linear-gradient(120deg, #e10203 10%, #ff5b02 90%);
+  color: #fff;
+  text-align: left;
+}
+
+.o2-wide__art {
+  position: absolute;
+  right: -18px;
+  top: -6px;
+  width: 170px;
+  height: 200px;
+  overflow: clip;
+}
+
+.o2-wide__art img {
+  position: absolute;
+  left: 0;
+  top: -52%;
+  width: 100%;
+  height: 152%;
+  object-fit: cover;
+}
+
+.o2-wide__title {
+  position: absolute;
+  left: 16px;
+  top: 60px;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+}
+
+.o2-wide__sub {
+  position: absolute;
+  left: 16px;
+  top: 82px;
+  font-size: 10.5px;
+  line-height: 14px;
+  opacity: 0.9;
+}
+
+.o2-wide__cta {
+  position: absolute;
+  left: 16px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 20px;
+  padding: 0 6px 0 10px;
+  border-radius: 10px;
+  background: #ffd76a;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #3a1a00;
+}
+
+.o2-wide__cta svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* ---------- Posters: the What's New banners at 55%, with a tag and a bookmark ---------- */
+.o2-poster {
+  position: relative;
+  width: 154px;
+  height: 200.2px;
+  border-radius: 12px;
+  overflow: clip;
+}
+
+.o2-poster .banner {
+  transform: scale(0.55);
+  transform-origin: 0 0;
+  clip-path: none;
+  border-radius: 0;
+}
+
+.o2-poster__tag {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: none;
+}
+
+.o2-poster__save {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+}
+
+.o2-poster__save svg {
+  width: 16px;
+  height: 16px;
+}
+
+.o2-poster__save[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+
+/* ---------- Spotlight: round marks with a name and an offer ---------- */
+[data-option="2"] .o2-spots {
+  gap: 12px;
+}
+
+.o2-spot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  text-align: center;
+}
+
+.o2-spot__mark {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border: 1px solid var(--o2-line);
+  border-radius: 50%;
+  overflow: clip;
+  background: #000;
+  box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.6);
+}
+
+.o2-spot__mark img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.o2-spot__mark--inset img {
+  left: -10%;
+  top: -10%;
+  width: 120%;
+  height: 120%;
+}
+
+.o2-spot__name {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--color-text);
+}
+
+.o2-spot__offer {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--o2-blue);
+}
+
+/* ---------- Play and win ---------- */
+.o2-play {
+  display: flex;
+  gap: 8px;
+  margin: 0 16px;
+}
+
+.o2-game {
+  position: relative;
+  flex: 1;
+  height: 112px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  overflow: clip;
+  color: #fff;
+  text-align: left;
+}
+
+.o2-game--scratch {
+  background: linear-gradient(140deg, #ff6d8a, #c2185b);
+}
+
+.o2-game--spin {
+  background: linear-gradient(140deg, #6f7cff, #3a2fb3);
+}
+
+.o2-game__label {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  font-family: "Anton", "Inter", sans-serif;
+  font-size: 20px;
+  line-height: 22px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.o2-game__art {
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+  font-size: 60px;
+  font-style: normal;
+  line-height: 1;
+  transform: rotate(-14deg);
+  filter: drop-shadow(0 8px 10px rgba(60, 0, 30, 0.5));
+  animation: o2-float 3.6s ease-in-out infinite;
+}
+
+.o2-game__wheel {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  width: 62px;
+  height: 69px;
+  overflow: visible;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 40, 0.5));
+}
+
+.o2-game__wheel .wheel-needle {
+  animation: needle 3.4s cubic-bezier(0.12, 0.7, 0.2, 1) infinite;
+}
+
+/* ---------- Ticket banner ---------- */
+.o2-steals {
+  position: relative;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 40px 16px 32px;
+  border-radius: 24px;
+  background:
+    radial-gradient(70% 60% at 85% 100%, rgba(120, 140, 255, 0.5), transparent 70%),
+    linear-gradient(180deg, #232a8c 0%, #1a2070 60%, #15194f 100%);
+  text-align: center;
+}
+
+.o2-ticket {
+  display: flex;
+  width: 300px;
+  margin: 0 auto;
+  transform: rotate(-4deg);
+  filter: drop-shadow(0 16px 20px rgba(0, 0, 40, 0.5));
+  animation: o2-sway 5s ease-in-out infinite;
+  cursor: pointer;
+}
+
+@keyframes o2-sway {
+  0%,
+  100% {
+    transform: rotate(-4deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-2.5deg) translateY(-6px);
+  }
+}
+
+.o2-ticket__main {
+  flex: 1;
+  padding: 16px 12px;
+  border: 2px solid #2f4bb5;
+  border-right: 2px dashed #2f4bb5;
+  border-radius: 10px 4px 4px 10px;
+  background: linear-gradient(160deg, #fff7d6, #f6e3a1);
+  color: #1f2d7a;
+}
+
+.o2-ticket__logo {
+  position: relative;
+  display: block;
+  width: 72px;
+  height: 36px;
+  margin: 0 auto 4px;
+  overflow: clip;
+  filter: brightness(0) saturate(100%) invert(17%) sepia(60%) saturate(2500%) hue-rotate(225deg);
+}
+
+.o2-ticket__logo img {
+  position: absolute;
+  left: -13.98%;
+  top: 0;
+  width: 139.61%;
+  height: 100%;
+}
+
+.o2-ticket__title {
+  font-family: "Anton", "Inter", sans-serif;
+  font-size: 28px;
+  line-height: 28px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.o2-ticket__stars {
+  margin-top: 4px;
+  font-size: 8px;
+  letter-spacing: 3px;
+}
+
+.o2-ticket__deal {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.o2-ticket__stub {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 84px;
+  border-radius: 4px 10px 10px 4px;
+  background: linear-gradient(160deg, #4666d8, #2f4bb5);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #fff7d6;
+}
+
+.o2-steals__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 32px;
+  margin-top: 24px;
+  padding: 0 12px 0 16px;
+  border-radius: 16px;
+  background: #fff7d6;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1f2d7a;
+}
+
+.o2-steals__cta svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* ---------- Picks: subscription cards ---------- */
+.o2-pick {
+  width: 168px;
+  border: 1px solid var(--o2-line);
+  border-radius: 16px;
+  overflow: clip;
+  background: var(--o2-card);
+  text-align: left;
+}
+
+.o2-pick__top {
+  position: relative;
+  display: block;
+  height: 88px;
+  background:
+    radial-gradient(80% 90% at 0% 0%, rgba(0, 189, 61, 0.35), transparent 70%),
+    var(--o2-card-2);
+}
+
+.o2-pick__logo {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  overflow: clip;
+  background: #000;
+}
+
+.o2-pick__logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.o2-pick__logo.sub-row__logo--inset img {
+  left: -19.44%;
+  top: -19.44%;
+  width: 138.89%;
+  height: 138.89%;
+}
+
+.o2-pick__logo.sub-row__logo--sprite {
+  border-radius: 50%;
+}
+
+.o2-pick__logo.sub-row__logo--sprite img {
+  left: -546.79%;
+  top: -542.18%;
+  width: 761.68%;
+  height: 1279.66%;
+  object-fit: fill;
+}
+
+.o2-pick__top em {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 10px;
+  background: rgba(0, 189, 61, 0.18);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-success);
+}
+
+.o2-pick__name,
+.o2-pick__meta,
+.o2-pick__till {
+  display: block;
+  margin: 0 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.o2-pick__name {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--color-text);
+}
+
+.o2-pick__meta {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-text-muted);
+}
+
+.o2-pick__till {
+  margin-top: 4px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--o2-blue);
+}
+
+/* ---------- Coming soon: numbered posters ---------- */
+.o2-top__item {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 34px;
+}
+
+.o2-top__rank {
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  font-family: "Anton", "Inter", sans-serif;
+  font-size: 96px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-surface);
+  -webkit-text-stroke: 1.5px var(--color-text-muted);
+}
+
+.o2-top__card {
+  position: relative;
+  width: 136px;
+  height: 184px;
+  border-radius: 12px;
+  overflow: clip;
+  background: #0b0b0c;
+  color: #fff;
+}
+
+.o2-top__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.o2-top__date {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  padding: 0 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.8px;
+}
+
+.o2-top__title {
+  position: absolute;
+  left: 10px;
+  bottom: 44px;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 20px;
+  letter-spacing: -0.8px;
+}
+
+.o2-top__notify {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.o2-top__notify[aria-pressed="true"] {
+  background: #fff;
+  color: #000;
+}
+
+/* ---------- Questions keep their cards; leave room for the floating bar ---------- */
+[data-option="2"] .faq,
+[data-option="2"][data-theme="light"] .faq {
+  margin-top: 32px;
+  padding-bottom: 176px;
+}
+
+[data-option="2"] .faq__item {
+  border-color: var(--o2-line);
+  background: var(--o2-card);
+}
+
+/* ---------- Floating: notice, shortcut and tab bar ---------- */
+.o2-notice {
+  position: absolute;
+  z-index: 34;
+  left: 12px;
+  right: 12px;
+  bottom: 96px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px 12px 16px;
+  border: 1px solid var(--o2-line);
+  border-radius: 24px;
+  background: var(--o2-float);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  color: var(--color-text);
+  box-shadow: 0 16px 30px -14px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+
+.o2-notice > i {
+  font-size: 28px;
+  font-style: normal;
+  line-height: 1;
+}
+
+.o2-notice div {
+  flex: 1;
+  min-width: 0;
+}
+
+.o2-notice strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.o2-notice span {
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-text-muted);
+}
+
+.o2-notice button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+}
+
+.o2-notice button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.o2-tabs {
+  position: absolute;
+  z-index: 35;
+  left: 50%;
+  bottom: 24px;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--o2-line);
+  border-radius: 32px;
+  background: var(--o2-float);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  translate: -50% 0;
+  box-shadow: 0 16px 30px -12px rgba(0, 0, 0, 0.6);
+  transition:
+    translate 360ms var(--ease-standard),
+    opacity 240ms var(--ease-out);
+}
+
+.o2-tabs.is-away {
+  translate: -50% 96px;
+  opacity: 0;
+}
+
+.o2-tabs button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 72px;
+  height: 52px;
+  border-radius: 26px;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition:
+    background-color var(--dur-standard) var(--ease-out),
+    color var(--dur-standard) var(--ease-out);
+}
+
+.o2-tabs button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.o2-tabs button[aria-current="true"] {
+  background: color-mix(in srgb, var(--color-text) 12%, transparent);
+  color: var(--color-text);
+}
+
+.o2-fab {
+  position: absolute;
+  z-index: 34;
+  right: 16px;
+  bottom: 176px;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff;
+  color: #c04bff;
+  box-shadow:
+    0 10px 24px -8px rgba(160, 60, 255, 0.8),
+    0 0 0 1px rgba(160, 60, 255, 0.2);
+}
+
+.o2-fab svg {
+  width: 24px;
+  height: 24px;
+  animation: o2-spin 6s linear infinite;
+}
+
+@keyframes o2-spin {
+  0%,
+  70% {
+    transform: rotate(0deg) scale(1);
+  }
+  85% {
+    transform: rotate(180deg) scale(1.25);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+[data-option="2"] .toast {
+  bottom: 240px; /* clear of the notice and the shortcut button */
+}
+
+[data-option="2"] .phone__home-indicator {
+  display: none;
+}
+
+@supports (corner-shape: squircle) {
+  .o2-tile,
+  .o2-pick,
+  .o2-wide {
+    border-radius: 24px;
+    corner-shape: squircle;
+  }
+
+  .o2-promo,
+  .o2-game,
+  .o2-poster,
+  .o2-top__card {
+    border-radius: 18px;
+    corner-shape: squircle;
+  }
+
+  .o2-tile__logo,
+  .o2-pick__logo:not(.sub-row__logo--sprite),
+  .o2-promo__logo {
+    border-radius: 22px;
+    corner-shape: squircle;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .o2-hero__glow,
+  .o2-hero__art,
+  .o2-star,
+  .o2-ticket,
+  .o2-game__art,
+  .o2-fab svg,
+  .o2-tile__wheel .wheel-needle,
+  .o2-game__wheel .wheel-needle {
+    animation: none;
+  }
+}

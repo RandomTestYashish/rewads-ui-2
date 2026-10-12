@@ -21,6 +21,28 @@ const OFFERS = [
   { name: "Croma", sub: "₹1,000 off on orders above ₹10,000", bubble: "croma" },
 ];
 
+/** The sheet of Insider offers, each unlockable. */
+export function openInsiderOffers() {
+  const list = el(`
+    <div class="sheet-list">
+      ${OFFERS.map(
+        (offer) => `
+          <div class="sheet-row">
+            <div class="sheet-row__text"><p class="sheet-row__name">${offer.name}</p><p class="sheet-row__sub">${offer.sub}</p></div>
+            <button class="sheet-row__action pressable" type="button" data-offer="${offer.name}">Unlock</button>
+          </div>`,
+      ).join("")}
+    </div>`);
+  list.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-offer]");
+    if (!button || button.disabled) return;
+    button.disabled = true;
+    button.textContent = "Unlocked ✓";
+    toast(`${button.dataset.offer} offer unlocked`);
+  });
+  openSheet({ eyebrow: "Airtel Insider", title: "Offers for you", text: "Exclusive for Airtel users. Unlock an offer to get its code by SMS.", content: list });
+}
+
 /** Airtel Insider: partner bubbles circling the Insider mark, under a turning stamp. */
 export function Insider() {
   const section = el(`
@@ -60,26 +82,7 @@ export function Insider() {
     </section>
   `);
 
-  section.querySelector(".insider__button").addEventListener("click", () => {
-    const list = el(`
-      <div class="sheet-list">
-        ${OFFERS.map(
-          (offer) => `
-            <div class="sheet-row">
-              <div class="sheet-row__text"><p class="sheet-row__name">${offer.name}</p><p class="sheet-row__sub">${offer.sub}</p></div>
-              <button class="sheet-row__action pressable" type="button" data-offer="${offer.name}">Unlock</button>
-            </div>`,
-        ).join("")}
-      </div>`);
-    list.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-offer]");
-      if (!button || button.disabled) return;
-      button.disabled = true;
-      button.textContent = "Unlocked ✓";
-      toast(`${button.dataset.offer} offer unlocked`);
-    });
-    openSheet({ eyebrow: "Airtel Insider", title: "Offers for you", text: "Exclusive for Airtel users. Unlock an offer to get its code by SMS.", content: list });
-  });
+  section.querySelector(".insider__button").addEventListener("click", openInsiderOffers);
 
   return section;
 }

@@ -1,4 +1,5 @@
 import { asset, el, themed } from "../lib/dom.js";
+import { icons } from "../lib/icons.js";
 import { animate, reducedMotion, transition } from "../lib/motion.js";
 import { START_BALANCE, state, subscribe } from "../lib/store.js";
 import { openSheet, toast } from "./overlays.js";
@@ -18,10 +19,11 @@ export function TopBar(screen) {
       </div>
       <button class="topbar__back pressable" type="button" aria-label="Back" data-press="0.9">
         <img class="topbar__back-caret" src="${asset("light/ph-regular-caret-left.svg")}" alt="" />
+        <span class="topbar__home">${icons.home}</span>
       </button>
       <div class="topbar__title">
         <strong>My Rewards</strong>
-        <span>9716317865</span>
+        <span>9716317865<i class="topbar__drop">${icons.chevron}</i></span>
       </div>
       <button class="points pressable" type="button" aria-label="Coins balance" data-press="0.94">
         <img src="${asset("light/point-shiny-front.png")}" alt="" />

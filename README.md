@@ -16,6 +16,15 @@ On a desktop browser the screen is shown inside an iPhone mockup. On a phone the
 the screen fills the browser. Add `?view=mobile` or `?view=mockup` to the URL to force either mode,
 and `?theme=light` or `?theme=dark` to open in one of the two frames.
 
+## Two layouts
+
+The side panel (top left of the desktop preview, a pill at the right edge on a phone) switches between
+**Option 1**, the page built from the Figma frames, and **Option 2** (`?option=2`), the same rewards laid out
+after the four reference screens on the Figma page: a carnival hero with promo tiles, an "Explore by" grid
+with a toggle, a wide banner, poster rails, centred display headings over round brand marks, a ticket banner,
+and a floating notice, shortcut button and tab bar. Option 2 lives in `src/components/Option2.js` and
+`src/styles/option2.css` and reuses Option 1's data, sheets and games.
+
 ## Layout
 
 `src/styles/page.css` holds the Figma frames' own offsets. `src/styles/polish.css` is loaded after it and

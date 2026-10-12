@@ -12,7 +12,7 @@ const FILTERS = [
 ];
 
 // The first two rows are the ones drawn in Figma; the rest appear under "View all" and the filters.
-const SUBSCRIPTIONS = [
+export const SUBSCRIPTIONS = [
   { name: "Netflix Mobile", plan: "With your ₹399 plan", till: "Till 3 Jan", group: "plan", logo: "frame.png", logoClass: "sub-row__logo--inset" },
   { name: "JioHotstar Mobile", plan: "With your ₹399 plan", till: "Till 12 Mar", group: "plan", logo: "frame-1.png" },
   { name: "Xstream Play", plan: "With your ₹399 plan", till: "Till 3 Jan", group: "plan", logo: "logo.png" },

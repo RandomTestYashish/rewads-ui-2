@@ -4,7 +4,7 @@ import { reducedMotion } from "../lib/motion.js";
 import { toast } from "./overlays.js";
 
 // Figma draws the cult.fit card in front of two tinted cards; the copy on those two is ours.
-const CARDS = [
+export const CARDS = [
   { id: "cult", brand: "cult.fit", photo: true, date: "DEC 2026", title: ["Train.", "On us."], text: "Cult membership, free with your plan" },
   { id: "listen", brand: "Music", tint: "purple", date: "JAN 2027", title: ["Listen.", "On us."], text: "Ad-free music, free with your plan" },
   { id: "read", brand: "Reading", tint: "green", date: "FEB 2027", title: ["Read.", "On us."], text: "Books and magazines, free with your plan" },

@@ -3,7 +3,7 @@ import { sectionHead } from "./PlayAndWin.js";
 import { openSheet, toast } from "./overlays.js";
 
 // The first three are drawn in Figma; the rest appear under "View all".
-const BENEFITS = [
+export const BENEFITS = [
   { name: "Xstream Play", sub: "22 apps in one, free with your plan", logo: "logo.png", about: "SonyLIV, Lionsgate Play, Aha and 19 more apps under one login, on your phone and TV." },
   { name: "Apple TV+", sub: "3 months free with your Wi-Fi plan", logo: "logo-1.png", inset: true, about: "Apple Originals, ad-free, for three months. Renews at ₹99 a month unless cancelled." },
   { name: "Google One", sub: "100 GB of storage for 6 months", logo: "logo-2.png", about: "100 GB across Photos, Drive and Gmail, shared with up to five family members." },
@@ -29,7 +29,7 @@ const tile = (item) => `<span class="logo-strip__tile ${item.inset ? "logo-strip
 
 const logo = (item, className) => `<span class="${className} ${item.inset ? `${className}--inset` : ""}"><img src="${asset(item.logo)}" alt="" /></span>`;
 
-function openBenefit(item) {
+export function openBenefit(item) {
   openSheet({
     eyebrow: "Included in your ₹399 plan",
     content: `
