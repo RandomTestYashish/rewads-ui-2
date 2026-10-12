@@ -50,22 +50,9 @@ const SHORTCUTS = [
     label: "Spin the wheel",
     x: 323,
     // The needle whips round and settles, again and again, under a passing shimmer.
-    art: `${wheelIcon("shortcut__wheel shortcut__wheel--live")}<span class="shortcut__shimmer"></span>`,
+    art: `${wheelIcon("shortcut__wheel")}<span class="shortcut__shimmer"></span>`,
   },
 ];
-
-// The same identities at half size, for the section headings further down the page.
-const BRAND_ART = {
-  ott: `<img class="shortcut__netflix" src="${asset("netflix-logo-icon-1709191.png")}" alt="" />`,
-  airtel: `<img class="shortcut__airtel" src="${asset("vector-4.svg")}" alt="" />`,
-  spin: wheelIcon("shortcut__wheel"),
-};
-
-/** A shortcut disc carrying a section's own logo: ott, insider, club, spin or airtel. */
-export function brandDisc(id) {
-  const art = BRAND_ART[id] ?? SHORTCUTS.find((item) => item.id === id).art;
-  return `<span class="sec-head__logo"><span class="shortcut__disc">${art}</span></span>`;
-}
 
 /** Top of the page: the soft glow behind the header and the four round shortcuts. */
 export function Hero({ onShortcut }) {

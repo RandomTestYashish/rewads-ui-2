@@ -1,14 +1,12 @@
 import { asset, el } from "../lib/dom.js";
 import { icons } from "../lib/icons.js";
-import { brandDisc } from "./Hero.js";
 import { openScratch, openSpin } from "./games.js";
 import { openSheet } from "./overlays.js";
 
-/** Section heading: the section's own logo in a disc, the title and its line of support, and "View all". */
-export function sectionHead({ title, sub, logo, all = false }) {
+/** Section heading: the title, its line of support, and "View all". */
+export function sectionHead({ title, sub, all = false }) {
   return `
     <header class="sec-head">
-      ${brandDisc(logo)}
       <div class="sec-head__text">
         <h2 class="sec-head__title">${title}</h2>
         <p class="sec-head__sub">${sub}</p>
@@ -21,7 +19,7 @@ export function sectionHead({ title, sub, logo, all = false }) {
 export function PlayAndWin() {
   const section = el(`
     <section class="play reveal" id="play">
-      ${sectionHead({ title: "Play And win", sub: "Unlock exclusive offers and rewards.", logo: "spin", all: true })}
+      ${sectionHead({ title: "Play And win", sub: "Unlock exclusive offers and rewards.", all: true })}
       <div class="play__cards">
         <button class="play-card play-card--scratch" type="button" data-game="scratch" data-press="0.96">
           <span class="play-card__beam"></span>

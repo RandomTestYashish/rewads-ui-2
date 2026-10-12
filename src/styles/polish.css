@@ -78,53 +78,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  height: 36px;
-}
-
-.sec-head__icon {
-  --tone-a: #8a8a93;
-  --tone-b: #55555c;
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 11px;
-  background: linear-gradient(140deg, var(--tone-a), var(--tone-b));
-  color: #fff;
-  box-shadow:
-    0 6px 16px -6px var(--tone-a),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-
-.sec-head__icon svg {
-  width: 20px;
-  height: 20px;
-}
-
-[data-tone="violet"] .sec-head__icon {
-  --tone-a: #a855f7;
-  --tone-b: #515dcb;
-}
-
-[data-tone="green"] .sec-head__icon {
-  --tone-a: #2fd96b;
-  --tone-b: #069a45;
-}
-
-[data-tone="blue"] .sec-head__icon {
-  --tone-a: #4f9bff;
-  --tone-b: #075ee8;
-}
-
-[data-tone="rose"] .sec-head__icon {
-  --tone-a: #ff6b8b;
-  --tone-b: #b42544;
-}
-
-[data-tone="red"] .sec-head__icon {
-  --tone-a: #ff5b02;
-  --tone-b: #e10203;
+  height: 34px;
 }
 
 .sec-head__text {
@@ -591,10 +545,7 @@
 /* ---------- Questions: a list of cards with a chevron chip ---------- */
 .faq__heading,
 [data-theme="light"] .faq__heading {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 36px;
+  height: 26px;
   margin-bottom: var(--gap-head);
   color: var(--color-text);
 }
@@ -746,7 +697,7 @@
   transform-origin: 14.5683px 15px;
 }
 
-.shortcut__wheel--live .wheel-needle {
+.shortcut__wheel .wheel-needle {
   animation: needle 3.4s cubic-bezier(0.12, 0.7, 0.2, 1) infinite;
 }
 
@@ -788,35 +739,6 @@
   100% {
     transform: translateX(100px) rotate(18deg);
   }
-}
-
-/* ---------- Section headings: the section's own logo, in the shortcut disc at half size ---------- */
-.sec-head__logo {
-  position: relative;
-  flex: none;
-  width: 36px;
-  height: 36px;
-}
-
-.sec-head__logo .shortcut__disc {
-  position: absolute;
-  left: 0;
-  top: 0;
-  transform: scale(0.5);
-  transform-origin: 0 0;
-}
-
-.shortcut__airtel {
-  left: 17px;
-  top: 17.5px;
-  width: 34px;
-  height: 33.8px;
-}
-
-.faq__heading .sec-head__icon {
-  border-radius: 50%;
-  background: linear-gradient(157.012deg, rgb(87, 82, 82) 9.4387%, rgb(0, 0, 0) 83.259%);
-  box-shadow: inset 0 1px 0 rgba(239, 239, 239, 0.5);
 }
 
 /* ---------- What's New: letters jump in a wave, emoji pop around the title ---------- */
@@ -892,10 +814,150 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shortcut__wheel--live .wheel-needle,
+  .shortcut__wheel .wheel-needle,
   .shortcut__shimmer,
   .whats-new__title--live i,
   .whats-new__emoji {
+    animation: none;
+  }
+}
+
+/* ---------- Unclaimed rewards: a plain black band ---------- */
+.unclaimed {
+  background: #000;
+}
+
+/* ---------- Airtel Insider: the card is drawn here rather than from the exported image ----------
+   A bright rose-to-orange field, sun rays that turn slowly about the Insider mark, a glow that
+   breathes behind it, and glints. Everything is a gradient, so it stays sharp at any size. */
+.insider__card {
+  background:
+    radial-gradient(90% 60% at 50% 40%, #ff5a7a 0%, rgba(255, 90, 122, 0) 70%),
+    linear-gradient(160deg, #ff2d55 0%, #e8114a 42%, #c80f6a 72%, #ff7a1a 130%);
+  box-shadow:
+    0 24px 60px -24px rgba(255, 45, 85, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.insider__rays {
+  position: absolute;
+  left: 175.49px;
+  top: 162.1px;
+  width: 760px;
+  height: 760px;
+  margin: -380px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.16) 0deg 5deg, rgba(255, 255, 255, 0) 5deg 12deg);
+  -webkit-mask: radial-gradient(closest-side, transparent 8%, #000 30%, rgba(0, 0, 0, 0.35) 70%, transparent 100%);
+  mask: radial-gradient(closest-side, transparent 8%, #000 30%, rgba(0, 0, 0, 0.35) 70%, transparent 100%);
+  animation: turn 48s linear infinite;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.insider__glow {
+  position: absolute;
+  left: 175.49px;
+  top: 162.1px;
+  width: 300px;
+  height: 300px;
+  margin: -150px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 236, 170, 0.6), rgba(255, 150, 120, 0.25) 50%, rgba(255, 150, 120, 0) 100%);
+  animation: glow 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    transform: scale(0.82);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+.insider__frame {
+  border-color: rgba(255, 255, 255, 0.38);
+  /* deepen the foot of the card so the button stands on it */
+  background: linear-gradient(180deg, rgba(120, 0, 40, 0) 55%, rgba(120, 0, 40, 0.5) 100%);
+}
+
+.insider__ring {
+  opacity: 0.9;
+}
+
+.insider__orbit {
+  animation-duration: 46s;
+}
+
+.insider__bubble {
+  animation-duration: 46s;
+  box-shadow:
+    0 8px 18px rgba(90, 0, 30, 0.4),
+    0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+.insider__pill {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 10px 30px -8px rgba(120, 0, 40, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: bob 3.6s ease-in-out infinite;
+}
+
+.insider__glint {
+  position: absolute;
+  color: #fff3c4;
+  animation: twinkle 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.insider__glint svg {
+  display: block;
+  width: 100%;
+}
+
+.insider__button {
+  position: absolute;
+  overflow: clip;
+  border-color: #fff;
+  background: #fff;
+  color: #b10d3f;
+  box-shadow: 0 12px 26px -10px rgba(90, 0, 30, 0.7);
+}
+
+.insider__button-shine {
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 60px;
+  height: 140%;
+  background: linear-gradient(90deg, transparent, rgba(255, 45, 85, 0.22), transparent);
+  transform: translateX(-90px) rotate(16deg);
+  animation: button-shine 3.2s var(--ease-in-out) infinite;
+}
+
+@keyframes button-shine {
+  0%,
+  40% {
+    transform: translateX(-90px) rotate(16deg);
+  }
+  80%,
+  100% {
+    transform: translateX(340px) rotate(16deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insider__rays,
+  .insider__glow,
+  .insider__pill,
+  .insider__glint,
+  .insider__button-shine {
     animation: none;
   }
 }

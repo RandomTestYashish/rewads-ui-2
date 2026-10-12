@@ -14,7 +14,7 @@ const QUESTIONS = [
 export function Questions() {
   const section = el(`
     <section class="faq reveal" id="questions">
-      <h2 class="faq__heading"><span class="sec-head__icon" data-tone="grey">${icons.question}</span>Questions</h2>
+      <h2 class="faq__heading">Questions</h2>
       <div class="faq__list">
         ${QUESTIONS.map(
           ([question, answer], index) => `
