@@ -14,7 +14,7 @@ export function sectionHead({ title, sub, all = false }) {
         <h2 class="sec-head__title">${title}</h2>
         <p class="sec-head__sub">${sub}</p>
       </div>
-      ${all ? `<button class="sec-head__all pressable" type="button">View all${icons.caret}</button>` : ""}
+      ${all ? `<button class="sec-head__all pressable" type="button">View all</button>` : ""}
     </header>`;
 }
 

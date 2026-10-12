@@ -1162,14 +1162,6 @@
   --color-card: #f6f7fa;
 }
 
-/* Shortcuts: the same dark discs as the dark theme */
-[data-theme="light"] .shortcut__disc {
-  background:
-    linear-gradient(157.012deg, rgb(87, 82, 82) 9.4387%, rgb(0, 0, 0) 83.259%) padding-box,
-    linear-gradient(180deg, #efefef 0%, rgba(239, 239, 239, 0.16) 30%, rgba(239, 239, 239, 0.04) 100%) border-box;
-  box-shadow: 0 10px 20px -12px rgba(20, 40, 90, 0.55);
-}
-
 /* Unclaimed rewards: a light band, red-to-orange lettering, white cards */
 [data-theme="light"] .unclaimed {
   background: linear-gradient(180deg, #ffffff 0%, #f3f5fb 100%);
@@ -1611,4 +1603,120 @@
 .subs__panel,
 [data-theme="light"] .subs__panel {
   padding-top: 8.47px;
+}
+
+/* ---------- Shortcuts: each disc in its own brand colour, in both themes ---------- */
+.shortcut__disc {
+  background:
+    linear-gradient(157.012deg, #ffffff 9.4387%, #e9edf5 83.259%) padding-box,
+    linear-gradient(180deg, #ffffff, #dfe4ee) border-box;
+  box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.55);
+}
+
+[data-shortcut="insider"] .shortcut__disc {
+  background:
+    linear-gradient(157.012deg, #d65b6c 9.4387%, #a92c46 83.259%) padding-box,
+    linear-gradient(180deg, #f3b3bf, #c8405a) border-box;
+}
+
+[data-shortcut="club"] .shortcut__disc {
+  background:
+    linear-gradient(157.012deg, #ff5b02 9.4387%, #e10203 83.259%) padding-box,
+    linear-gradient(180deg, #ffb48a, #e10203) border-box;
+}
+
+[data-shortcut="spin"] .shortcut__disc {
+  background:
+    linear-gradient(157.012deg, #f1edff 9.4387%, #d5d0fb 83.259%) padding-box,
+    linear-gradient(180deg, #ffffff, #c4bdf5) border-box;
+}
+
+/* ---------- "View all": plain underlined text, white on dark ---------- */
+.sec-head__all,
+.unclaimed__all,
+[data-theme="light"] .unclaimed__all,
+.subs__all {
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .unclaimed__all {
+  color: #fff;
+}
+
+/* ---------- 32px between all sections ---------- */
+:root {
+  --gap-section: 32px;
+}
+
+.soon,
+.faq,
+[data-theme="light"] .faq {
+  margin-top: 32px;
+}
+
+/* ---------- Corner smoothing ----------
+   Squircle corners (Figma's "corner smoothing") where the browser can draw them. A squircle
+   reads tighter than a round corner of the same radius, so each radius is about 1.5x.
+   Browsers without `corner-shape` keep the plain rounded corners set elsewhere. */
+@supports (corner-shape: squircle) {
+  .claim-card,
+  .play-card,
+  .subs__card,
+  .plan__list,
+  .insider__card,
+  .insider__frame,
+  .unclaimed__done,
+  .sheet__facts,
+  .phone__screen[data-theme] .whats-new {
+    border-radius: 24px;
+    corner-shape: squircle;
+  }
+
+  .scratch {
+    border-radius: 30px;
+    corner-shape: squircle;
+  }
+
+  .faq__item,
+  .faq__item:first-of-type,
+  .toast {
+    border-radius: 21px;
+    corner-shape: squircle;
+  }
+
+  .banner__button,
+  .insider__button,
+  .sheet__cta {
+    border-radius: 18px;
+    corner-shape: squircle;
+  }
+
+  .sheet__panel {
+    border-radius: 42px 42px 0 0;
+    corner-shape: squircle;
+  }
+
+  .soon-card,
+  .soon-card__photo {
+    border-radius: 27px;
+    corner-shape: squircle;
+  }
+
+  .logo-strip__tile,
+  .claim-card__art--tile,
+  .sheet__logo {
+    border-radius: 20px;
+    corner-shape: squircle;
+  }
+
+  .sub-row__logo:not(.sub-row__logo--round),
+  .plan-row__logo,
+  .sheet-row__logo,
+  .shortcut__xstream {
+    border-radius: 16px;
+    corner-shape: squircle;
+  }
 }
