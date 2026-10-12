@@ -34,11 +34,8 @@ export function Insider() {
         ${themed("vector-4.svg", "stamp__logo")}
       </div>
       <div class="insider__card">
-        <div class="insider__aurora insider__aurora--a"></div>
-        <div class="insider__aurora insider__aurora--b"></div>
         <div class="insider__rays"></div>
         <div class="insider__glow"></div>
-        <div class="insider__gloss"></div>
         <div class="insider__frame">
           ${GLINTS.map(([x, y, size, delay]) => `<i class="insider__glint" style="left:${x}px;top:${y}px;width:${size}px;animation-delay:${delay}s">${icons.sparkle}</i>`).join("")}
           <img class="insider__ring insider__ring--inner" src="${asset("ellipse-19137.svg")}" alt="" />
