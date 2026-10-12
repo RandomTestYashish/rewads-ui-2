@@ -14,8 +14,8 @@ export const state = {
   ],
 };
 
-// The two frames show different balances (7,636 on the coin, 286 on the pill).
-export const START_BALANCE = { dark: 7636, light: 286 };
+// Both themes start from the same balance.
+export const START_BALANCE = { dark: 286, light: 286 };
 
 export const unclaimed = () => state.rewards.filter((reward) => !reward.claimed);
 
