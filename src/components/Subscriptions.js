@@ -29,14 +29,14 @@ const row = (item) => `
       <p class="sub-row__name">${item.name}</p>
       <p class="sub-row__plan">${item.plan}</p>
     </span>
-    <span class="sub-row__status"><strong>Active</strong><span>${item.till}</span></span>
+    <span class="sub-row__status"><strong><i class="sub-row__dot"></i>Active</strong><span>${item.till}</span></span>
   </button>`;
 
 /** Active subscriptions: filter pills over a list that expands with "View all". */
 export function Subscriptions() {
   const section = el(`
     <section class="subs reveal" id="subscriptions">
-      ${sectionHead({ title: "Active Subscriptions", sub: "View and manage your subscriptions in one place.", grey: true })}
+      ${sectionHead({ title: "Active Subscriptions", sub: "View and manage your subscriptions in one place.", icon: "play", tone: "green" })}
       <div class="subs__panel">
         <div class="pills scroll-x" role="tablist" aria-label="Subscription type">
           ${FILTERS.map((filter, index) => `<button class="pill pressable" type="button" role="tab" aria-selected="${index === 0}" data-filter="${filter.id}">${filter.label}</button>`).join("")}

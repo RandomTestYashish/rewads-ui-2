@@ -14,13 +14,16 @@ import { openSpin } from "./components/games.js";
 import { setOverlayHost } from "./components/overlays.js";
 import { applyTheme, el } from "./lib/dom.js";
 import { enableDragScroll } from "./lib/dragScroll.js";
-import { reducedMotion } from "./lib/motion.js";
+import { animate, reducedMotion } from "./lib/motion.js";
 import { enablePressFeedback } from "./lib/press.js";
 
 const THEMES = [
   { id: "dark", label: "Dark" },
   { id: "light", label: "Light" },
 ];
+
+// Children that come in one after another when their section is revealed.
+const STAGGERED = ".play-card, .pill, .plan-row, .logo-strip, .faq__item";
 
 // Where each shortcut at the top of the page leads.
 const SHORTCUT_TARGETS = { ott: "#subscriptions", insider: "#insider", club: "#club" };
@@ -57,8 +60,20 @@ export function App() {
   );
   screen.prepend(page, TopBar(screen));
 
-  // The header turns to glass once content is scrolling beneath it.
-  page.addEventListener("scroll", () => (screen.dataset.scrolled = String(page.scrollTop > 8)), { passive: true });
+  // The header turns to glass once content is scrolling beneath it, and the large
+  // Advantage Club portrait drifts a little against its card as the page moves.
+  const portrait = content.querySelector(".club .banner__art");
+  const club = content.querySelector(".club");
+  page.addEventListener(
+    "scroll",
+    () => {
+      screen.dataset.scrolled = String(page.scrollTop > 8);
+      if (reducedMotion.matches) return;
+      const offset = (club.offsetTop - page.scrollTop - 200) / 600; // about -1 to 1 across the screen
+      portrait.style.transform = `translateY(${Math.max(-1, Math.min(1, offset)) * 12}px) scale(1.04)`;
+    },
+    { passive: true },
+  );
 
   // Sections fade up the first time they come into view.
   const observer = new IntersectionObserver(
@@ -67,8 +82,14 @@ export function App() {
         if (!entry.isIntersecting) return;
         entry.target.classList.add("is-in");
         observer.unobserve(entry.target);
+        // Rows and cards inside the section follow it in, one after another.
+        if (!reducedMotion.matches) {
+          entry.target.querySelectorAll(STAGGERED).forEach((item, index) =>
+            animate(item, { opacity: [0, 1], y: [14, 0] }, { duration: 0.34, delay: 0.08 + index * 0.05, ease: [0.22, 1, 0.36, 1] }),
+          );
+        }
       }),
-    { root: page, rootMargin: "0px 0px -8% 0px" },
+    { root: page, rootMargin: "0px 0px -6% 0px" },
   );
   content.querySelectorAll(".reveal").forEach((section) => observer.observe(section));
 

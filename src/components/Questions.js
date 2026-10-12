@@ -1,4 +1,6 @@
-import { el, themed } from "../lib/dom.js";
+import { el } from "../lib/dom.js";
+import { icons } from "../lib/icons.js";
+import { animate, reducedMotion, transition } from "../lib/motion.js";
 import { openSheet } from "./overlays.js";
 
 const QUESTIONS = [
@@ -12,31 +14,60 @@ const QUESTIONS = [
 export function Questions() {
   const section = el(`
     <section class="faq reveal" id="questions">
-      <h2 class="faq__heading">Questions</h2>
-      ${QUESTIONS.map(
-        ([question, answer], index) => `
-          <div class="faq__item">
-            <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-${index}">
-              <span>${question}</span>
-              ${themed("ph-regular-caret-down.svg")}
-            </button>
-            <div class="faq__a" id="faq-${index}"><div><p>${answer}</p></div></div>
-          </div>`,
-      ).join("")}
-      <div class="faq__item">
-        <button class="faq__q" type="button" data-terms>
-          <span>Terms and conditions</span>
-          ${themed("ph-regular-caret-right-1.svg")}
-        </button>
+      <h2 class="faq__heading"><span class="sec-head__icon" data-tone="grey">${icons.question}</span>Questions</h2>
+      <div class="faq__list">
+        ${QUESTIONS.map(
+          ([question, answer], index) => `
+            <div class="faq__item">
+              <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-${index}">
+                <span>${question}</span>
+                <i class="faq__chip">${icons.chevron}</i>
+              </button>
+              <div class="faq__a" id="faq-${index}" hidden><p>${answer}</p></div>
+            </div>`,
+        ).join("")}
+        <div class="faq__item">
+          <button class="faq__q" type="button" data-terms>
+            <span>Terms and conditions</span>
+            <i class="faq__chip">${icons.arrow}</i>
+          </button>
+        </div>
       </div>
     </section>
   `);
 
   const buttons = [...section.querySelectorAll("[aria-expanded]")];
+
+  // Answers open and close on a spring; the height is measured, so any length of answer fits.
+  function setOpen(button, open) {
+    if ((button.getAttribute("aria-expanded") === "true") === open) return;
+    const answer = button.nextElementSibling;
+    button.setAttribute("aria-expanded", String(open));
+    button.parentElement.classList.toggle("is-open", open);
+    if (reducedMotion.matches) {
+      answer.hidden = !open;
+      return;
+    }
+    if (open) {
+      answer.hidden = false;
+      const height = answer.scrollHeight;
+      animate(answer, { height: [0, height], opacity: [0, 1] }, transition("accordion")).then(() => {
+        answer.style.height = "";
+        // Keep the whole answer on screen when it opens near the foot of the page.
+        button.parentElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    } else {
+      animate(answer, { height: [answer.offsetHeight, 0], opacity: [1, 0] }, transition("accordion")).then(() => {
+        answer.hidden = true;
+        answer.style.height = "";
+      });
+    }
+  }
+
   buttons.forEach((button) =>
     button.addEventListener("click", () => {
       const open = button.getAttribute("aria-expanded") !== "true";
-      buttons.forEach((other) => other.setAttribute("aria-expanded", String(other === button && open)));
+      buttons.forEach((other) => setOpen(other, other === button && open));
     }),
   );
 

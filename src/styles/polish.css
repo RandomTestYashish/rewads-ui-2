@@ -1,0 +1,722 @@
+/* Polish pass over the Figma layout: everything sits on one 16px side grid with an even
+   vertical rhythm, section headings carry an icon, and color and motion are turned up.
+   Loaded last, so these rules override page.css where the two differ. */
+
+:root {
+  --gap-section: 40px; /* between one section and the next heading */
+  --gap-head: 16px; /* between a heading and its content */
+}
+
+[data-theme="dark"] {
+  --color-text-muted: rgba(255, 255, 255, 0.66);
+  --color-card: rgba(255, 255, 255, 0.05);
+  --color-card-border: rgba(255, 255, 255, 0.1);
+  --color-chip: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] {
+  --color-card: #f6f7fa;
+  --color-card-border: #e6e9ef;
+  --color-chip: rgba(0, 0, 0, 0.06);
+}
+
+/* ---------- Motion: quicker reveals ---------- */
+.reveal {
+  transform: translateY(14px);
+  transition:
+    opacity 320ms var(--ease-out),
+    transform 380ms var(--ease-out);
+}
+
+.topbar__glass {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ---------- Section rhythm ---------- */
+.whats-new,
+[data-theme="light"] .whats-new {
+  margin: 32px 16px 0;
+}
+
+.play,
+.subs,
+.plan,
+.insider,
+.club,
+[data-theme="light"] .play,
+[data-theme="light"] .plan,
+[data-theme="light"] .insider {
+  margin-top: var(--gap-section);
+}
+
+.play__cards,
+.plan__list {
+  margin-top: var(--gap-head);
+}
+
+.insider__card {
+  margin-top: var(--gap-head);
+}
+
+.club__banner {
+  margin: var(--gap-head) 0 0 16px;
+}
+
+.soon {
+  margin-top: 56px;
+}
+
+.faq,
+[data-theme="light"] .faq {
+  margin-top: 56px;
+  padding: 0 16px 64px;
+}
+
+/* ---------- Section heading: icon chip, text, action ---------- */
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+}
+
+.sec-head__icon {
+  --tone-a: #8a8a93;
+  --tone-b: #55555c;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: linear-gradient(140deg, var(--tone-a), var(--tone-b));
+  color: #fff;
+  box-shadow:
+    0 6px 16px -6px var(--tone-a),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.sec-head__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+[data-tone="violet"] .sec-head__icon {
+  --tone-a: #a855f7;
+  --tone-b: #515dcb;
+}
+
+[data-tone="green"] .sec-head__icon {
+  --tone-a: #2fd96b;
+  --tone-b: #069a45;
+}
+
+[data-tone="blue"] .sec-head__icon {
+  --tone-a: #4f9bff;
+  --tone-b: #075ee8;
+}
+
+[data-tone="rose"] .sec-head__icon {
+  --tone-a: #ff6b8b;
+  --tone-b: #b42544;
+}
+
+[data-tone="red"] .sec-head__icon {
+  --tone-a: #ff5b02;
+  --tone-b: #e10203;
+}
+
+.sec-head__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.sec-head__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.sec-head__sub,
+[data-theme="light"] .sec-head__sub {
+  margin: 2px 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-text-muted);
+}
+
+.sec-head__all {
+  position: static;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--color-chip);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.sec-head__all svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ---------- Shortcuts ---------- */
+.shortcut__label {
+  font-weight: 500;
+  letter-spacing: -0.4px;
+}
+
+/* ---------- Unclaimed: brighter, brand-tinted cards ---------- */
+.unclaimed__eyebrow {
+  font-weight: 500;
+  text-shadow: 0 0 14px rgba(255, 229, 80, 0.55);
+}
+
+.unclaimed__text {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.claim-card__wash {
+  opacity: 0.62;
+  border-radius: 50%;
+}
+
+.claim-card::after {
+  /* a hairline of light across the top edge */
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+}
+
+.claim-button {
+  box-shadow: 0 6px 16px -6px rgba(255, 255, 255, 0.55);
+}
+
+.unclaimed__all {
+  top: 371px;
+  padding: 7px 14px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---------- What's New on the grid ---------- */
+.whats-new__rail {
+  width: 341px;
+  left: 0;
+  padding: 0 16px;
+  scroll-padding: 0 16px;
+}
+
+[data-theme="dark"] .whats-new {
+  box-shadow: 0 18px 50px -24px rgba(225, 2, 3, 0.8);
+}
+
+.whats-new__dots i[aria-current="true"] {
+  width: 18px;
+  background: var(--color-yellow);
+  opacity: 1;
+}
+
+[data-theme="light"] .whats-new__dots i[aria-current="true"] {
+  background: var(--color-red);
+}
+
+.banner__button {
+  box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.6);
+}
+
+.club .banner__art {
+  will-change: transform;
+}
+
+/* ---------- Play and win: light, shine and stars ---------- */
+.play__cards {
+  gap: 15px;
+}
+
+.play-card {
+  width: 164px;
+}
+
+.play-card--scratch {
+  border-color: #c2334f;
+  box-shadow: 0 14px 34px -18px #b42544;
+}
+
+.play-card--spin {
+  border-color: #6f58d6;
+  box-shadow: 0 14px 34px -18px #515dcb;
+}
+
+.play-card--scratch .play-card__beam {
+  background: #d92b52;
+}
+
+.play-card--spin .play-card__beam {
+  background: #6170f2;
+}
+
+.play-card__label {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.play-card--scratch .play-card__label,
+.play-card--spin .play-card__label {
+  right: 0;
+}
+
+/* A band of light that crosses the card every few seconds */
+.play-card__shine {
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 46px;
+  height: 140%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transform: translateX(-80px) rotate(16deg);
+  animation: shine 3.6s var(--ease-in-out) infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0%,
+  45% {
+    transform: translateX(-80px) rotate(16deg);
+  }
+  80%,
+  100% {
+    transform: translateX(220px) rotate(16deg);
+  }
+}
+
+.play-card__star {
+  position: absolute;
+  width: 13px;
+  color: #ffe9a6;
+  animation: twinkle 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.play-card__star svg {
+  display: block;
+  width: 100%;
+}
+
+/* ---------- Active subscriptions ---------- */
+.pills {
+  padding: 0 16px;
+}
+
+[data-theme="dark"] .pills {
+  margin-left: -17px;
+}
+
+[data-theme="dark"] .pill {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+[data-theme="dark"] .pill[aria-selected="true"] {
+  background: #fff;
+}
+
+[data-theme="dark"] .subs__card {
+  border-color: var(--color-card-border);
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(0, 189, 61, 0.16), transparent 60%),
+    var(--color-card);
+}
+
+.sub-row {
+  width: calc(100% - 32px);
+  margin: 0 16px;
+  padding-right: 0;
+}
+
+.sub-row__logo {
+  margin-left: 0;
+}
+
+[data-theme="dark"] .sub-row {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.sub-row__status strong {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.sub-row__dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-success);
+}
+
+.sub-row__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-success);
+  animation: ping 1.8s ease-out infinite;
+}
+
+@keyframes ping {
+  to {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+.subs__all {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---------- Included in your plan: one card, full-width rows ---------- */
+.plan__list {
+  margin-left: 16px;
+  margin-right: 16px;
+  padding: 2px 16px;
+  border: 1px solid var(--color-card-border);
+  border-radius: 16px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(79, 155, 255, 0.14), transparent 60%),
+    var(--color-card);
+}
+
+.plan-row {
+  width: 100%;
+  border-top-color: var(--color-card-border);
+}
+
+.plan-row__name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.plan-row__tag {
+  padding: 0 6px;
+  border-radius: 6px;
+  background: rgba(0, 189, 61, 0.16);
+  font-size: 9.5px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-success);
+}
+
+[data-theme="light"] .plan-row__tag {
+  color: #0a8a35;
+}
+
+.plan-row__go {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-chip);
+}
+
+/* App tiles drifting past, edges faded */
+.logo-strip {
+  margin: 14px 0 0;
+}
+
+.logo-strip__label {
+  margin: 0 16px 10px;
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--color-text-muted);
+}
+
+.logo-strip__window {
+  overflow: clip;
+  -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.logo-strip__track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  padding-left: 12px;
+  animation: drift 22s linear infinite;
+}
+
+@keyframes drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-strip__tile {
+  position: relative;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  overflow: clip;
+  background: #000;
+  box-shadow: 0 0 0 1px var(--color-card-border);
+}
+
+.logo-strip__tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logo-strip__tile--inset img {
+  left: -19.44%;
+  top: -19.44%;
+  width: 138.89%;
+  height: 138.89%;
+}
+
+.logo-strip__tile--light {
+  background: #fff;
+}
+
+.logo-strip__tile--light img {
+  inset: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  object-fit: contain;
+}
+
+/* ---------- Airtel Insider ---------- */
+.stamp {
+  left: 281px;
+  top: -24px;
+  width: 80px;
+  height: 80px;
+}
+
+.stamp__logo {
+  left: 27.5px;
+  top: 27.6px;
+  width: 25px;
+  height: 24.9px;
+}
+
+.insider .sec-head {
+  margin-right: 100px; /* clear of the stamp */
+}
+
+.insider__card {
+  box-shadow: 0 20px 50px -26px #e0405f;
+}
+
+.insider__bubble--small {
+  width: 34px;
+  height: 34px;
+  background: #000;
+}
+
+.insider__bubble--small img {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Rings of light leaving the Insider mark */
+.insider__pulse {
+  position: absolute;
+  left: 50%;
+  top: 125px;
+  width: 110px;
+  height: 50px;
+  margin-left: -55px;
+  border-radius: 60px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7);
+  animation: pulse 2.6s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1.7, 2.2);
+    opacity: 0;
+  }
+}
+
+.insider__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.insider__button svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ---------- Coming soon ---------- */
+.soon-card {
+  transition-duration: 420ms;
+}
+
+/* ---------- Questions: a list of cards with a chevron chip ---------- */
+.faq__heading,
+[data-theme="light"] .faq__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  margin-bottom: var(--gap-head);
+  color: var(--color-text);
+}
+
+.faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq__item,
+.faq__item:first-of-type {
+  border: 1px solid var(--color-card-border);
+  border-radius: 14px;
+  background: var(--color-card);
+  overflow: clip;
+  transition:
+    border-color var(--dur-standard) var(--ease-out),
+    background-color var(--dur-standard) var(--ease-out);
+}
+
+[data-theme="dark"] .faq__item.is-open {
+  border-color: rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .faq__item.is-open {
+  border-color: #cdd3dd;
+  background: #fff;
+  box-shadow: 0 8px 22px -14px rgba(20, 30, 60, 0.35);
+}
+
+.faq__q,
+[data-theme="light"] .faq__q {
+  align-items: center;
+  width: 100%;
+  height: auto;
+  min-height: 56px;
+  padding: 10px 12px 10px 16px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.faq__chip {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-chip);
+  color: var(--color-text);
+  transition:
+    transform var(--dur-large) var(--ease-standard),
+    background-color var(--dur-standard) var(--ease-out),
+    color var(--dur-standard) var(--ease-out);
+}
+
+.faq__chip svg {
+  width: 16px;
+  height: 16px;
+}
+
+.faq__q[aria-expanded="true"] .faq__chip {
+  transform: rotate(180deg);
+  background: var(--color-text);
+  color: var(--color-surface);
+}
+
+.faq__a {
+  display: block;
+  overflow: clip;
+}
+
+.faq__a[hidden] {
+  display: none;
+}
+
+.faq__a p,
+.faq__q[aria-expanded="true"] + .faq__a p {
+  padding: 0 52px 16px 16px;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--color-text-muted);
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Confetti ---------- */
+.confetti {
+  position: absolute;
+  z-index: 66;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px;
+  border-radius: 1.5px;
+  pointer-events: none;
+}
+
+/* ---------- Phone: the theme switch sits at the side, clear of the page's last rows ---------- */
+.is-mobile .theme-switch {
+  top: 44%;
+  bottom: auto;
+  right: 6px;
+  flex-direction: column;
+}
+
+.is-mobile .theme-switch__button {
+  padding: 8px 7px;
+  font-size: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play-card__shine,
+  .play-card__star,
+  .sub-row__dot::after,
+  .logo-strip__track,
+  .insider__pulse {
+    animation: none;
+  }
+}

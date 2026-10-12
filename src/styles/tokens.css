@@ -17,10 +17,10 @@
   --color-link: #075ee8;
 
   /* Motion (springs live in src/lib/motion.js) */
-  --dur-fast: 160ms;
-  --dur-standard: 300ms;
-  --dur-large: 420ms;
-  --dur-collapse: 420ms; /* accordion open/close */
+  --dur-fast: 120ms;
+  --dur-standard: 220ms;
+  --dur-large: 320ms;
+  --dur-collapse: 320ms;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);

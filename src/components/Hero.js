@@ -26,13 +26,13 @@ const SHORTCUTS = [
   {
     id: "insider",
     label: "Insider",
-    x: 140,
+    x: 142.33,
     art: `<div class="shortcut__insider"><img src="${asset("insider-final-021.png")}" alt="" /></div>`,
   },
   {
     id: "club",
     label: "Advantage Club",
-    x: 233,
+    x: 232.67,
     art: lockup({
       width: 54.5,
       height: 27.183,
@@ -47,7 +47,7 @@ const SHORTCUTS = [
   {
     id: "spin",
     label: "Spin the wheel",
-    x: 327.5,
+    x: 323,
     art: `<img class="shortcut__wheel" src="${asset("group-1597881919.svg")}" alt="" />`,
   },
 ];

@@ -2,7 +2,7 @@ import { asset, el } from "../lib/dom.js";
 import { renderedScale } from "../lib/gesture.js";
 import { animate, reducedMotion } from "../lib/motion.js";
 import { earn } from "../lib/store.js";
-import { flyCoin, openSheet, toast } from "./overlays.js";
+import { confetti, flyCoin, openSheet, toast } from "./overlays.js";
 
 const COIN = "screenshot-20260908-at-100950-am-1.png";
 
@@ -62,6 +62,7 @@ export function openScratch() {
     card.classList.add("is-revealed");
     if (!reducedMotion.matches) animate(card.querySelector(".scratch__prize"), { scale: [0.86, 1] }, { type: "spring", visualDuration: 0.5, bounce: 0.45 });
     flyCoin(card.querySelector(".scratch__prize img"), () => earn(prize, "Scratch card"));
+    confetti(card);
     toast(`You won ${prize} coins`);
   }
 
@@ -133,6 +134,7 @@ export function openSpin() {
         const coins = SEGMENTS[index];
         result.textContent = `You won ${coins} coins`;
         flyCoin(wheel.querySelector(".wheel__hub"), () => earn(coins, "Spin the wheel"));
+        confetti(wheel.querySelector(".wheel__hub"));
         toast(`You won ${coins} coins`);
         button.textContent = "Spin again";
         button.disabled = false;

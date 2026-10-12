@@ -1,5 +1,6 @@
 import { asset, el } from "../lib/dom.js";
 import { gesture, renderedScale } from "../lib/gesture.js";
+import { reducedMotion } from "../lib/motion.js";
 import { toast } from "./overlays.js";
 
 // Figma draws the cult.fit card in front of two tinted cards; the copy on those two is ours.
@@ -48,10 +49,19 @@ export function ComingSoon() {
     layout();
   }
 
+  // The stack deals itself while it is on screen, until someone touches it.
+  let visible = false;
+  let touched = false;
+  new IntersectionObserver(([entry]) => (visible = entry.isIntersecting), { threshold: 0.6 }).observe(stack);
+  setInterval(() => {
+    if (visible && !touched && !reducedMotion.matches && !document.hidden && !document.querySelector(".sheet")) step(1);
+  }, 3200);
+
   // Horizontal swipe on the stack; vertical movement is left to the page.
   let drag = null;
   let swiped = false;
   stack.addEventListener("pointerdown", (event) => {
+    touched = true;
     drag = { x: event.clientX, y: event.clientY, scale: renderedScale(stack) };
     swiped = false;
   });

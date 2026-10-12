@@ -1,4 +1,5 @@
 import { asset, el, themed } from "../lib/dom.js";
+import { icons } from "../lib/icons.js";
 import { sectionHead } from "./PlayAndWin.js";
 import { openSheet, toast } from "./overlays.js";
 
@@ -14,7 +15,7 @@ const OFFERS = [
 export function Insider() {
   const section = el(`
     <section class="insider reveal" id="insider">
-      ${sectionHead({ title: "Airtel Insider", sub: "Unlock special deals and experiences" })}
+      ${sectionHead({ title: "Airtel Insider", sub: "Unlock special deals and experiences", icon: "crown", tone: "rose" })}
       <div class="stamp" aria-hidden="true">
         <svg class="stamp__ring" viewBox="0 0 92 92">
           <defs><path id="stamp-path" d="M46,46 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" /></defs>
@@ -35,10 +36,16 @@ export function Insider() {
             <div class="insider__bubble insider__bubble--linkedin"><img src="${asset(SPRITE)}" alt="LinkedIn" /></div>
             <div class="insider__bubble insider__bubble--pocket"><img src="${asset("screenshot-20261009-at-14232-pm-1.png")}" alt="Pocket FM" /></div>
           </div>
+          <div class="insider__orbit insider__orbit--outer">
+            <div class="insider__bubble insider__bubble--small" style="left:-147.5px;top:-77.9px"><img src="${asset("ott-prime.svg")}" alt="Prime Video" /></div>
+            <div class="insider__bubble insider__bubble--small" style="left:75.6px;top:93.3px"><img src="${asset("logo-2.png")}" alt="Google One" /></div>
+            <div class="insider__bubble insider__bubble--small" style="left:71.7px;top:-130.5px"><img src="${asset("logo-adobe.png")}" alt="Adobe Express" /></div>
+          </div>
+          <div class="insider__pulse"></div>
           <div class="insider__pill">
             <div class="insider__pill-logo"><img src="${asset("insider-final-021.png")}" alt="airtel insider" /></div>
           </div>
-          <button class="insider__button pressable" type="button" data-press="0.98">View all offers</button>
+          <button class="insider__button pressable" type="button" data-press="0.98">View all offers${icons.arrow}</button>
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import { asset, el } from "../lib/dom.js";
 import { renderedScale } from "../lib/gesture.js";
-import { animate, transition } from "../lib/motion.js";
+import { animate, reducedMotion, transition } from "../lib/motion.js";
 
 // The phone screen; sheets, toasts and flying coins are positioned inside it.
 let host = null;
@@ -122,4 +122,30 @@ export function flyCoin(from, onLand) {
     coin.remove();
     onLand?.();
   });
+}
+
+const CONFETTI = ["#ffe550", "#ffaa50", "#e10203", "#50ffdc", "#ffffff", "#a23bff"];
+
+/** A short burst of confetti from the middle of `from`, for claims and wins. */
+export function confetti(from) {
+  if (reducedMotion.matches) return;
+  const scale = renderedScale(host);
+  const frame = host.getBoundingClientRect();
+  const box = from.getBoundingClientRect();
+  const x = (box.left + box.width / 2 - frame.left) / scale;
+  const y = (box.top + box.height / 2 - frame.top) / scale;
+  for (let i = 0; i < 26; i += 1) {
+    const piece = el(`<i class="confetti" style="left:${x}px;top:${y}px;background:${CONFETTI[i % CONFETTI.length]}"></i>`);
+    if (i % 3 === 0) piece.style.borderRadius = "50%";
+    host.append(piece);
+    const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.6;
+    const reach = 50 + Math.random() * 90;
+    const dx = Math.cos(angle) * reach;
+    const dy = Math.sin(angle) * reach;
+    animate(
+      piece,
+      { x: [0, dx, dx * 1.25], y: [0, dy, dy + 70 + Math.random() * 60], rotate: [0, Math.random() * 540 - 270], opacity: [1, 1, 0], scale: [0.4, 1, 0.8] },
+      { duration: 0.9 + Math.random() * 0.4, ease: [0.2, 0.8, 0.3, 1], times: [0, 0.4, 1] },
+    ).then(() => piece.remove());
+  }
 }

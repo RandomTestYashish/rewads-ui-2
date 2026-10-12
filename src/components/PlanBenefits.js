@@ -13,6 +13,20 @@ const BENEFITS = [
 
 const VISIBLE = 3;
 
+// App tiles that drift past under the list; the list is doubled so the loop has no seam.
+const STRIP = [
+  { logo: "frame.png", inset: true },
+  { logo: "ott-prime.svg" },
+  { logo: "logo.png" },
+  { logo: "logo-1.png", inset: true },
+  { logo: "logo-2.png" },
+  { logo: "frame-1.png" },
+  { logo: "logo-adobe.png" },
+  { logo: "logo-zee5.png", light: true },
+];
+
+const tile = (item) => `<span class="logo-strip__tile ${item.inset ? "logo-strip__tile--inset" : ""} ${item.light ? "logo-strip__tile--light" : ""}"><img src="${asset(item.logo)}" alt="" /></span>`;
+
 const logo = (item, className) => `<span class="${className} ${item.inset ? `${className}--inset` : ""}"><img src="${asset(item.logo)}" alt="" /></span>`;
 
 function openBenefit(item) {
@@ -39,7 +53,7 @@ function openBenefit(item) {
 export function PlanBenefits() {
   const section = el(`
     <section class="plan reveal" id="plan">
-      ${sectionHead({ title: "Included in your ₹399 plan", sub: "Postpaid ₹399 · at no extra cost", all: true })}
+      ${sectionHead({ title: "Included in your ₹399 plan", sub: "Postpaid ₹399 · at no extra cost", icon: "shield", tone: "blue", all: true })}
       <div class="plan__list">
         ${BENEFITS.slice(0, VISIBLE)
           .map(
@@ -47,13 +61,17 @@ export function PlanBenefits() {
               <button class="plan-row" type="button" data-benefit="${item.name}" data-press="0.98">
                 ${logo(item, "plan-row__logo")}
                 <span class="plan-row__text">
-                  <p class="plan-row__name">${item.name}</p>
+                  <p class="plan-row__name">${item.name}<i class="plan-row__tag">Free</i></p>
                   <p class="plan-row__sub">${item.sub}</p>
                 </span>
-                ${themed("ph-regular-caret-right.svg", "plan-row__caret")}
+                <span class="plan-row__go">${themed("ph-regular-caret-right.svg", "plan-row__caret")}</span>
               </button>`,
           )
           .join("")}
+      </div>
+      <div class="logo-strip" aria-label="Apps included with Xstream Play">
+        <p class="logo-strip__label">22 apps in one with Xstream Play</p>
+        <div class="logo-strip__window"><div class="logo-strip__track">${[...STRIP, ...STRIP].map(tile).join("")}</div></div>
       </div>
     </section>
   `);

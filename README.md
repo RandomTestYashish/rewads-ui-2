@@ -16,6 +16,12 @@ On a desktop browser the screen is shown inside an iPhone mockup. On a phone the
 the screen fills the browser. Add `?view=mobile` or `?view=mockup` to the URL to force either mode,
 and `?theme=light` or `?theme=dark` to open in one of the two frames.
 
+## Layout
+
+`src/styles/page.css` holds the Figma frames' own offsets. `src/styles/polish.css` is loaded after it and
+puts the page on one 16px side grid with an even rhythm (40px between sections, 16px under a heading),
+adds the icon chips on the section headings, and turns colour and motion up.
+
 ## What is interactive
 
 - **Header**: turns to glass once the page scrolls; the coin balance opens the coins sheet.
@@ -26,7 +32,9 @@ and `?theme=light` or `?theme=dark` to open in one of the two frames.
 - **Active subscriptions**: the pills filter the list, View all expands it.
 - **Included in your plan / Airtel Insider / The Advantage Club**: rows and buttons open detail sheets.
 - **Coming soon**: swipe or tap the card stack to cycle it; Notify me toggles.
-- **Questions**: an accordion.
+- **What's New** and **Coming soon** move on by themselves until someone touches them.
+- **Claims and wins** throw a burst of confetti.
+- **Questions**: cards that open on a spring, one at a time, and scroll themselves into view.
 
 Source: Figma file `rGZTE0UxCKIhtcJ9Em2QNn`, page "rewads" (`81488:10393`), frames `81488:11232` (dark)
 and `81488:10721` (light).

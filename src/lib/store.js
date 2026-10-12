@@ -7,10 +7,10 @@ export const state = {
   rewards: [
     { id: "netflix", name: "Netflix Basic", art: "netflix", coins: 50, claimed: false },
     { id: "appletv", name: "Apple TV", art: "appletv", coins: 50, claimed: false },
-    { id: "googleone", name: "Google One", art: "tile", logo: "logo-2.png", coins: 30, claimed: false },
-    { id: "xstream", name: "Xstream Play", art: "tile", logo: "logo.png", coins: 30, claimed: false },
-    { id: "jiohotstar", name: "JioHotstar Mobile", art: "tile", logo: "frame-1.png", coins: 40, claimed: false },
-    { id: "appletvplus", name: "Apple TV+", art: "tile", logo: "logo-1.png", inset: true, coins: 40, claimed: false },
+    { id: "googleone", name: "Google One", art: "tile", logo: "logo-2.png", wash: "#3b82f6", coins: 30, claimed: false },
+    { id: "xstream", name: "Xstream Play", art: "tile", logo: "logo.png", wash: "#e10203", coins: 30, claimed: false },
+    { id: "jiohotstar", name: "JioHotstar Mobile", art: "tile", logo: "frame-1.png", wash: "#a23bff", coins: 40, claimed: false },
+    { id: "appletvplus", name: "Apple TV+", art: "tile", logo: "logo-1.png", inset: true, wash: "#5ec8ff", coins: 40, claimed: false },
   ],
 };
 

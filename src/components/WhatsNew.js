@@ -1,5 +1,6 @@
 import { asset, el } from "../lib/dom.js";
 import { enableDragX } from "../lib/dragX.js";
+import { reducedMotion } from "../lib/motion.js";
 import { BANNERS, Banner } from "./Banner.js";
 
 /** The framed "What's New" carousel of partner and Advantage Club banners. */
@@ -30,6 +31,17 @@ export function WhatsNew() {
   }
   rail.addEventListener("scroll", mark, { passive: true });
   mark();
+
+  // The carousel moves on by itself while it is on screen, until someone takes hold of it.
+  let visible = false;
+  let touched = false;
+  new IntersectionObserver(([entry]) => (visible = entry.isIntersecting), { threshold: 0.5 }).observe(section);
+  ["pointerdown", "wheel", "touchstart"].forEach((type) => rail.addEventListener(type, () => (touched = true), { passive: true }));
+  setInterval(() => {
+    if (!visible || touched || reducedMotion.matches || document.hidden || document.querySelector(".sheet")) return;
+    const next = Math.round(rail.scrollLeft / 292) + 1;
+    rail.scrollTo({ left: next >= BANNERS.length ? 0 : next * 292, behavior: "smooth" });
+  }, 3800);
 
   return section;
 }

@@ -2,21 +2,21 @@ import { asset, el } from "../lib/dom.js";
 import { enableDragX } from "../lib/dragX.js";
 import { animate, reducedMotion, transition } from "../lib/motion.js";
 import { claim, earn, state, subscribe, unclaimed } from "../lib/store.js";
-import { flyCoin, openSheet, toast } from "./overlays.js";
+import { confetti, flyCoin, openSheet, toast } from "./overlays.js";
 
 const ART = {
-  netflix: { wash: "ellipse-5.svg", html: `<div class="claim-card__art claim-card__art--netflix"><img src="${asset("screenshot-20261008-at-110412-am-1.png")}" alt="" /></div>` },
-  appletv: { wash: "ellipse-6.svg", html: `<div class="claim-card__art claim-card__art--appletv"><img src="${asset("screenshot-20261008-at-111419-am-1.png")}" alt="" /></div>` },
+  netflix: { wash: "#fa0000", html: `<div class="claim-card__art claim-card__art--netflix"><img src="${asset("screenshot-20261008-at-110412-am-1.png")}" alt="" /></div>` },
+  appletv: { wash: "#9a9aa6", html: `<div class="claim-card__art claim-card__art--appletv"><img src="${asset("screenshot-20261008-at-111419-am-1.png")}" alt="" /></div>` },
 };
 
 function card(reward) {
   const art = ART[reward.art] ?? {
-    wash: "ellipse-6.svg",
+    wash: reward.wash,
     html: `<div class="claim-card__art claim-card__art--tile"><img src="${asset(reward.logo)}" alt="" ${reward.inset ? 'style="left:-19.44%;top:-19.44%;width:138.89%;height:138.89%"' : ""} /></div>`,
   };
   return `
     <article class="claim-card" data-reward="${reward.id}">
-      <img class="claim-card__wash" src="${asset(art.wash)}" alt="" />
+      <span class="claim-card__wash" style="background:${art.wash}"></span>
       <div class="claim-card__veil"></div>
       ${art.html}
       <p class="claim-card__name">${reward.name}</p>
@@ -37,6 +37,7 @@ export function runClaim(button, id) {
     if (!reward) return;
     button.dataset.state = "claimed";
     button.textContent = "Claimed ✓";
+    confetti(button);
     flyCoin(button, () => earn(reward.coins, `${reward.name} claimed`));
     toast(`${reward.name} claimed · +${reward.coins} coins`);
   }, 650);
@@ -53,7 +54,7 @@ const SPARKLES = [
 ];
 
 const EASE = [0.22, 1, 0.36, 1];
-const LOOP_HOLD = 4200; // how long the heading rests before it leaves and comes in again
+const LOOP_HOLD = 3000; // how long the heading rests before it leaves and comes in again
 
 /**
  * The heading coming in: light runs out along the two streaks, "UNCLAIMED" tracks in,
@@ -73,16 +74,16 @@ function headingIn(section) {
     { duration: 1, delay: 0.1, ease: EASE },
   );
   all(".unclaimed__word i").forEach((letter, index) =>
-    animate(letter, { opacity: [0, 1], y: [22, 0], scale: [1.25, 1], filter: ["blur(10px)", "blur(0px)"] }, { duration: 0.9, delay: 0.3 + index * 0.075, ease: EASE }),
+    animate(letter, { opacity: [0, 1], y: [22, 0], scale: [1.25, 1], filter: ["blur(10px)", "blur(0px)"] }, { duration: 0.6, delay: 0.2 + index * 0.05, ease: EASE }),
   );
   all(".unclaimed__badge").forEach((badge, index) =>
-    animate(badge, { opacity: [0, 1], scale: [0, 1], rotate: [index ? 200 : -200, 0] }, { type: "spring", visualDuration: 0.8, bounce: 0.3, delay: 0.7 + index * 0.08 }),
+    animate(badge, { opacity: [0, 1], scale: [0, 1], rotate: [index ? 200 : -200, 0] }, { type: "spring", visualDuration: 0.6, bounce: 0.35, delay: 0.5 + index * 0.06 }),
   );
 
   const word = section.querySelector(".unclaimed__word");
   word.classList.remove("is-shining");
-  setTimeout(() => word.classList.add("is-shining"), 1400);
-  return 2900;
+  setTimeout(() => word.classList.add("is-shining"), 950);
+  return 2300;
 }
 
 /** The heading leaving, softly, before the next pass of the loop. */
