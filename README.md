@@ -19,8 +19,8 @@ and `?theme=light` or `?theme=dark` to open in one of the two frames.
 ## What is interactive
 
 - **Header**: turns to glass once the page scrolls; the coin balance opens the coins sheet.
-- **Shortcuts**: the OTT disc rolls through Netflix, Prime Video and Xstream Play. OTT, Insider and Advantage Club scroll to their sections; Spin the wheel opens the game.
-- **Unclaimed rewards**: Claim Now claims a reward, flies a coin to the balance and removes the card.
+- **Shortcuts**: each disc has a story ring that draws itself on load and on tap, with a bright arc circling it. The OTT disc rolls through Netflix, Prime Video and Xstream Play. OTT, Insider and Advantage Club scroll to their sections; Spin the wheel opens the game.
+- **Unclaimed rewards**: the heading plays an entrance each time it scrolls into view (streaks, letter-by-letter REWARDS, spinning badges, count-up, cards sliding in), then keeps a sheen and glints going. Claim Now claims a reward, flies a coin to the balance and removes the card.
 - **What's New**: a snapping carousel; Register and Claim switch state, the banner opens its details.
 - **Play and win**: a scratch card and a spin wheel, both of which add coins.
 - **Active subscriptions**: the pills filter the list, View all expands it.

@@ -1,6 +1,6 @@
 import { asset, el } from "../lib/dom.js";
 import { enableDragX } from "../lib/dragX.js";
-import { animate, transition } from "../lib/motion.js";
+import { animate, reducedMotion, transition } from "../lib/motion.js";
 import { claim, earn, state, subscribe, unclaimed } from "../lib/store.js";
 import { flyCoin, openSheet, toast } from "./overlays.js";
 
@@ -42,16 +42,74 @@ export function runClaim(button, id) {
   }, 650);
 }
 
+// Small glints around the heading: [left, top, size, delay in seconds]
+const SPARKLES = [
+  [84, 30, 7, 0.2],
+  [118, 66, 5, 1.7],
+  [262, 28, 6, 1.1],
+  [286, 68, 8, 2.6],
+  [20, 58, 5, 3.3],
+  [346, 40, 6, 0.8],
+];
+
+/**
+ * The heading's entrance: light runs out along the two streaks, "UNCLAIMED" tracks in,
+ * "REWARDS" rises letter by letter out of a blur, the badges spin into place, the count
+ * runs up and the cards arrive from the right. Plays each time the band comes into view.
+ */
+function playIntro(section, count) {
+  const q = (selector) => section.querySelector(selector);
+  const all = (selector) => [...section.querySelectorAll(selector)];
+  const ease = [0.22, 1, 0.36, 1];
+
+  all(".unclaimed__streak").forEach((streak) => {
+    animate(streak, { opacity: [0, 1] }, { duration: 0.8, ease });
+    animate(streak.firstElementChild, { scaleX: [0.15, 1] }, { duration: 1.2, ease });
+  });
+  animate(q(".unclaimed__eyebrow"), { opacity: [0, 1], letterSpacing: ["9px", "0.56px"], filter: ["blur(4px)", "blur(0px)"] }, { duration: 0.9, delay: 0.1, ease });
+  all(".unclaimed__word i").forEach((letter, index) =>
+    animate(
+      letter,
+      { opacity: [0, 1], y: [22, 0], scale: [1.25, 1], filter: ["blur(10px)", "blur(0px)"] },
+      { duration: 0.7, delay: 0.28 + index * 0.055, ease },
+    ),
+  );
+  all(".unclaimed__badge").forEach((badge, index) =>
+    animate(badge, { opacity: [0, 1], scale: [0, 1], rotate: [index ? 200 : -200, 0] }, { type: "spring", visualDuration: 0.7, bounce: 0.35, delay: 0.62 + index * 0.08 }),
+  );
+  animate(q(".unclaimed__text"), { opacity: [0, 1], y: [10, 0] }, { duration: 0.6, delay: 0.75, ease });
+  all(".claim-card").forEach((card, index) => animate(card, { opacity: [0, 1], x: [56, 0] }, { type: "spring", visualDuration: 0.6, bounce: 0.18, delay: 0.8 + index * 0.09 }));
+  const link = q(".unclaimed__all");
+  if (link) animate(link, { opacity: [0, 1] }, { duration: 0.5, delay: 1.2 });
+
+  // The sheen crosses the word once the last letter has landed.
+  const word = q(".unclaimed__word");
+  word.classList.remove("is-shining");
+  setTimeout(() => word.classList.add("is-shining"), 1150);
+
+  // "6" runs up from zero.
+  const number = q("[data-count]");
+  if (number && count > 0) {
+    const started = performance.now() + 750;
+    (function tick(now) {
+      const progress = Math.min(1, Math.max(0, (now - started) / 700));
+      number.textContent = Math.round(count * (1 - Math.pow(1 - progress, 3)));
+      if (progress < 1 && number.isConnected) requestAnimationFrame(tick);
+    })(performance.now());
+  }
+}
+
 /** The black band of rewards waiting to be claimed. */
 export function Unclaimed() {
   const section = el(`
     <section class="unclaimed" id="unclaimed">
       <div class="unclaimed__streak unclaimed__streak--right"><img src="${asset("rectangle-161124100.svg")}" alt="" /></div>
       <div class="unclaimed__streak unclaimed__streak--left"><img src="${asset("rectangle-161124101.svg")}" alt="" /></div>
-      <img class="unclaimed__badge" style="left:46.16px" src="${asset("vector-1.svg")}" alt="" />
-      <img class="unclaimed__badge" style="left:304.37px" src="${asset("vector-1.svg")}" alt="" />
+      ${SPARKLES.map(([x, y, size, delay]) => `<i class="unclaimed__sparkle" style="left:${x}px;top:${y}px;width:${size}px;height:${size}px;animation-delay:${delay}s"></i>`).join("")}
+      <span class="unclaimed__badge" style="left:46.16px"><img src="${asset("vector-1.svg")}" alt="" /></span>
+      <span class="unclaimed__badge" style="left:304.37px"><img src="${asset("vector-1.svg")}" alt="" /></span>
       <p class="unclaimed__eyebrow">unclaimed</p>
-      <h2 class="unclaimed__title"><span>REWARDS</span></h2>
+      <h2 class="unclaimed__title" aria-label="Rewards"><span class="unclaimed__word" aria-hidden="true">${[..."REWARDS"].map((letter) => `<i>${letter}</i>`).join("")}</span></h2>
       <p class="unclaimed__text"></p>
       <div class="unclaimed__rail scroll-x">${state.rewards.map(card).join("")}</div>
       <button class="unclaimed__all pressable" type="button">View all</button>
@@ -67,7 +125,7 @@ export function Unclaimed() {
     text.innerHTML =
       count === 0
         ? "You have claimed every reward.<br />New ones arrive each month."
-        : `You have ${count} reward${count === 1 ? "" : "s"} unclaimed. Claim ${count === 1 ? "it" : "them"}<br />before ${count === 1 ? "it expires" : "they expire"}.`;
+        : `You have <span data-count>${count}</span> reward${count === 1 ? "" : "s"} unclaimed. Claim ${count === 1 ? "it" : "them"}<br />before ${count === 1 ? "it expires" : "they expire"}.`;
   }
   renderCount();
 
@@ -90,6 +148,22 @@ export function Unclaimed() {
     const done = el(`<div class="unclaimed__done"><strong>All caught up</strong><span>Every reward here has been claimed.</span></div>`);
     section.append(done);
     animate(done, { opacity: [0, 1], y: [12, 0] }, transition("reveal"));
+  }
+
+  // Play the entrance whenever the band scrolls into view, having been out of it.
+  if (!reducedMotion.matches) {
+    section.classList.add("is-waiting");
+    new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && section.classList.contains("is-waiting")) {
+          section.classList.remove("is-waiting");
+          playIntro(section, unclaimed().length);
+        } else if (!entry.isIntersecting && entry.intersectionRatio === 0) {
+          section.classList.add("is-waiting");
+        }
+      },
+      { threshold: [0, 0.35] },
+    ).observe(section);
   }
 
   subscribe((change) => {
