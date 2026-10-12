@@ -1,8 +1,6 @@
 import { asset, el } from "../lib/dom.js";
 import { icons } from "../lib/icons.js";
 import { wheelIcon } from "../lib/wheel.js";
-
-const COIN = "light/point-shiny-front.png";
 import { openScratch, openSpin } from "./games.js";
 import { openSheet } from "./overlays.js";
 
@@ -27,11 +25,8 @@ export function PlayAndWin() {
         <button class="play-card play-card--scratch" type="button" data-game="scratch" data-press="0.96">
           <span class="play-card__beam"></span>
           <span class="play-card__rays"></span>
-          <span class="play-card__badge"><img src="${asset(COIN)}" alt="" />Win up to 100</span>
-          <span class="play-card__word play-card__word--glow" aria-hidden="true">First <br />time travel</span>
-          <span class="play-card__word play-card__word--top">First <br />time travel</span>
-          <img class="play-card__coin" style="left:8px;top:132px;width:26px" src="${asset(COIN)}" alt="" />
-          <img class="play-card__coin" style="left:124px;top:46px;width:20px;animation-delay:-1.4s" src="${asset(COIN)}" alt="" />
+          <span class="play-card__word play-card__word--glow" aria-hidden="true">Scratch<br />and win</span>
+          <span class="play-card__word play-card__word--top">Scratch<br />and win</span>
           <span class="play-card__label">Scratch and Claim${icons.caret}</span>
           <span class="play-card__shine"></span>
           <i class="play-card__star" style="left:20px;top:44px">${icons.sparkle}</i>
@@ -40,11 +35,8 @@ export function PlayAndWin() {
         <button class="play-card play-card--spin" type="button" data-game="spin" data-press="0.96">
           <span class="play-card__beam"></span>
           <span class="play-card__rays"></span>
-          <span class="play-card__badge"><img src="${asset(COIN)}" alt="" />Win up to 500</span>
           <span class="play-card__halo"></span>
           ${wheelIcon("play-card__wheel")}
-          <img class="play-card__coin" style="left:14px;top:52px;width:20px;animation-delay:-0.7s" src="${asset(COIN)}" alt="" />
-          <img class="play-card__coin" style="left:122px;top:112px;width:26px;animation-delay:-2s" src="${asset(COIN)}" alt="" />
           <span class="play-card__label">Spin and win${icons.caret}</span>
           <span class="play-card__shine" style="animation-delay:-1.6s"></span>
           <i class="play-card__star" style="left:128px;top:40px;width:10px;animation-delay:-0.6s">${icons.sparkle}</i>
@@ -61,11 +53,11 @@ export function PlayAndWin() {
     const list = el(`
       <div class="sheet-list">
         <button class="sheet-row pressable" type="button" data-game="scratch">
-          <div class="sheet-row__text"><p class="sheet-row__name">Scratch and Claim</p><p class="sheet-row__sub">First time travel · up to 100 coins</p></div>
+          <div class="sheet-row__text"><p class="sheet-row__name">Scratch and Claim</p><p class="sheet-row__sub">Scratch the foil to reveal a voucher</p></div>
           <span class="sheet-row__action">Play</span>
         </button>
         <button class="sheet-row pressable" type="button" data-game="spin">
-          <div class="sheet-row__text"><p class="sheet-row__name">Spin and win</p><p class="sheet-row__sub">Up to 500 coins on every spin</p></div>
+          <div class="sheet-row__text"><p class="sheet-row__name">Spin and win</p><p class="sheet-row__sub">Spin for a voucher: data, cashback and more</p></div>
           <span class="sheet-row__action">Play</span>
         </button>
       </div>`);

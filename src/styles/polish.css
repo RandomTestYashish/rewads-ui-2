@@ -1475,33 +1475,6 @@
   pointer-events: none;
 }
 
-.play-card__badge {
-  position: absolute;
-  left: 50%;
-  top: 10px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  height: 22px;
-  padding: 0 9px 0 4px;
-  transform: translateX(-50%);
-  border: 1px solid rgba(255, 255, 255, 0.34);
-  border-radius: 11px;
-  background: rgba(255, 255, 255, 0.18);
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 20px;
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-  color: #fff;
-}
-
-.play-card__badge img {
-  width: 14px;
-  height: 14px;
-  object-fit: contain;
-}
-
 .play-card__word {
   font-size: 21px;
 }
@@ -1513,24 +1486,6 @@
 .play-card__word--glow {
   top: 74.4px;
   filter: blur(4px);
-}
-
-.play-card__coin {
-  position: absolute;
-  aspect-ratio: 1;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
-  animation: coin-float 3.4s ease-in-out infinite;
-}
-
-@keyframes coin-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-8deg);
-  }
-  50% {
-    transform: translateY(-7px) rotate(10deg);
-  }
 }
 
 .play-card__halo {
@@ -1592,7 +1547,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .play-card__rays,
-  .play-card__coin,
   .play-card__halo,
   .play-card .wheel-needle {
     animation: none;
@@ -1718,5 +1672,81 @@
   .shortcut__xstream {
     border-radius: 16px;
     corner-shape: squircle;
+  }
+}
+
+/* ---------- Scratch card: "Scratch and win" in a display face ---------- */
+.play-card__word {
+  font-family: "Bangers", "Inter", sans-serif;
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: 1.2px;
+  transform: rotate(-6deg);
+  animation: word-pulse 2.6s ease-in-out infinite;
+}
+
+.play-card__word--top {
+  top: 52px;
+  background-image: linear-gradient(180deg, #ffffff 15%, #ffd9e2 60%, #ffffff 100%);
+  filter: drop-shadow(0 3px 0 rgba(90, 0, 30, 0.45));
+}
+
+.play-card__word--glow {
+  top: 54px;
+  filter: blur(6px);
+}
+
+@keyframes word-pulse {
+  0%,
+  100% {
+    transform: rotate(-6deg) scale(1);
+  }
+  50% {
+    transform: rotate(-4deg) scale(1.06);
+  }
+}
+
+/* With the badges gone, the wheel sits in the middle of its card again */
+.play-card__wheel {
+  top: 30px;
+}
+
+.play-card__halo {
+  top: 80px;
+}
+
+.play-card__rays {
+  top: 88px;
+}
+
+/* ---------- More room: above the shortcuts, and between sections ---------- */
+:root {
+  --gap-section: 48px;
+}
+
+.hero {
+  height: calc(var(--status-bar-h) + 226.21px);
+}
+
+.shortcuts {
+  top: calc(var(--status-bar-h) + 98.67px);
+}
+
+.whats-new,
+[data-theme="light"] .whats-new {
+  margin-top: 48px;
+}
+
+.soon,
+.faq,
+[data-theme="light"] .faq {
+  margin-top: 48px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play-card__word {
+    animation: none;
   }
 }

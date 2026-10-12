@@ -453,3 +453,89 @@
   line-height: 21px;
   text-align: center;
 }
+
+/* ---------- Voucher won in a game: a ticket with its code on the stub ---------- */
+.voucher {
+  display: flex;
+  width: 100%;
+  border-radius: 18px;
+  overflow: clip;
+  background: linear-gradient(135deg, #ff5b02, #e10203);
+  color: #fff;
+  text-align: left;
+  box-shadow: 0 14px 30px -14px rgba(225, 2, 3, 0.8);
+}
+
+.voucher__main {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 14px 14px 16px;
+}
+
+.voucher__eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.voucher__title {
+  margin-top: 2px;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 24px;
+  letter-spacing: -0.3px;
+}
+
+.voucher__text {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 16px;
+  opacity: 0.86;
+}
+
+.voucher__stub {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 0 14px;
+  border-left: 1.5px dashed rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.voucher__stub span {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.voucher__stub strong {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.scratch__prize {
+  padding: 0 16px;
+}
+
+.wheel__label {
+  font-size: 14px;
+}
+
+.wheel__label small {
+  font-size: 8px;
+}
+
+.wheel__result {
+  min-height: 78px;
+  display: grid;
+  place-items: center;
+}

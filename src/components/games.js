@@ -1,21 +1,30 @@
-import { asset, el } from "../lib/dom.js";
-import { renderedScale } from "../lib/gesture.js";
+import { el } from "../lib/dom.js";
 import { animate, reducedMotion } from "../lib/motion.js";
-import { earn } from "../lib/store.js";
-import { confetti, flyCoin, openSheet, toast } from "./overlays.js";
+import { confetti, openSheet, toast } from "./overlays.js";
 
-const COIN = "screenshot-20260908-at-100950-am-1.png";
+const code = () => `AIR-${Math.random().toString(36).slice(2, 6).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
 
-/** Scratch card: rub the foil away with a finger or the mouse to show the prize. */
+/** A won voucher, drawn as a ticket with its code on the stub. */
+function voucher({ title, text }) {
+  return `
+    <div class="voucher">
+      <div class="voucher__main">
+        <p class="voucher__eyebrow">You won</p>
+        <p class="voucher__title">${title}</p>
+        <p class="voucher__text">${text}</p>
+      </div>
+      <div class="voucher__stub"><span>Code</span><strong>${code()}</strong></div>
+    </div>`;
+}
+
+const pop = (node) => !reducedMotion.matches && animate(node, { opacity: [0, 1], scale: [0.8, 1], y: [14, 0] }, { type: "spring", visualDuration: 0.45, bounce: 0.4 });
+
+/** Scratch card: rub the foil away with a finger or the mouse to show the voucher under it. */
 export function openScratch() {
-  const prize = 100;
+  const prize = { title: "₹50 cashback", text: "On your next recharge of ₹299 or more" };
   const card = el(`
     <div class="scratch">
-      <div class="scratch__prize">
-        <img src="${asset(COIN)}" alt="" />
-        <strong>${prize} coins</strong>
-        <span>Added to your balance</span>
-      </div>
+      <div class="scratch__prize">${voucher(prize)}</div>
       <canvas width="670" height="380" aria-label="Scratch here"></canvas>
     </div>
   `);
@@ -60,10 +69,9 @@ export function openScratch() {
     if (revealed) return;
     revealed = true;
     card.classList.add("is-revealed");
-    if (!reducedMotion.matches) animate(card.querySelector(".scratch__prize"), { scale: [0.86, 1] }, { type: "spring", visualDuration: 0.5, bounce: 0.45 });
-    flyCoin(card.querySelector(".scratch__prize img"), () => earn(prize, "Scratch card"));
+    pop(card.querySelector(".voucher"));
     confetti(card);
-    toast(`You won ${prize} coins`);
+    toast("Voucher saved to My Rewards");
   }
 
   canvas.addEventListener("pointerdown", (event) => {
@@ -91,23 +99,33 @@ export function openScratch() {
     }),
   );
 
-  openSheet({ eyebrow: "Scratch and claim", title: "First time travel", text: "Scratch the card to see what you have won.", content: card });
+  openSheet({ eyebrow: "Scratch and claim", title: "Scratch and win", text: "Scratch the card to see what you have won.", content: card });
 }
 
-const SEGMENTS = [50, 10, 100, 20, 200, 10, 75, 500];
+// What each slice of the wheel says, and the voucher it gives.
+const SEGMENTS = [
+  { big: "₹50", small: "off", title: "₹50 off", text: "On your next recharge of ₹299 or more" },
+  { big: "1 GB", small: "data", title: "1 GB of data", text: "Added to your pack, valid for 3 days" },
+  { big: "₹100", small: "cashback", title: "₹100 cashback", text: "On your next bill payment" },
+  { big: "OTT", small: "1 month", title: "1 month of Xstream Play", text: "22 apps in one, on us" },
+  { big: "₹25", small: "off", title: "₹25 off", text: "On any recharge" },
+  { big: "2 GB", small: "data", title: "2 GB of data", text: "Added to your pack, valid for 7 days" },
+  { big: "₹200", small: "voucher", title: "₹200 shopping voucher", text: "With Airtel Insider partners" },
+  { big: "BOGO", small: "tickets", title: "Buy one, get one", text: "On movie tickets this weekend" },
+];
 
-/** Spin the wheel: one tap spins to a prize and adds the coins. */
+/** Spin the wheel: one tap spins to a slice and hands over its voucher. */
 export function openSpin() {
   const wheel = el(`
     <div>
       <div class="wheel">
         <div class="wheel__disc">
-          ${SEGMENTS.map((coins, index) => `<span class="wheel__label" style="transform:rotate(${index * 45}deg)">${coins}<small>coins</small></span>`).join("")}
+          ${SEGMENTS.map((segment, index) => `<span class="wheel__label" style="transform:rotate(${index * 45}deg)">${segment.big}<small>${segment.small}</small></span>`).join("")}
         </div>
         <div class="wheel__hub"></div>
         <div class="wheel__pointer"></div>
       </div>
-      <p class="wheel__result" role="status">Tap spin to try your luck</p>
+      <div class="wheel__result" role="status"><p>Tap spin to try your luck</p></div>
     </div>
   `);
   const disc = wheel.querySelector(".wheel__disc");
@@ -125,17 +143,17 @@ export function openSpin() {
         if (spinning) return;
         spinning = true;
         button.disabled = true;
-        result.textContent = "Spinning…";
+        result.innerHTML = "<p>Spinning…</p>";
         const index = Math.floor(Math.random() * SEGMENTS.length);
-        // Land the chosen segment under the pointer, after five full turns.
+        // Land the chosen slice under the pointer, after five full turns.
         const from = turns;
         turns = Math.ceil(turns / 360) * 360 + 360 * 5 + (360 - index * 45);
         await animate(disc, { rotate: [from, turns] }, reducedMotion.matches ? { duration: 0.01 } : { duration: 4.2, ease: [0.12, 0.8, 0.14, 1] });
-        const coins = SEGMENTS[index];
-        result.textContent = `You won ${coins} coins`;
-        flyCoin(wheel.querySelector(".wheel__hub"), () => earn(coins, "Spin the wheel"));
+        result.innerHTML = voucher(SEGMENTS[index]);
+        pop(result.firstElementChild);
+        result.scrollIntoView({ behavior: "smooth", block: "nearest" });
         confetti(wheel.querySelector(".wheel__hub"));
-        toast(`You won ${coins} coins`);
+        toast("Voucher saved to My Rewards");
         button.textContent = "Spin again";
         button.disabled = false;
         spinning = false;
