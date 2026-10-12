@@ -1030,8 +1030,8 @@
   animation-duration: 2.2s;
 }
 
-/* ---------- What's New: a black card with the claim cards' fading white stroke, in both themes ---------- */
-.phone__screen[data-theme] .whats-new {
+/* ---------- What's New, dark theme: a black card with the claim cards' fading white stroke ---------- */
+.phone__screen[data-theme="dark"] .whats-new {
   border: 1px solid transparent;
   border-radius: 16px;
   background:
@@ -1040,17 +1040,13 @@
   box-shadow: none;
 }
 
-.whats-new__blur {
-  display: none !important;
-}
-
-.phone__screen[data-theme] .whats-new__title {
+.phone__screen[data-theme="dark"] .whats-new__title {
   top: 31.3px;
   transform: rotate(-2.14deg);
   color: transparent;
 }
 
-.phone__screen[data-theme] .whats-new__title--glow {
+.phone__screen[data-theme="dark"] .whats-new__title--glow {
   display: block;
   top: 34.28px;
   color: var(--color-red);
@@ -1058,11 +1054,11 @@
   filter: blur(7.265px);
 }
 
-.phone__screen[data-theme] .whats-new__title--live {
+.phone__screen[data-theme="dark"] .whats-new__title--live {
   background: none;
 }
 
-.phone__screen[data-theme] .whats-new__title--live i {
+.phone__screen[data-theme="dark"] .whats-new__title--live i {
   color: transparent;
   background-image: linear-gradient(160.829deg, rgb(225, 2, 3) 17.844%, rgb(255, 229, 80) 44.527%, rgb(255, 229, 80) 57.005%);
   background-size: 214.127px 43.595px;
@@ -1072,11 +1068,11 @@
   background-clip: text;
 }
 
-.whats-new__dots i {
+[data-theme="dark"] .whats-new__dots i {
   background: #fff;
 }
 
-.phone__screen[data-theme] .whats-new__dots i[aria-current="true"] {
+.phone__screen[data-theme="dark"] .whats-new__dots i[aria-current="true"] {
   background: var(--color-yellow);
 }
 
@@ -1098,4 +1094,290 @@
   top: 0;
   width: 139.61%;
   height: 100%;
+}
+
+/* ---------- Airtel Insider, toned down: the Figma card's own rose, quieter rays and glow ---------- */
+.insider__card {
+  background:
+    radial-gradient(90% 60% at 50% 38%, rgba(236, 120, 140, 0.55) 0%, rgba(236, 120, 140, 0) 70%),
+    linear-gradient(180deg, #a92c46 0%, #bf3c56 55%, #d65b6c 100%);
+  box-shadow:
+    0 20px 44px -26px rgba(169, 44, 70, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.insider__rays {
+  background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.08) 0deg 5deg, rgba(255, 255, 255, 0) 5deg 12deg);
+  animation-duration: 70s;
+}
+
+.insider__glow {
+  background: radial-gradient(closest-side, rgba(255, 226, 200, 0.3), rgba(255, 170, 150, 0.12) 50%, rgba(255, 170, 150, 0) 100%);
+  animation-duration: 5s;
+}
+
+.insider__frame {
+  border-color: #e1899b;
+  background: linear-gradient(180deg, rgba(110, 20, 40, 0) 60%, rgba(110, 20, 40, 0.28) 100%);
+}
+
+.insider__orbit,
+.insider__bubble {
+  animation-duration: 64s;
+}
+
+.insider__bubble {
+  box-shadow:
+    0 6px 14px rgba(70, 0, 20, 0.3),
+    0 0 0 1.5px rgba(255, 255, 255, 0.22);
+}
+
+.insider__pill {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.insider__pulse {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+  animation-duration: 3.6s;
+}
+
+.insider__glint {
+  color: rgba(255, 243, 196, 0.7);
+}
+
+.insider__button {
+  color: #a92c46;
+  box-shadow: 0 10px 22px -12px rgba(70, 0, 20, 0.6);
+}
+
+/* =====================================================================================
+   Light theme. No black surfaces: every panel that is black in the dark theme gets a
+   light or brand-coloured counterpart here, with the same structure and motion.
+   ===================================================================================== */
+[data-theme="light"] {
+  --color-accent: #e10203;
+  --color-accent-b: #ff5b02;
+  --color-text: #1c1c1e;
+  --color-card: #f6f7fa;
+}
+
+/* Shortcuts: light and brand-coloured discs */
+[data-theme="light"] .shortcut__disc {
+  background:
+    linear-gradient(157.012deg, #ffffff 9.4387%, #e9edf5 83.259%) padding-box,
+    linear-gradient(180deg, #ffffff, #dfe4ee) border-box;
+  box-shadow: 0 10px 20px -12px rgba(20, 40, 90, 0.4);
+}
+
+[data-theme="light"] [data-shortcut="insider"] .shortcut__disc {
+  background:
+    linear-gradient(157.012deg, #d65b6c 9.4387%, #a92c46 83.259%) padding-box,
+    linear-gradient(180deg, #f3b3bf, #c8405a) border-box;
+}
+
+[data-theme="light"] [data-shortcut="club"] .shortcut__disc {
+  background:
+    linear-gradient(157.012deg, #ff5b02 9.4387%, #e10203 83.259%) padding-box,
+    linear-gradient(180deg, #ffb48a, #e10203) border-box;
+}
+
+[data-theme="light"] [data-shortcut="spin"] .shortcut__disc {
+  background:
+    linear-gradient(157.012deg, #f1edff 9.4387%, #d5d0fb 83.259%) padding-box,
+    linear-gradient(180deg, #ffffff, #c4bdf5) border-box;
+}
+
+/* Unclaimed rewards: a light band, red-to-orange lettering, white cards */
+[data-theme="light"] .unclaimed {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f5fb 100%);
+  color: var(--color-text);
+}
+
+[data-theme="light"] .unclaimed__streak {
+  display: none; /* beams of white light do not show on a light band */
+}
+
+[data-theme="light"] .unclaimed__eyebrow {
+  color: var(--color-accent);
+  text-shadow: none;
+}
+
+[data-theme="light"] .unclaimed__word i {
+  background-image: linear-gradient(180deg, #ff5b02 0%, #e10203 60%, #b00102 100%);
+}
+
+[data-theme="light"] .unclaimed__word::after {
+  background-image: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.7) 50%, transparent 70%);
+}
+
+[data-theme="light"] .unclaimed__text {
+  color: rgba(28, 28, 30, 0.66);
+}
+
+/* The badge artwork is white; recolour it through a mask */
+[data-theme="light"] .unclaimed__badge img {
+  display: none;
+}
+
+[data-theme="light"] .unclaimed__badge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  -webkit-mask: url("../assets/vector-1.svg") center / contain no-repeat;
+  mask: url("../assets/vector-1.svg") center / contain no-repeat;
+  animation: turn 16s linear infinite;
+}
+
+[data-theme="light"] .unclaimed__sparkle {
+  background: radial-gradient(circle, #ff9a1f 0%, #ffb84d 45%, rgba(255, 184, 77, 0) 70%);
+}
+
+[data-theme="light"] .claim-card {
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(180deg, #e6e9ef, #eef0f5) border-box;
+  box-shadow: 0 14px 28px -18px rgba(20, 40, 90, 0.4);
+}
+
+[data-theme="light"] .claim-card__wash {
+  opacity: 0.3;
+}
+
+[data-theme="light"] .claim-card__veil,
+[data-theme="light"] .claim-card::after {
+  display: none;
+}
+
+[data-theme="light"] .claim-card__text {
+  font-weight: 400;
+  color: rgba(28, 28, 30, 0.66);
+}
+
+[data-theme="light"] .claim-button {
+  background: linear-gradient(135deg, var(--color-accent-b), var(--color-accent));
+  color: #fff;
+  box-shadow: 0 8px 16px -8px rgba(225, 2, 3, 0.7);
+}
+
+[data-theme="light"] .claim-button[data-state="claiming"] {
+  color: transparent;
+}
+
+[data-theme="light"] .claim-button[data-state="claiming"]::after {
+  border-color: rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+}
+
+[data-theme="light"] .claim-button[data-state="claimed"] {
+  background: var(--color-success);
+  box-shadow: none;
+}
+
+[data-theme="light"] .unclaimed__all {
+  background: rgba(28, 28, 30, 0.06);
+  color: var(--color-text);
+}
+
+[data-theme="light"] .unclaimed__done {
+  border-color: #e6e9ef;
+  background: #fff;
+}
+
+[data-theme="light"] .unclaimed__done span {
+  color: rgba(28, 28, 30, 0.6);
+}
+
+/* What's New: the cream card from the Figma light frame, with red-to-orange lettering */
+[data-theme="light"] .whats-new {
+  border-color: #e3e7ef;
+  border-radius: 16px;
+  box-shadow: 0 16px 34px -24px rgba(255, 150, 0, 0.7);
+}
+
+[data-theme="light"] .whats-new__title--live i {
+  color: transparent;
+  background-image: linear-gradient(100deg, #e10203 10%, #ff5b02 90%);
+  background-size: 214.127px 43.595px;
+  background-position: var(--x, 0) 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+[data-theme="light"] .whats-new__dots i {
+  background: #1c1c1e;
+}
+
+/* Play and win: full-colour cards */
+[data-theme="light"] .play-card--scratch {
+  border-color: #ff9db2;
+  background: linear-gradient(160deg, #ff6d8a 0%, #d81b60 100%);
+  box-shadow: 0 16px 30px -18px #d81b60;
+}
+
+[data-theme="light"] .play-card--spin {
+  border-color: #b9c0ff;
+  background: linear-gradient(160deg, #8b98ff 0%, #4a3fd1 100%);
+  box-shadow: 0 16px 30px -18px #4a3fd1;
+}
+
+[data-theme="light"] .play-card__beam {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="light"] .play-card__label {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Subscriptions and plan */
+[data-theme="light"] .pill[aria-selected="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+[data-theme="light"] .subs__panel {
+  background-image:
+    radial-gradient(120% 90% at 100% 0%, rgba(0, 189, 61, 0.1), transparent 60%),
+    linear-gradient(to bottom, #fff, #f5f6f9);
+}
+
+[data-theme="light"] .plan__list {
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(79, 155, 255, 0.14), transparent 60%),
+    #fff;
+  box-shadow: 0 12px 26px -20px rgba(20, 40, 90, 0.4);
+}
+
+/* Questions, sheets and the toast: red where the dark theme inverts to white */
+[data-theme="light"] .faq__q[aria-expanded="true"] .faq__chip {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+[data-theme="light"] .sheet__cta,
+[data-theme="light"] .sheet-row__action {
+  background: linear-gradient(135deg, var(--color-accent-b), var(--color-accent));
+  color: #fff;
+}
+
+[data-theme="light"] .sheet-row__action[disabled] {
+  background: none;
+  color: var(--color-success);
+}
+
+[data-theme="light"] .sheet__scrim {
+  background: rgba(40, 50, 80, 0.36);
+}
+
+[data-theme="light"] .toast {
+  border: 1px solid #e6e9ef;
+  background: #fff;
+  color: var(--color-text);
+  box-shadow: 0 14px 30px -10px rgba(20, 40, 90, 0.35);
+}
+
+[data-theme="light"] .phone__home-indicator {
+  background: #9aa3b2;
 }
