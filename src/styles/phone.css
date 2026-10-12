@@ -1,0 +1,184 @@
+/* Desktop presentation: a dark stage with the phone centered on it */
+.stage {
+  --phone-scale: 1;
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 700px at 50% 35%, #23262d 0%, rgba(35, 38, 45, 0) 70%),
+    #0e0f12;
+}
+
+.phone {
+  --bezel: 12px;
+  position: relative;
+  flex: none;
+  width: calc(var(--screen-w) + var(--bezel) * 2);
+  height: calc(var(--screen-h) + var(--bezel) * 2);
+  padding: var(--bezel);
+  border-radius: 56px;
+  background: linear-gradient(145deg, #3a3c42 0%, #17181b 38%, #0b0b0d 100%);
+  box-shadow:
+    inset 0 0 0 1.5px #55585f,
+    inset 0 0 0 4px #0a0a0b,
+    0 40px 80px -20px rgba(0, 0, 0, 0.7),
+    0 18px 36px -18px rgba(0, 0, 0, 0.6);
+  transform: scale(var(--phone-scale));
+  transform-origin: center;
+}
+
+/* Hardware buttons */
+.phone::before,
+.phone::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  border-radius: 2px;
+  background: #2a2c31;
+}
+
+.phone::before {
+  left: -3px;
+  top: 150px;
+  height: 34px;
+  box-shadow:
+    0 64px 0 0 #2a2c31,
+    0 78px 0 0 #2a2c31,
+    0 128px 0 0 #2a2c31,
+    0 142px 0 0 #2a2c31;
+}
+
+.phone::after {
+  right: -3px;
+  top: 210px;
+  height: 92px;
+}
+
+/* The screen is always exactly 375 × 812; only the outer phone is scaled */
+.phone__screen {
+  position: relative;
+  width: var(--screen-w);
+  height: var(--screen-h);
+  border-radius: 44px;
+  overflow: hidden;
+  background: var(--color-surface);
+  color: var(--color-text);
+  isolation: isolate;
+  user-select: none;
+  transition: background-color var(--dur-standard) var(--ease-out);
+}
+
+.phone__home-indicator {
+  position: absolute;
+  z-index: 70;
+  left: 50%;
+  bottom: 8px;
+  width: 134px;
+  height: 5px;
+  margin-left: -67px;
+  border-radius: 3px;
+  background: var(--color-text);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* ---------- Theme switch (the two Figma frames) ---------- */
+.theme-switch {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.theme-switch__button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 0.62);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.theme-switch__button:hover {
+  color: #fff;
+}
+
+.theme-switch__button[aria-pressed="true"] {
+  background: #fff;
+  color: #111;
+}
+
+.theme-switch__button:focus-visible {
+  outline-color: #fff;
+}
+
+/* ---------- Mobile web: no mockup, the screen is the whole viewport ---------- */
+.is-mobile {
+  --status-bar-h: 0px; /* the real device draws its own status bar */
+}
+
+.is-mobile body {
+  touch-action: manipulation;
+}
+
+.is-mobile .stage {
+  display: block;
+  background: none;
+}
+
+.is-mobile .phone {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  transform: none;
+}
+
+.is-mobile .phone::before,
+.is-mobile .phone::after,
+.is-mobile .phone__home-indicator,
+.is-mobile .status-bar {
+  display: none;
+}
+
+.is-mobile .phone__screen {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  border-radius: 0;
+}
+
+/* On phones the switch floats over the design as a slim pill at the right edge */
+.is-mobile .theme-switch {
+  position: fixed;
+  z-index: 80;
+  top: auto;
+  bottom: 18px;
+  left: auto;
+  right: 10px;
+  padding: 3px;
+  border: 0;
+  border-radius: 20px;
+  background: rgba(24, 25, 28, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.is-mobile .theme-switch__button {
+  padding: 6px 10px;
+  border-radius: 17px;
+  font-size: 11px;
+}

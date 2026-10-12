@@ -1,0 +1,2236 @@
+/* The My Rewards page. Offsets are the Figma frame's, measured from the top of the 375px frame. */
+
+.page {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.page__content {
+  position: relative;
+  width: var(--screen-w);
+  overflow: clip;
+}
+
+/* Sections fade up the first time they scroll into view */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 520ms var(--ease-out),
+    transform 620ms var(--ease-out);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Theme-only pieces */
+[data-theme="light"] .shortcut__disc {
+  background:
+    linear-gradient(157.012deg, rgb(87, 82, 82) 9.4387%, rgb(0, 0, 0) 83.259%) padding-box,
+    linear-gradient(180deg, #efefef, #efefef) border-box;
+}
+
+[data-theme="dark"] .only-light,
+[data-theme="light"] .only-dark {
+  display: none !important;
+}
+
+/* ---------- Status bar and app bar (fixed over the page) ---------- */
+.topbar {
+  position: absolute;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  width: var(--screen-w);
+  height: calc(var(--status-bar-h) + 72px);
+  pointer-events: none;
+}
+
+.topbar > * {
+  pointer-events: auto;
+}
+
+/* Glass that fades in once the page has scrolled under the bar */
+.topbar__glass {
+  position: absolute;
+  inset: 0;
+  background: var(--color-topbar);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  border-bottom: 1px solid var(--color-sheet-border);
+  opacity: 0;
+  transition: opacity var(--dur-standard) var(--ease-out);
+  pointer-events: none;
+}
+
+[data-scrolled="true"] .topbar__glass {
+  opacity: 1;
+}
+
+.status-bar {
+  position: absolute;
+  top: -0.79px;
+  left: 0;
+  width: var(--screen-w);
+  height: 44px;
+  pointer-events: none;
+}
+
+.status-bar img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+}
+
+.status-bar__battery {
+  position: absolute;
+  inset: 39.39% 5.42% 34.85% 88.09%;
+}
+
+.status-bar__wifi {
+  position: absolute;
+  inset: 39.39% 13.24% 35.61% 82.67%;
+}
+
+.status-bar__cell {
+  position: absolute;
+  inset: 40.15% 18.67% 35.61% 76.8%;
+}
+
+.status-bar__time {
+  position: absolute;
+  left: 24.52px;
+  top: 16px;
+  width: 28.426px;
+  height: 11.089px;
+}
+
+.topbar__back {
+  position: absolute;
+  left: 16px;
+  top: calc(var(--status-bar-h) + 15.21px);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.topbar__back img {
+  position: absolute;
+}
+
+.topbar__back-ring {
+  inset: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.topbar__back-arrow {
+  left: 11.67px;
+  top: 11.67px;
+  width: 16.67px;
+  height: 16.67px;
+}
+
+.topbar__back-caret {
+  left: 6px;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+}
+
+.topbar__title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--status-bar-h) + 16.95px);
+  text-align: center;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.topbar__title strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: -0.96px;
+  color: var(--color-text);
+}
+
+.topbar__title span {
+  display: block;
+  margin-top: 2.5px;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: -0.72px;
+  color: var(--color-text-muted);
+}
+
+/* Dark frame: the gold coin with the balance on a pill across its foot */
+.coin {
+  position: absolute;
+  left: 307.42px;
+  top: calc(var(--status-bar-h) + 13.04px);
+  width: 48px;
+  height: 44.4px;
+}
+
+.coin__glow {
+  position: absolute;
+  left: 5.94px;
+  top: 1.82px;
+  width: 40.7px;
+  height: 40.7px;
+}
+
+.coin__art {
+  position: absolute;
+  left: 1.14px;
+  top: 0;
+  width: 45.711px;
+  height: 44.343px;
+  object-fit: cover;
+}
+
+.coin__pill {
+  position: absolute;
+  left: 50%;
+  top: 29.8px;
+  min-width: 48px;
+  height: 14.544px;
+  padding: 0 6px;
+  transform: translateX(-50%);
+  border-radius: 50px;
+  background: linear-gradient(to top, #f8c14c, #ffaa50);
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 14.544px;
+  letter-spacing: 0.36px;
+  text-align: center;
+  white-space: nowrap;
+  color: #000;
+}
+
+/* Light frame: a white pill with the shiny point and the balance */
+.points {
+  position: absolute;
+  right: 16px;
+  top: calc(var(--status-bar-h) + 13.04px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 75px;
+  height: 40px;
+  padding: 8px;
+  border: 1px solid #e6e9ef;
+  border-radius: 100px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  color: #292c31;
+}
+
+.points img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* ---------- Hero: glow and the four shortcuts ---------- */
+.hero {
+  position: relative;
+  height: calc(var(--status-bar-h) + 202.21px);
+}
+
+.hero__glow {
+  position: absolute;
+  left: -44.86px;
+  top: calc(var(--status-bar-h) - 203.47px);
+  width: 447.07px;
+  height: 317.36px;
+  pointer-events: none;
+}
+
+.hero__glow img {
+  position: absolute;
+  inset: -100.83% -71.58%;
+  width: 243.16%;
+  height: 301.66%;
+}
+
+.shortcuts {
+  position: absolute;
+  left: 0;
+  top: calc(var(--status-bar-h) + 84.67px);
+  width: 100%;
+  height: 102px;
+}
+
+.shortcut {
+  position: absolute;
+  top: 0;
+  width: 88px;
+  margin-left: -44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shortcut__disc {
+  position: relative;
+  flex: none;
+  width: 72px;
+  height: 72px;
+  border: 2px solid transparent;
+  border-radius: 80px;
+  overflow: clip;
+  /* Figma strokes the disc #efefef, fading out below the top edge */
+  background:
+    linear-gradient(157.012deg, rgb(87, 82, 82) 9.4387%, rgb(0, 0, 0) 83.259%) padding-box,
+    linear-gradient(180deg, #efefef 0%, rgba(239, 239, 239, 0.16) 30%, rgba(239, 239, 239, 0.04) 100%) border-box;
+}
+
+.shortcut__disc > img,
+.shortcut__disc > div {
+  position: absolute;
+}
+
+.shortcut__label {
+  margin-top: 15.04px;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: -0.72px;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.shortcut__netflix {
+  left: 15.13px;
+  top: 15.13px;
+  width: 37.735px;
+  height: 37.735px;
+  object-fit: cover;
+}
+
+.shortcut__insider {
+  left: 50%;
+  top: 16.61px;
+  width: 57.955px;
+  height: 29.196px;
+  margin-left: -28.98px;
+  overflow: clip;
+}
+
+.shortcut__insider img,
+.insider__pill-logo img {
+  position: absolute;
+  left: -13.98%;
+  top: 0;
+  width: 139.61%;
+  height: 100%;
+}
+
+.shortcut__wheel {
+  left: 19.98px;
+  top: 17.64px;
+  width: 30px;
+  height: 33.408px;
+}
+
+/* ---------- The Advantage Club lockup (three vector layers and the edition tag) ---------- */
+.lockup {
+  position: absolute;
+  overflow: clip;
+}
+
+.lockup img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.lockup__tag {
+  position: absolute;
+  inset: 59.17% 0 16.98% 55.33%;
+  transform: rotate(-0.2deg);
+}
+
+.lockup__edition {
+  position: absolute;
+  inset: 66.37% 4.46% 22.35% 61.31%;
+  transform: rotate(-0.2deg);
+  font-size: calc(var(--lockup-w) * 0.05457);
+  line-height: 1.21;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.lockup__mark {
+  position: absolute;
+  inset: 0 60.02% 78.53% 7%;
+}
+
+.lockup__name {
+  position: absolute;
+  inset: 1.72% 0.05% 0 0;
+}
+
+.lockup--shortcut .lockup__mark {
+  inset: 1.52% 61.74% 78.26% 7.36%;
+}
+
+.lockup--shortcut .lockup__edition {
+  inset: 66.37% 4.62% 22.51% 61.32%;
+  font-size: 2.367px;
+}
+
+/* ---------- Unclaimed rewards ---------- */
+.unclaimed {
+  position: relative;
+  height: 413px;
+  overflow: clip;
+  background-image: linear-gradient(150.386deg, rgb(0, 0, 0) 11.565%, rgb(26, 26, 26) 52.156%, rgb(25, 24, 24) 87.386%);
+  color: #fff;
+}
+
+.unclaimed__streak {
+  position: absolute;
+  top: 45.17px;
+  width: 205.737px;
+  height: 17.25px;
+  pointer-events: none;
+}
+
+.unclaimed__streak img {
+  position: absolute;
+  inset: -173.91% -14.58%;
+  width: 129.16%;
+  height: 447.82%;
+}
+
+.unclaimed__streak--right {
+  left: 249.26px;
+}
+
+.unclaimed__streak--left {
+  left: -68.74px;
+  transform: scaleX(-1);
+}
+
+.unclaimed__badge {
+  position: absolute;
+  top: 45.58px;
+  width: 16.84px;
+  height: 16.84px;
+}
+
+.unclaimed__eyebrow {
+  position: absolute;
+  left: 0;
+  right: 1.86px;
+  top: 20px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 17px;
+  letter-spacing: 0.56px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+}
+
+.unclaimed__title {
+  position: absolute;
+  left: 0;
+  right: 1.86px;
+  top: 37px;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 34px;
+  text-align: center;
+  color: transparent;
+  background-image: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 0%,
+    rgb(255, 255, 255) 28.977%,
+    rgb(194, 194, 194) 49.731%,
+    rgb(255, 255, 255) 62.938%,
+    rgb(249, 249, 249) 73.317%,
+    rgb(153, 153, 153) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.unclaimed__title span {
+  display: inline-block;
+  position: relative;
+  color: transparent;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* A highlight that crosses the word once on load */
+.unclaimed__title span::after {
+  content: "REWARDS";
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.95) 50%, transparent 60%) no-repeat;
+  background-size: 250% 100%;
+  background-position: 160% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: sheen 5.5s var(--ease-in-out) 0.9s infinite;
+}
+
+@keyframes sheen {
+  0%,
+  55% {
+    background-position: 160% 0;
+  }
+  85%,
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+.unclaimed__text {
+  position: absolute;
+  left: 0;
+  right: 1.86px;
+  top: 75.47px;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.unclaimed__rail {
+  position: absolute;
+  left: 0;
+  top: 113px;
+  width: 100%;
+  height: 254px;
+  display: flex;
+  gap: 16px;
+  padding: 8.47px 16px 0;
+  scroll-padding: 0 16px;
+}
+
+.unclaimed__rail::after {
+  content: "";
+  flex: none;
+  width: 1px;
+  margin-left: -1px;
+}
+
+.claim-card {
+  position: relative;
+  flex: none;
+  width: 180px;
+  height: 237px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  overflow: clip;
+  /* white stroke at the top of the card, fading out towards its foot */
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.55) 40%, rgba(255, 255, 255, 0.12) 100%) border-box;
+  scroll-snap-align: start;
+  text-align: center;
+}
+
+/* The tinted disc, blurred into a wash across the card */
+.claim-card__wash {
+  position: absolute;
+  left: -210.81px;
+  top: -5.15px;
+  width: 295.616px;
+  height: 295.616px;
+  filter: blur(72px);
+}
+
+.claim-card__veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.claim-card__art {
+  position: absolute;
+  top: 23px;
+  height: 75.28px;
+  overflow: clip;
+}
+
+.claim-card__art img {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+.claim-card__art--netflix {
+  left: -1px;
+  width: 180px;
+}
+
+.claim-card__art--netflix img {
+  top: -53.77%;
+  height: 208.2%;
+}
+
+.claim-card__art--appletv {
+  left: 50%;
+  width: 102.535px;
+  height: 75px;
+  margin-left: -51.27px;
+}
+
+.claim-card__art--appletv img {
+  top: -17.56%;
+  height: 134.53%;
+}
+
+/* Rewards beyond the two drawn in Figma reuse the app tile from the plan list */
+.claim-card__art--tile {
+  left: 50%;
+  top: 28px;
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
+  border-radius: 16px;
+  background: #000;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.claim-card__art--tile img {
+  top: 0;
+  height: 100%;
+  object-fit: cover;
+}
+
+.claim-card__name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 115.28px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  white-space: nowrap;
+}
+
+.claim-card__text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 136.28px;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 15px;
+  white-space: nowrap;
+}
+
+.claim-button {
+  position: absolute;
+  left: 50%;
+  top: 182.28px;
+  width: 122px;
+  height: 28px;
+  margin-left: -61px;
+  border-radius: 50px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #000;
+  transition:
+    background-color var(--dur-standard) var(--ease-out),
+    color var(--dur-standard) var(--ease-out);
+}
+
+.claim-button[data-state="claiming"] {
+  color: transparent;
+}
+
+.claim-button[data-state="claiming"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px;
+  border: 2px solid rgba(0, 0, 0, 0.18);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 600ms linear infinite;
+}
+
+.claim-button[data-state="claimed"] {
+  background: var(--color-success);
+  color: #fff;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.unclaimed__all {
+  position: absolute;
+  left: 50%;
+  top: 370px;
+  padding: 10px 12px;
+  transform: translateX(-50%);
+  font-size: 12px;
+  line-height: 12px;
+  text-decoration: underline;
+  text-underline-position: from-font;
+  color: #fff;
+}
+
+.unclaimed__done {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 150px;
+  padding: 44px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.unclaimed__done strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.unclaimed__done span {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- What's New ---------- */
+.whats-new {
+  position: relative;
+  height: 500px;
+  margin: 52px 21px 0;
+  border: 1px solid var(--color-red);
+  border-radius: 16px;
+  overflow: clip;
+  /* Figma: red, through black a third of the way down the diagonal, back to red */
+  background-image: linear-gradient(
+    147.966deg,
+    #780102 0%,
+    #5e0101 8%,
+    #1c0000 27%,
+    #0f0000 35.851%,
+    #3d0101 55.6%,
+    #5e0101 68%,
+    #9d0102 102.09%
+  );
+}
+
+[data-theme="light"] .whats-new {
+  margin-top: 31px;
+  border-color: #cdd3dd;
+  border-radius: 24px;
+  background-image: linear-gradient(to bottom, #fff, #f5f5f5);
+}
+
+.whats-new__blur {
+  position: absolute;
+  height: 52.829px;
+  pointer-events: none;
+}
+
+.whats-new__blur--a {
+  left: 7.37px;
+  top: 5.46px;
+  width: 279.156px;
+  background: #ffd44d;
+  filter: blur(37px);
+}
+
+.whats-new__blur--b {
+  left: -79px;
+  top: 314.5px;
+  width: 550.203px;
+  background: #ffd44d;
+  filter: blur(37px);
+  transform: rotate(-17.59deg);
+}
+
+.whats-new__blur--c {
+  left: 57.37px;
+  top: 55.46px;
+  width: 279.156px;
+  background: #fbb0b0;
+  filter: blur(62px);
+}
+
+.whats-new__title {
+  position: absolute;
+  left: calc(50% - 93.17px);
+  width: 214.127px;
+  height: 43.595px;
+  font-size: 33.531px;
+  font-weight: 900;
+  line-height: 1.21;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .whats-new__title {
+  top: 31.3px;
+  transform: rotate(-2.14deg);
+  color: transparent;
+  background-image: linear-gradient(160.829deg, rgb(225, 2, 3) 17.844%, rgb(255, 229, 80) 44.527%, rgb(255, 229, 80) 57.005%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+[data-theme="dark"] .whats-new__title--glow {
+  top: 34.28px;
+  color: var(--color-red);
+  background: none;
+  filter: blur(7.265px);
+}
+
+[data-theme="light"] .whats-new__title {
+  top: 31.28px;
+  color: #000;
+}
+
+[data-theme="light"] .whats-new__title--glow {
+  display: none;
+}
+
+.flame {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.flame img {
+  animation: flicker 2.4s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+
+.flame--a {
+  left: 325.03px;
+  top: 31.05px;
+  width: 67.106px;
+  height: 67.106px;
+  transform: rotate(30deg);
+}
+
+.flame--a img {
+  width: 49.125px;
+  height: 49.125px;
+}
+
+.flame--b {
+  left: 298.67px;
+  top: 15.78px;
+  width: 47.648px;
+  height: 47.648px;
+  transform: rotate(-24.94deg);
+}
+
+.flame--b img {
+  width: 35.867px;
+  height: 35.867px;
+  animation-delay: -0.8s;
+}
+
+.flame--c {
+  left: -11.64px;
+  top: 57.69px;
+  width: 48.265px;
+  height: 48.265px;
+  transform: rotate(27.09deg);
+}
+
+.flame--c img {
+  width: 35.867px;
+  height: 35.867px;
+  animation-delay: -1.5s;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  30% {
+    transform: scale(1.07, 1.12) rotate(-3deg);
+  }
+  60% {
+    transform: scale(0.97, 1.04) rotate(2.5deg);
+  }
+}
+
+.whats-new__rail {
+  position: absolute;
+  left: 1.19px;
+  bottom: -1px;
+  width: 331px;
+  height: 388px;
+  display: flex;
+  gap: 12px;
+  padding: 0 20px;
+  scroll-padding: 0 20px;
+}
+
+.whats-new__rail::after {
+  content: "";
+  flex: none;
+  width: 8px;
+  margin-left: -12px;
+}
+
+.whats-new__dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 9px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  pointer-events: none;
+}
+
+.whats-new__dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background: var(--color-text);
+  opacity: 0.28;
+  transition:
+    width var(--dur-standard) var(--ease-out),
+    opacity var(--dur-standard) var(--ease-out);
+}
+
+.whats-new__dots i[aria-current="true"] {
+  width: 14px;
+  opacity: 0.9;
+}
+
+/* ---------- Banner (the What's New cards and the large Advantage Club one) ---------- */
+.banner {
+  position: relative;
+  flex: none;
+  width: 280px;
+  height: 364px;
+  border-radius: 20px;
+  overflow: clip;
+  clip-path: inset(0 round 20px);
+  scroll-snap-align: start;
+  color: #fff;
+  cursor: pointer;
+}
+
+.banner--club {
+  background-image: linear-gradient(127.569deg, rgb(225, 2, 3) 14.286%, rgb(255, 91, 2) 85.714%);
+}
+
+.banner--dark {
+  background-image: linear-gradient(to bottom, #2a2a2e, #0f0f10);
+}
+
+.banner--peach {
+  background-image: linear-gradient(to bottom, #fff3ec, #ffe1d2);
+}
+
+.banner__art {
+  position: absolute;
+  overflow: clip;
+  pointer-events: none;
+}
+
+.banner__art img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.banner__art--zakir {
+  inset: 11.81% -27.65% -2.55% 25.36%;
+}
+
+.banner__art--zakir img {
+  top: -55.4%;
+  height: 154.73%;
+}
+
+.banner__art--adobe {
+  left: -41px;
+  top: -114px;
+  width: 361px;
+  height: 643px;
+}
+
+.banner__art--duolingo {
+  left: -22px;
+  top: -22px;
+  width: 322px;
+  height: 454px;
+}
+
+.banner__art--duolingo img {
+  height: 126.69%;
+}
+
+.banner__art--virdas {
+  left: 46px;
+  top: 8.05px;
+  width: 318.097px;
+  height: 369.211px;
+  overflow: visible;
+}
+
+.banner__art--virdas img {
+  left: 12.9px;
+  top: 10.69px;
+  width: 292.304px;
+  height: 347.836px;
+  object-fit: cover;
+  transform: rotate(-175.61deg) scaleY(-1);
+}
+
+.banner__art--google {
+  left: -56px;
+  top: -34px;
+  width: 418px;
+  height: 418px;
+}
+
+.banner__art--mirzapur {
+  left: 91px;
+  top: 19px;
+  width: 244px;
+  height: 414px;
+}
+
+.banner__art--mirzapur img {
+  top: 1.39%;
+  height: 105.67%;
+}
+
+.banner__title {
+  position: absolute;
+  left: 18px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.banner__sub {
+  position: absolute;
+  left: 18px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.banner__caption {
+  position: absolute;
+  left: 0;
+  top: 288px;
+  width: 280px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.banner__caption p {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.banner__button {
+  position: absolute;
+  top: 16px;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 12px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #000;
+  transition:
+    background-color var(--dur-standard) var(--ease-out),
+    color var(--dur-standard) var(--ease-out);
+}
+
+.banner__button[aria-pressed="true"] {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* airtel INSIDER lockup on the partner banners */
+.insider-lockup {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.insider-lockup > * {
+  position: absolute;
+}
+
+.insider-lockup__symbol {
+  left: 18px;
+  top: 21.89px;
+  width: 19.524px;
+  height: 18.043px;
+}
+
+.insider-lockup__word {
+  left: 40.4px;
+  top: 20.44px;
+  width: 52.92px;
+  height: 19.5px;
+}
+
+.insider-lockup__box {
+  left: 99.52px;
+  top: 20.44px;
+  width: 68.477px;
+  height: 19.5px;
+  border: 0.852px solid #ff8554;
+  border-radius: 5.962px;
+}
+
+.insider-lockup__box--glow {
+  border-color: #ff8d5f;
+  filter: blur(3.714px);
+}
+
+.insider-lockup__text {
+  left: 104.81px;
+  top: 23.37px;
+  font-size: 11.923px;
+  font-weight: 800;
+  line-height: 13.626px;
+  letter-spacing: 1.7033px;
+  white-space: nowrap;
+  color: transparent;
+  background-image: linear-gradient(118.867deg, rgb(255, 141, 95) 38.741%, rgb(194, 56, 0) 239.65%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.insider-lockup__spark {
+  left: 106.48px;
+  top: 18px;
+  width: 23.135px;
+  height: 5.73px;
+}
+
+.insider-lockup__spark img {
+  position: absolute;
+  inset: -80.1% -5.84%;
+  width: 111.68%;
+  height: 260.2%;
+}
+
+/* ---------- Section headings ---------- */
+.sec-head {
+  position: relative;
+  height: 32px;
+  margin: 0 16px;
+  font-size: 12px;
+  line-height: 15px;
+  white-space: nowrap;
+}
+
+.sec-head__title {
+  letter-spacing: 1.44px;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.sec-head__sub {
+  margin-top: 2px;
+  margin-left: -0.35px;
+  color: var(--color-text-muted);
+}
+
+[data-theme="light"] .sec-head__sub--grey {
+  color: rgba(65, 65, 65, 0.6);
+}
+
+.sec-head__all {
+  position: absolute;
+  right: -8px;
+  top: -0.5px;
+  padding: 8px;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: underline;
+  text-underline-position: from-font;
+  color: var(--color-link-text);
+}
+
+/* ---------- Play and win ---------- */
+.play {
+  margin-top: 25.5px;
+}
+
+[data-theme="light"] .play {
+  margin-top: 46.5px;
+}
+
+.play__cards {
+  display: flex;
+  gap: 19px;
+  margin: 16px 16px 0;
+}
+
+.play-card {
+  position: relative;
+  flex: none;
+  width: 162px;
+  height: 200px;
+  border: 1px solid;
+  border-radius: 16px;
+  overflow: clip;
+  background: #000;
+  text-align: center;
+}
+
+.play-card--scratch {
+  border-color: #8a1c34;
+}
+
+.play-card--spin {
+  border-color: #50307b;
+}
+
+.play-card__beam {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 68.608px;
+  border-radius: 8.132px;
+  filter: blur(42.287px);
+}
+
+.play-card--scratch .play-card__beam {
+  height: 633.41px;
+  margin: -316.7px 0 0 -34.23px;
+  background: #b42544;
+  transform: rotate(15.11deg);
+}
+
+.play-card--spin .play-card__beam {
+  height: 304.971px;
+  margin: -147.49px 0 0 -46.23px;
+  background: #515dcb;
+  transform: rotate(15.11deg);
+}
+
+.play-card__word {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-size: 18.349px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1.21;
+  text-transform: uppercase;
+  transform: rotate(-3.52deg);
+  color: transparent;
+  background-image: linear-gradient(181.617deg, rgb(255, 255, 255) 10.588%, rgb(236, 161, 178) 56.322%, rgb(255, 255, 255) 96.288%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.play-card__word--top {
+  top: 73.3px;
+  margin-left: 0.64px;
+}
+
+.play-card__word--glow {
+  top: 75.5px;
+  margin-left: 0.78px;
+  color: #e06580;
+  background: none;
+  filter: blur(2.211px);
+}
+
+.play-card__label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 174px;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.play-card--scratch .play-card__label {
+  right: 12px;
+}
+
+.play-card--spin .play-card__label {
+  right: 11px;
+}
+
+.play-card__wheel {
+  position: absolute;
+  left: 25.44px;
+  top: 31.79px;
+  width: 97.116px;
+  height: 108.147px;
+  animation: bob 4s ease-in-out infinite;
+}
+
+.play-card__shadow {
+  position: absolute;
+  left: 33.66px;
+  top: 136.96px;
+  width: 79.262px;
+  height: 5.463px;
+}
+
+.play-card__shadow img {
+  position: absolute;
+  inset: -109.83% -7.57%;
+  width: 115.14%;
+  height: 319.66%;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* ---------- Active subscriptions ---------- */
+.subs {
+  margin-top: 32px;
+}
+
+.subs__panel {
+  margin: 7.53px 16px 0;
+  padding-top: 9.47px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+}
+
+[data-theme="light"] .subs__panel {
+  padding-top: 18.47px;
+  border-color: #fff;
+  background-image: linear-gradient(to bottom, #fff, #f5f5f5);
+  box-shadow:
+    0 0 0 1px rgba(142, 154, 169, 0.22),
+    0 1px 2px rgba(20, 30, 50, 0.06);
+}
+
+[data-theme="dark"] .subs__panel {
+  margin-top: 6.53px;
+}
+
+.pills {
+  display: flex;
+  gap: 8px;
+  height: 34px;
+  margin: 0 -17px;
+  padding: 0 20px;
+  scroll-snap-type: none;
+}
+
+[data-theme="light"] .pills {
+  margin-left: -1px;
+}
+
+.pill {
+  flex: none;
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: 17px;
+  font-size: 13px;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-standard) var(--ease-out),
+    border-color var(--dur-standard) var(--ease-out),
+    color var(--dur-standard) var(--ease-out);
+}
+
+[data-theme="dark"] .pill {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+[data-theme="dark"] .pill[aria-selected="true"] {
+  background: #f3f3f1;
+  font-weight: 600;
+  color: #000;
+}
+
+[data-theme="light"] .pill {
+  border-color: #8e9aa9;
+  color: #8e9aa9;
+}
+
+[data-theme="light"] .pill[aria-selected="true"] {
+  border-color: #181818;
+  background: #181818;
+  font-weight: 600;
+  color: #fff;
+}
+
+.subs__card {
+  position: relative;
+  margin: 16px -1px -1px;
+  border: 1px solid #fff;
+  border-radius: 16px;
+  overflow: clip;
+  background: #000;
+}
+
+[data-theme="light"] .subs__card {
+  margin-top: 6px;
+  border-color: transparent;
+  background: none;
+}
+
+.sub-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: calc(100% - 43.7px);
+  height: 69px;
+  margin: 0 21.85px;
+  padding: 13px 8px 0 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
+}
+
+.sub-row:first-child {
+  padding-top: 15px;
+}
+
+[data-theme="light"] .sub-row {
+  border-bottom-color: transparent;
+}
+
+.sub-row__logo {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  margin-left: -8.85px;
+  border-radius: 11px;
+  overflow: clip;
+  background: #000;
+}
+
+.sub-row__logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sub-row__logo--inset img {
+  left: -19.44%;
+  top: -19.44%;
+  width: 138.89%;
+  height: 138.89%;
+}
+
+.sub-row__logo--sprite img {
+  left: -546.79%;
+  top: -542.18%;
+  width: 761.68%;
+  height: 1279.66%;
+  object-fit: fill;
+}
+
+.sub-row__logo--round {
+  border-radius: 50%;
+}
+
+.sub-row__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.sub-row__name {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.09px;
+  color: var(--color-text);
+}
+
+.sub-row__plan {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.078px;
+  color: var(--color-text-soft);
+}
+
+.sub-row__status {
+  flex: none;
+  padding-top: 1px;
+  text-align: right;
+}
+
+.sub-row__status strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: -0.09px;
+  color: var(--color-success);
+}
+
+.sub-row__status span {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.072px;
+  color: #8e8e93;
+}
+
+.subs__empty {
+  padding: 30px 24px 18px;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.subs__all {
+  display: block;
+  width: 100%;
+  height: 46.7px;
+  padding-bottom: 6px;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-position: from-font;
+  color: var(--color-link-text);
+}
+
+/* ---------- Included in your plan ---------- */
+.plan {
+  margin-top: 32px;
+}
+
+[data-theme="light"] .plan {
+  margin-top: 22px;
+}
+
+.plan__list {
+  margin: 16px 16px 0;
+}
+
+.plan-row {
+  display: flex;
+  align-items: center;
+  gap: 12.805px;
+  width: 306.413px;
+  padding: 14.635px 0;
+  border-top: 0.915px solid var(--color-row-hair);
+  text-align: left;
+}
+
+.plan-row:first-child {
+  border-top: 0;
+}
+
+.plan-row__logo {
+  position: relative;
+  flex: none;
+  width: 40.245px;
+  height: 40.245px;
+  border-radius: 10.976px;
+  overflow: clip;
+}
+
+.plan-row__logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.plan-row__logo--inset {
+  background: #000;
+}
+
+.plan-row__logo--inset img {
+  left: -19.44%;
+  top: -19.44%;
+  width: 138.89%;
+  height: 138.89%;
+}
+
+.plan-row__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.plan-row__name {
+  font-size: 14.635px;
+  font-weight: 600;
+  line-height: 19.208px;
+  letter-spacing: -0.0878px;
+  color: var(--color-text);
+}
+
+.plan-row__sub {
+  margin-top: 1.829px;
+  font-size: 11.891px;
+  line-height: 16.464px;
+  letter-spacing: -0.0713px;
+  color: var(--color-text-soft);
+}
+
+.plan-row__caret {
+  flex: none;
+  width: 16.464px;
+  height: 16.464px;
+}
+
+/* ---------- Airtel Insider ---------- */
+.insider {
+  position: relative;
+  margin-top: 36.01px;
+}
+
+[data-theme="light"] .insider {
+  margin-top: 46.01px;
+}
+
+.stamp {
+  position: absolute;
+  left: 279.3px;
+  top: -20.25px;
+  width: 92px;
+  height: 92px;
+  pointer-events: none;
+}
+
+.stamp__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: turn 22s linear infinite;
+}
+
+.stamp__ring text {
+  font-size: 9.6px;
+  font-weight: 500;
+  letter-spacing: 0.55px;
+  fill: var(--stamp-color);
+}
+
+.stamp__logo {
+  position: absolute;
+  left: 31.9px;
+  top: 32px;
+  width: 28.21px;
+  height: 28.07px;
+}
+
+@keyframes turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.insider__card {
+  position: relative;
+  z-index: 1;
+  height: 403px;
+  margin: 15.41px 16px 0;
+  border-radius: 16px;
+  overflow: clip;
+  background: #a92c46;
+}
+
+.insider__skin {
+  position: absolute;
+  left: -18.99px;
+  top: -26px;
+  width: 381px;
+  height: 591px;
+  overflow: clip;
+  pointer-events: none;
+}
+
+.insider__skin > img:first-child {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 159.49%;
+}
+
+.insider__rays {
+  position: absolute;
+  left: -1681.12px;
+  top: -1576.93px;
+  width: 3743.945px;
+  height: 3743.894px;
+}
+
+.insider__frame {
+  position: absolute;
+  inset: 1px 0 0;
+  border: 1px solid #e1899b;
+  border-radius: 16px;
+  overflow: clip;
+}
+
+.insider__ring {
+  position: absolute;
+  left: 50%;
+  pointer-events: none;
+}
+
+.insider__ring--inner {
+  top: 48.32px;
+  width: 225.558px;
+  height: 225.558px;
+  margin-left: -108.79px;
+}
+
+.insider__ring--outer {
+  top: 16.88px;
+  width: 288.434px;
+  height: 288.434px;
+  margin-left: -140.23px;
+}
+
+/* The three partner bubbles ride one slow orbit; each counter-turns to stay upright */
+.insider__orbit {
+  position: absolute;
+  left: 174.49px;
+  top: 161.1px;
+  width: 0;
+  height: 0;
+  animation: turn 80s linear infinite;
+}
+
+.insider__bubble {
+  position: absolute;
+  border-radius: 50%;
+  overflow: clip;
+  animation: turn 80s linear infinite reverse;
+  box-shadow: 0 6px 14px rgba(70, 0, 20, 0.28);
+}
+
+.insider__bubble img {
+  position: absolute;
+}
+
+.insider__bubble--croma {
+  left: -117.1px;
+  top: 30.71px;
+  width: 54.896px;
+  height: 53.885px;
+}
+
+.insider__bubble--croma img {
+  left: -145.86%;
+  top: -723.92%;
+  width: 745.77%;
+  height: 1295.3%;
+}
+
+.insider__bubble--linkedin {
+  left: 78.06px;
+  top: -54.38px;
+  width: 53.75px;
+  height: 54.544px;
+}
+
+.insider__bubble--linkedin img {
+  left: -546.79%;
+  top: -542.18%;
+  width: 761.68%;
+  height: 1279.66%;
+}
+
+.insider__bubble--pocket {
+  left: -22.1px;
+  top: -133.26px;
+  width: 47.759px;
+  height: 47.986px;
+}
+
+.insider__bubble--pocket img {
+  left: 1.74%;
+  top: -6.22%;
+  width: 99.28%;
+  height: 108.06%;
+}
+
+.insider__pill {
+  position: absolute;
+  left: 50%;
+  top: 125px;
+  width: 110px;
+  height: 50px;
+  margin-left: -55px;
+  border: 1px solid #fff;
+  border-radius: 60px;
+  overflow: clip;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.insider__pill-logo {
+  position: absolute;
+  left: calc(50% - 5.7px);
+  top: 7.58px;
+  width: 57.955px;
+  height: 29.196px;
+  margin-left: -28.98px;
+  overflow: clip;
+}
+
+.insider__button {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  width: 311px;
+  height: 48px;
+  margin-left: -155.5px;
+  border: 1px solid #000;
+  border-radius: 12px;
+  background: #000;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #fff;
+}
+
+/* ---------- The Advantage Club ---------- */
+.club {
+  margin-top: 36.42px;
+}
+
+.club__banner {
+  position: relative;
+  width: 343px;
+  height: 445.9px;
+  margin: 9.93px 0 0 15.77px;
+}
+
+.club__banner .banner {
+  transform: scale(1.225);
+  transform-origin: 0 0;
+}
+
+/* ---------- Coming soon ---------- */
+.soon {
+  position: relative;
+  height: 369px;
+  margin-top: 64.58px;
+}
+
+.soon__glow {
+  position: absolute;
+  pointer-events: none;
+}
+
+.soon__glow img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.soon__glow--left {
+  left: -63.8px;
+  top: 197.04px;
+  width: 174.941px;
+  height: 174.941px;
+}
+
+[data-theme="light"] .soon__glow--left {
+  top: 82.96px;
+}
+
+.soon__glow--left img {
+  inset: -185.78%;
+  width: 471.56%;
+  height: 471.56%;
+}
+
+.soon__glow--right {
+  left: 277.69px;
+  top: 89.5px;
+  width: 194.619px;
+  height: 194.619px;
+}
+
+.soon__glow--right img {
+  inset: -166.99%;
+  width: 433.98%;
+  height: 433.98%;
+}
+
+.soon__title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 39px;
+  letter-spacing: 0.32px;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  background-image: linear-gradient(to bottom, #50ffdc, #e5ef73);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+[data-theme="dark"] .soon__title--glow {
+  top: 4.02px;
+  background-image: linear-gradient(to bottom, rgba(80, 255, 220, 0.7), rgba(229, 239, 115, 0.7));
+  filter: blur(12px);
+}
+
+[data-theme="dark"] .soon__title--ghost,
+[data-theme="light"] .soon__title--glow {
+  display: none;
+}
+
+[data-theme="light"] .soon__title:not(.soon__title--ghost) {
+  -webkit-text-stroke: 1px #2f9d58;
+}
+
+.soon__title--ghost {
+  background-image: linear-gradient(to bottom, rgba(80, 255, 220, 0.2), rgba(229, 239, 115, 0.2));
+}
+
+.soon__title--ghost-a {
+  top: 19.02px;
+  left: -81px;
+}
+
+.soon__title--ghost-b {
+  top: -15.91px;
+  left: 81px;
+}
+
+.soon__stack {
+  position: absolute;
+  left: 76.36px;
+  top: 69.96px;
+  width: 223px;
+  height: 299.067px;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.soon-card {
+  position: absolute;
+  inset: 0;
+  border: 0.65px solid #fff;
+  border-radius: 18.204px;
+  overflow: clip;
+  color: #fff;
+  text-align: left;
+  transition:
+    transform 560ms var(--ease-standard),
+    box-shadow 560ms var(--ease-standard),
+    border-color 560ms var(--ease-standard);
+  will-change: transform;
+}
+
+.soon-card[data-slot="center"] {
+  z-index: 3;
+  box-shadow: var(--soon-shadow);
+}
+
+.soon-card[data-slot="right"] {
+  z-index: 2;
+  transform: translate(57.06px, 5.99px) rotate(4.98deg) scale(0.8655);
+  border-color: transparent;
+  box-shadow: 0 6.752px 15.755px 0 rgba(0, 0, 0, 0.18);
+}
+
+.soon-card[data-slot="left"] {
+  z-index: 1;
+  transform: translate(-52.94px, 5.99px) rotate(-4.98deg) scale(0.8655);
+  border-color: transparent;
+  box-shadow: 0 6.752px 15.755px 0 rgba(0, 0, 0, 0.18);
+}
+
+.soon-card--purple {
+  background-image: linear-gradient(to bottom, #883699, #2d1233);
+}
+
+.soon-card--green {
+  background-image: linear-gradient(to bottom, #1e7b3c, #ffe550);
+}
+
+.soon-card__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 18.204px;
+  object-fit: cover;
+}
+
+.soon-card__logo {
+  position: absolute;
+  left: 12.35px;
+  top: 12.35px;
+  width: 28.606px;
+  height: 27.956px;
+  object-fit: contain;
+}
+
+.soon-card__date {
+  position: absolute;
+  right: 12.4px;
+  top: 14.95px;
+  padding: 3.251px 6.501px;
+  border: 0.65px solid rgba(255, 255, 255, 0.28);
+  border-radius: 7.802px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(5.851px);
+  -webkit-backdrop-filter: blur(5.851px);
+  font-size: 7.152px;
+  font-weight: 600;
+  line-height: 8.7px;
+  letter-spacing: 0.8582px;
+  white-space: nowrap;
+}
+
+.soon-card__eyebrow {
+  position: absolute;
+  left: 12.35px;
+  top: 159.29px;
+  font-size: 6.501px;
+  font-weight: 600;
+  line-height: 7.9px;
+  letter-spacing: 1.4303px;
+  white-space: nowrap;
+  color: #ffc76b;
+}
+
+.soon-card__title {
+  position: absolute;
+  left: 11.05px;
+  top: 170.99px;
+  font-size: 33.808px;
+  font-weight: 800;
+  line-height: 32.507px;
+  letter-spacing: -1.5213px;
+  white-space: nowrap;
+}
+
+.soon-card__text {
+  position: absolute;
+  left: 12.35px;
+  top: 241.2px;
+  font-size: 8.452px;
+  line-height: 10.2px;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.soon-card__notify {
+  position: absolute;
+  left: 12.35px;
+  top: 256.81px;
+  width: 196.994px;
+  height: 28.606px;
+  border: 0.65px solid rgba(255, 255, 255, 0.28);
+  border-radius: 14.303px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(5.851px);
+  -webkit-backdrop-filter: blur(5.851px);
+  font-size: 9.752px;
+  font-weight: 600;
+  color: #fff;
+  transition:
+    background-color var(--dur-standard) var(--ease-out),
+    color var(--dur-standard) var(--ease-out);
+}
+
+.soon-card__notify[aria-pressed="true"] {
+  background: #fff;
+  color: #000;
+}
+
+.soon-card__date,
+.soon-card__eyebrow,
+.soon-card__title,
+.soon-card__text {
+  transition: opacity 400ms var(--ease-out);
+}
+
+.soon-card:not([data-slot="center"]) .soon-card__notify {
+  pointer-events: none;
+}
+
+.soon-card:not([data-slot="center"]) :is(.soon-card__date, .soon-card__eyebrow, .soon-card__title, .soon-card__text) {
+  opacity: 0;
+}
+
+/* ---------- Questions ---------- */
+.faq {
+  margin-top: 85.93px;
+  padding: 0 20px 57px;
+}
+
+[data-theme="light"] .faq {
+  margin-top: 42.93px;
+  padding-bottom: 100px;
+}
+
+.faq__heading {
+  height: 26px;
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: -0.3px;
+  color: var(--color-text);
+}
+
+[data-theme="light"] .faq__heading,
+[data-theme="light"] .faq__q {
+  color: #1c1c1e;
+}
+
+.faq__item {
+  border-top: 1px solid var(--color-hair);
+}
+
+.faq__item:first-of-type {
+  border-top: 0;
+}
+
+.faq__q {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 335px;
+  height: 50px;
+  padding-top: 15px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: -0.09px;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.faq__q span {
+  flex: 1;
+}
+
+.faq__q img {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  transition: transform var(--dur-collapse) var(--ease-standard);
+}
+
+.faq__q[aria-expanded="true"] img {
+  transform: rotate(180deg);
+}
+
+.faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-collapse) var(--ease-standard);
+}
+
+.faq__q[aria-expanded="true"] + .faq__a {
+  grid-template-rows: 1fr;
+}
+
+.faq__a > div {
+  overflow: clip;
+}
+
+.faq__a p {
+  padding: 0 30px 16px 0;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--color-text-muted);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity var(--dur-standard) var(--ease-out),
+    transform var(--dur-collapse) var(--ease-standard);
+}
+
+.faq__q[aria-expanded="true"] + .faq__a p {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .stamp__ring,
+  .insider__orbit,
+  .insider__bubble,
+  .flame img,
+  .play-card__wheel,
+  .unclaimed__title span::after {
+    animation: none;
+  }
+}

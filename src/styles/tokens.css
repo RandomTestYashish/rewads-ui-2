@@ -1,0 +1,70 @@
+/* Design tokens lifted from the Figma frames. Edit here, not in components. */
+:root {
+  /* Canvas */
+  --screen-w: 375px;
+  --screen-h: 812px;
+  --status-bar-h: 44px;
+  --gutter: 16px;
+
+  /* Type */
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+
+  /* Brand */
+  --color-red: #e10203;
+  --color-orange: #ff5b02;
+  --color-yellow: #ffe550;
+  --color-success: #00bd3d;
+  --color-link: #075ee8;
+
+  /* Motion (springs live in src/lib/motion.js) */
+  --dur-fast: 160ms;
+  --dur-standard: 300ms;
+  --dur-large: 420ms;
+  --dur-collapse: 420ms; /* accordion open/close */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark frame (Figma "Frame 6") */
+[data-theme="dark"] {
+  --color-surface: #000000;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.6);
+  --color-text-soft: rgba(255, 255, 255, 0.7);
+  --color-hair: #2b2b2b;
+  --color-row-hair: rgba(237, 237, 240, 0.3);
+  --color-link-text: #ffffff;
+  --color-topbar: rgba(10, 10, 10, 0.72);
+  --color-sheet: #151516;
+  --color-sheet-raised: #222224;
+  --color-sheet-border: rgba(255, 255, 255, 0.1);
+  --soon-shadow: 0 0 98.2px 0 #000;
+  --stamp-color: #ffffff;
+}
+
+/* Light frame (Figma "Frame 3") */
+[data-theme="light"] {
+  --color-surface: #ffffff;
+  --color-text: #000000;
+  --color-text-muted: rgba(0, 0, 0, 0.6);
+  --color-text-soft: rgba(0, 0, 0, 0.7);
+  --color-hair: #ededf0;
+  --color-row-hair: #ededf0;
+  --color-link-text: #075ee8;
+  --color-topbar: rgba(255, 255, 255, 0.74);
+  --color-sheet: #ffffff;
+  --color-sheet-raised: #f3f4f7;
+  --color-sheet-border: rgba(0, 0, 0, 0.08);
+  --soon-shadow: 0 0 98.2px 0 #d9d9d9;
+  --stamp-color: #d93a12;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 1ms;
+    --dur-standard: 1ms;
+    --dur-large: 1ms;
+    --dur-collapse: 1ms;
+  }
+}

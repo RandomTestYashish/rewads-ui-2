@@ -1,0 +1,455 @@
+/* Bottom sheets, the toast, the flying coin and the two games. None of these are drawn in
+   Figma; they follow the page's type and color so the prototype can be used end to end. */
+
+.sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+}
+
+.sheet__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.56);
+  opacity: 0;
+}
+
+.sheet__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 88%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px 34px;
+  border-top: 1px solid var(--color-sheet-border);
+  border-radius: 28px 28px 0 0;
+  background: var(--color-sheet);
+  color: var(--color-text);
+  transform: translateY(100%);
+  touch-action: none;
+}
+
+.sheet__grabber {
+  flex: none;
+  align-self: center;
+  width: 36px;
+  height: 5px;
+  margin-bottom: 14px;
+  border-radius: 3px;
+  background: var(--color-text);
+  opacity: 0.22;
+}
+
+.sheet__close {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-sheet-raised);
+  font-size: 18px;
+  line-height: 32px;
+  color: var(--color-text-muted);
+}
+
+.sheet__body {
+  overflow-y: auto;
+  scrollbar-width: none;
+  touch-action: pan-y;
+}
+
+.sheet__body::-webkit-scrollbar {
+  display: none;
+}
+
+.sheet__eyebrow {
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 1.44px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.sheet__title {
+  margin-top: 6px;
+  padding-right: 36px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.3px;
+}
+
+.sheet__text {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--color-text-muted);
+}
+
+.sheet__facts {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  border-radius: 16px;
+  background: var(--color-sheet-raised);
+}
+
+.sheet__facts li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 16px;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.sheet__facts li + li {
+  border-top: 1px solid var(--color-sheet-border);
+}
+
+.sheet__facts span {
+  color: var(--color-text-muted);
+}
+
+.sheet__facts strong {
+  font-weight: 600;
+  text-align: right;
+}
+
+.sheet__cta {
+  flex: none;
+  width: 100%;
+  height: 48px;
+  margin-top: 20px;
+  border-radius: 12px;
+  background: var(--color-text);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-surface);
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.sheet__cta:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.sheet__hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.sheet__logo {
+  position: relative;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #000;
+}
+
+.sheet__logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sheet__logo--inset img {
+  left: -19.44%;
+  top: -19.44%;
+  width: 138.89%;
+  height: 138.89%;
+}
+
+/* Rows inside a sheet (all rewards, all benefits, coin history) */
+.sheet-list {
+  margin-top: 14px;
+}
+
+.sheet-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 0;
+  border-top: 1px solid var(--color-sheet-border);
+  text-align: left;
+}
+
+.sheet-row:first-child {
+  border-top: 0;
+}
+
+.sheet-row__logo {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  overflow: hidden;
+  background: #000;
+}
+
+.sheet-row__logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sheet-row__logo--inset img {
+  left: -19.44%;
+  top: -19.44%;
+  width: 138.89%;
+  height: 138.89%;
+}
+
+.sheet-row__logo--coin {
+  background: none;
+}
+
+.sheet-row__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.sheet-row__name {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.09px;
+}
+
+.sheet-row__sub {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--color-text-muted);
+}
+
+.sheet-row__action {
+  flex: none;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 16px;
+  background: var(--color-text);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-surface);
+}
+
+.sheet-row__action[disabled] {
+  background: none;
+  color: var(--color-success);
+  cursor: default;
+}
+
+.sheet-row__value {
+  flex: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-success);
+}
+
+.balance {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.balance img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.balance strong {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 44px;
+  letter-spacing: -1px;
+}
+
+/* ---------- Toast ---------- */
+.toast {
+  position: absolute;
+  z-index: 60;
+  left: 50%;
+  bottom: 40px;
+  max-width: 320px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: var(--color-text);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  white-space: nowrap;
+  color: var(--color-surface);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+/* ---------- Coin that flies to the balance when coins are earned ---------- */
+.fly-coin {
+  position: absolute;
+  z-index: 65;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* ---------- Scratch card ---------- */
+.scratch {
+  position: relative;
+  height: 190px;
+  margin-top: 18px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #4a0d1c, #b42544 55%, #2a0710);
+  touch-action: none;
+}
+
+.scratch__prize {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #fff;
+}
+
+.scratch__prize img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.scratch__prize strong {
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 36px;
+  text-transform: uppercase;
+}
+
+.scratch__prize span {
+  font-size: 13px;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.scratch canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.scratch.is-revealed canvas {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Spin the wheel ---------- */
+.wheel {
+  position: relative;
+  width: 252px;
+  height: 252px;
+  margin: 22px auto 0;
+}
+
+.wheel__disc {
+  position: absolute;
+  inset: 0;
+  border: 6px solid #d9d9df;
+  border-radius: 50%;
+  background: conic-gradient(
+    from -22.5deg,
+    #3b2a8c 0 45deg,
+    #515dcb 0 90deg,
+    #3b2a8c 0 135deg,
+    #7a3fb8 0 180deg,
+    #3b2a8c 0 225deg,
+    #515dcb 0 270deg,
+    #3b2a8c 0 315deg,
+    #b42544 0 360deg
+  );
+  box-shadow:
+    0 0 0 2px #50307b,
+    0 18px 40px rgba(81, 93, 203, 0.35);
+  will-change: transform;
+}
+
+.wheel__label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60px;
+  margin: -110px 0 0 -30px;
+  transform-origin: 30px 110px;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 18px;
+  text-align: center;
+  color: #fff;
+}
+
+.wheel__label small {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.wheel__hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  margin: -22px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: #7a3fb8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.wheel__pointer {
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  width: 0;
+  height: 0;
+  margin-left: -11px;
+  border: 11px solid transparent;
+  border-top: 22px solid #ffe550;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.4));
+}
+
+.wheel__result {
+  min-height: 21px;
+  margin-top: 18px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+  text-align: center;
+}

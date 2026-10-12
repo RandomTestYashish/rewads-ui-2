@@ -1,0 +1,32 @@
+# Rewards UI
+
+Web prototype of the "My Rewards" Figma screen (375 × 812), in its dark and light frames.
+Plain HTML, CSS and JavaScript modules with no build step. Springs use [Motion](https://motion.dev),
+vendored in `src/vendor/` so nothing is installed or fetched at runtime.
+
+## Run
+
+```
+python3 serve.py
+```
+
+Then open http://localhost:3000.
+
+On a desktop browser the screen is shown inside an iPhone mockup. On a phone the mockup is dropped and
+the screen fills the browser. Add `?view=mobile` or `?view=mockup` to the URL to force either mode,
+and `?theme=light` or `?theme=dark` to open in one of the two frames.
+
+## What is interactive
+
+- **Header**: turns to glass once the page scrolls; the coin balance opens the coins sheet.
+- **Shortcuts**: OTT, Insider and Advantage Club scroll to their sections; Spin the wheel opens the game.
+- **Unclaimed rewards**: Claim Now claims a reward, flies a coin to the balance and removes the card.
+- **What's New**: a snapping carousel; Register and Claim switch state, the banner opens its details.
+- **Play and win**: a scratch card and a spin wheel, both of which add coins.
+- **Active subscriptions**: the pills filter the list, View all expands it.
+- **Included in your plan / Airtel Insider / The Advantage Club**: rows and buttons open detail sheets.
+- **Coming soon**: swipe or tap the card stack to cycle it; Notify me toggles.
+- **Questions**: an accordion.
+
+Source: Figma file `rGZTE0UxCKIhtcJ9Em2QNn`, page "rewads" (`81488:10393`), frames `81488:11232` (dark)
+and `81488:10721` (light).
