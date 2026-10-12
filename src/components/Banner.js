@@ -4,15 +4,8 @@ import { openSheet, toast } from "./overlays.js";
 
 const clubLockup = lockup({ width: 110, height: 54.755, left: 18, top: 18, tag: "vector-2.svg", mark: "layer-2.svg", name: "group-1.svg" });
 
-const insiderLockup = (spark) => `
-  <div class="insider-lockup">
-    <img class="insider-lockup__symbol" src="${asset("500-px-bharti-airtel-logo-svg-2.png")}" alt="" />
-    <img class="insider-lockup__word" src="${asset("500-px-bharti-airtel-logo-svg-1.png")}" alt="" />
-    <div class="insider-lockup__box"></div>
-    <p class="insider-lockup__text">INSIDER</p>
-    <div class="insider-lockup__box insider-lockup__box--glow"></div>
-    <div class="insider-lockup__spark"><img src="${asset(spark)}" alt="" /></div>
-  </div>`;
+// The airtel insider logo from the top row of shortcuts, on its own, without the disc.
+const insiderLogo = `<div class="banner__insider"><img src="${asset("insider-final-021.png")}" alt="airtel insider" /></div>`;
 
 const art = (name, file) => `<div class="banner__art banner__art--${name}"><img src="${asset(file)}" alt="" /></div>`;
 
@@ -39,7 +32,7 @@ export const BANNERS = [
     id: "adobe",
     kind: "dark",
     art: art("adobe", "image-2077.png"),
-    brand: insiderLockup("group-1597881639.svg"),
+    brand: insiderLogo,
     title: "Adobe Express, free for 12 months",
     titleStyle: "top:71.94px;width:236px",
     caption: "Claim by 31 October",
@@ -55,7 +48,7 @@ export const BANNERS = [
     art: art("duolingo", "image-1.png"),
     title: "3 Months of Duolingo Super",
     titleStyle: "top:69px;width:169px",
-    brand: insiderLockup("group-1597881639.svg"),
+    brand: insiderLogo,
     caption: "Ends in 2 days",
     captionWidth: 163,
     action: "Claim",
@@ -83,9 +76,9 @@ export const BANNERS = [
     id: "googleone",
     kind: "dark",
     art: art("google", "image-2078.png"),
-    brand: insiderLockup("group-1597881640.svg"),
+    brand: insiderLogo,
     title: "Google One, 100 GB for 6 months",
-    titleStyle: "top:51.94px;width:236px",
+    titleStyle: "top:68px;width:236px",
     caption: "New this month",
     captionWidth: 163,
     action: "Claim",

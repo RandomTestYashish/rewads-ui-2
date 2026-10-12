@@ -961,3 +961,141 @@
     animation: none;
   }
 }
+
+/* ---------- Shimmers: one soft, wide band that glides across at an even pace ---------- */
+.play-card__shine,
+.shortcut__shimmer,
+.insider__button-shine {
+  filter: blur(6px);
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.play-card__shine {
+  width: 70px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+  animation-duration: 5.5s;
+}
+
+.shortcut__shimmer {
+  width: 30px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+  animation-duration: 5s;
+}
+
+.insider__button-shine {
+  width: 90px;
+  background: linear-gradient(90deg, transparent, rgba(255, 45, 85, 0.1), transparent);
+  animation-duration: 5.5s;
+}
+
+@keyframes shine {
+  0%,
+  20% {
+    transform: translateX(-110px) rotate(16deg);
+  }
+  75%,
+  100% {
+    transform: translateX(240px) rotate(16deg);
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  25% {
+    transform: translateX(-50px) rotate(18deg);
+  }
+  75%,
+  100% {
+    transform: translateX(110px) rotate(18deg);
+  }
+}
+
+@keyframes button-shine {
+  0%,
+  20% {
+    transform: translateX(-130px) rotate(16deg);
+  }
+  75%,
+  100% {
+    transform: translateX(380px) rotate(16deg);
+  }
+}
+
+/* The highlight across REWARDS: fainter, wider and slower */
+.unclaimed__word::after {
+  background-image: linear-gradient(105deg, transparent 30%, rgba(255, 244, 200, 0.45) 50%, transparent 70%);
+}
+
+.unclaimed__word.is-shining::after {
+  animation-duration: 2.2s;
+}
+
+/* ---------- What's New: a black card with the claim cards' fading white stroke, in both themes ---------- */
+.phone__screen[data-theme] .whats-new {
+  border: 1px solid transparent;
+  border-radius: 16px;
+  background:
+    linear-gradient(165deg, #1d1d1f 0%, #0b0b0c 46%, #000 100%) padding-box,
+    linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.12) 100%) border-box;
+  box-shadow: none;
+}
+
+.whats-new__blur {
+  display: none !important;
+}
+
+.phone__screen[data-theme] .whats-new__title {
+  top: 31.3px;
+  transform: rotate(-2.14deg);
+  color: transparent;
+}
+
+.phone__screen[data-theme] .whats-new__title--glow {
+  display: block;
+  top: 34.28px;
+  color: var(--color-red);
+  background: none;
+  filter: blur(7.265px);
+}
+
+.phone__screen[data-theme] .whats-new__title--live {
+  background: none;
+}
+
+.phone__screen[data-theme] .whats-new__title--live i {
+  color: transparent;
+  background-image: linear-gradient(160.829deg, rgb(225, 2, 3) 17.844%, rgb(255, 229, 80) 44.527%, rgb(255, 229, 80) 57.005%);
+  background-size: 214.127px 43.595px;
+  background-position: var(--x, 0) 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.whats-new__dots i {
+  background: #fff;
+}
+
+.phone__screen[data-theme] .whats-new__dots i[aria-current="true"] {
+  background: var(--color-yellow);
+}
+
+/* The airtel insider logo on the partner banners (same crop as the shortcut, 1.5x) */
+.banner__insider {
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  width: 86.93px;
+  height: 43.79px;
+  overflow: clip;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+  pointer-events: none;
+}
+
+.banner__insider img {
+  position: absolute;
+  left: -13.98%;
+  top: 0;
+  width: 139.61%;
+  height: 100%;
+}
