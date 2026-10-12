@@ -52,25 +52,6 @@ const SHORTCUTS = [
   },
 ];
 
-/**
- * Story ring: a gold-to-red stroke just outside the disc. `-draw` is the full ring, drawn
- * on load and on tap; `-comet` is the bright arc that keeps circling it.
- */
-function ring(id) {
-  return `
-    <svg class="shortcut__ring" viewBox="0 0 80 80" aria-hidden="true">
-      <defs>
-        <linearGradient id="ring-${id}" gradientUnits="userSpaceOnUse" x1="6" y1="6" x2="74" y2="74">
-          <stop offset="0" stop-color="#ffe550" />
-          <stop offset="0.5" stop-color="#ffaa50" />
-          <stop offset="1" stop-color="#e10203" />
-        </linearGradient>
-      </defs>
-      <circle class="shortcut__ring-draw" cx="40" cy="40" r="38.5" pathLength="100" stroke="url(#ring-${id})" />
-      <circle class="shortcut__ring-comet" cx="40" cy="40" r="38.5" pathLength="100" stroke="url(#ring-${id})" />
-    </svg>`;
-}
-
 /** Top of the page: the soft glow behind the header and the four round shortcuts. */
 export function Hero({ onShortcut }) {
   const hero = el(`
@@ -82,7 +63,7 @@ export function Hero({ onShortcut }) {
             <button class="shortcut" type="button" style="left:${item.x}px" data-shortcut="${item.id}" data-press="0.92">
               <span class="shortcut__orb" data-press-target>
                 <span class="shortcut__disc">${item.art}</span>
-                ${ring(item.id)}
+                ${item.id === "spin" ? `<span class="shortcut__ring"></span>` : ""}
               </span>
               <span class="shortcut__label">${item.label}</span>
             </button>`,
@@ -92,21 +73,14 @@ export function Hero({ onShortcut }) {
   `);
 
   hero.querySelectorAll(".shortcut").forEach((button, index) => {
-    const stroke = button.querySelector(".shortcut__ring-draw");
-    const draw = (delay = 0) => animate(stroke, { strokeDashoffset: [100, 0] }, { duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] });
-
-    button.addEventListener("click", () => {
-      if (!reducedMotion.matches) draw(); // the ring redraws on a tap, as a story ring does
-      onShortcut(button.dataset.shortcut);
-    });
+    button.addEventListener("click", () => onShortcut(button.dataset.shortcut));
     if (reducedMotion.matches) return;
-
-    // The discs land one after another on load, each ring drawing itself around its disc.
-    const delay = 0.12 + index * 0.09;
+    // The discs land one after another on load.
+    const delay = 0.12 + index * 0.07;
     animate(button.querySelector(".shortcut__disc"), { scale: [0.6, 1], opacity: [0, 1] }, { ...transition("pop"), delay });
     animate(button.querySelector(".shortcut__label"), { opacity: [0, 1], y: [6, 0] }, { duration: 0.4, delay: delay + 0.12 });
-    draw(delay + 0.1);
-    button.querySelector(".shortcut__ring-comet").style.animationDelay = `${1.2 + index * 0.35}s`;
+    const ring = button.querySelector(".shortcut__ring");
+    if (ring) animate(ring, { opacity: [0, 1] }, { duration: 1.2, delay: delay + 0.4 });
   });
 
   cycleLogos([...hero.querySelectorAll("[data-ott]")]);

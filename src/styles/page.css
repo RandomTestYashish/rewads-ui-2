@@ -290,50 +290,26 @@
   height: 72px;
 }
 
-/* Story ring, 2.5px clear of the disc. Starts at twelve o'clock and runs clockwise. */
+/* Spin the wheel only: a hairline ring just outside the disc, with a soft arc of light
+   travelling round it. The arc is a conic gradient cut down to a ring by the mask. */
 .shortcut__ring {
+  --ring-color: 255, 255, 255;
   position: absolute;
   inset: -4px;
-  width: 80px;
-  height: 80px;
-  overflow: visible;
-  transform: rotate(-90deg);
+  border-radius: 50%;
+  background:
+    conic-gradient(from 0deg, rgba(var(--ring-color), 0) 0%, rgba(var(--ring-color), 0) 30%, rgba(var(--ring-color), 0.95) 100%),
+    linear-gradient(rgba(var(--ring-color), 0.14), rgba(var(--ring-color), 0.14));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+  animation: turn 9s linear infinite;
+  will-change: transform;
   pointer-events: none;
 }
 
-.shortcut__ring circle {
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-
-.shortcut__ring-draw {
-  stroke-dasharray: 100;
-  opacity: 0.5;
-}
-
-.shortcut__ring-comet {
-  stroke-dasharray: 24 76;
-  transform-box: fill-box;
-  transform-origin: center;
-  filter: drop-shadow(0 0 3px rgba(255, 190, 80, 0.9));
-  opacity: 0;
-  animation: comet 3.2s cubic-bezier(0.6, 0.1, 0.4, 0.9) infinite;
-}
-
-@keyframes comet {
-  0% {
-    transform: rotate(0deg);
-    opacity: 0;
-  }
-  12%,
-  80% {
-    opacity: 1;
-  }
-  100% {
-    transform: rotate(360deg);
-    opacity: 0;
-  }
+/* White would vanish on the light frame's pale background */
+[data-theme="light"] .shortcut__ring {
+  --ring-color: 28, 28, 30;
 }
 
 .shortcut__disc {
@@ -570,7 +546,6 @@
   line-height: 34px;
   text-align: center;
   font-kerning: none; /* letters are separate boxes; keep the sheen copy on the same metrics */
-  cursor: pointer;
 }
 
 .unclaimed__word {
@@ -612,15 +587,14 @@
 }
 
 .unclaimed__word.is-shining::after {
-  animation: sheen 5.5s var(--ease-in-out) infinite;
+  animation: sheen 1.5s var(--ease-in-out) 1 both;
 }
 
 @keyframes sheen {
-  0% {
+  from {
     background-position: 160% 0;
   }
-  24%,
-  100% {
+  to {
     background-position: -60% 0;
   }
 }
@@ -2356,7 +2330,7 @@
   .unclaimed__streak img,
   .unclaimed__badge img,
   .unclaimed__sparkle,
-  .shortcut__ring-comet {
+  .shortcut__ring {
     animation: none;
   }
 }

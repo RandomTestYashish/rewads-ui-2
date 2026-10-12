@@ -52,51 +52,67 @@ const SPARKLES = [
   [346, 40, 6, 0.8],
 ];
 
+const EASE = [0.22, 1, 0.36, 1];
+const LOOP_HOLD = 4200; // how long the heading rests before it leaves and comes in again
+
 /**
- * The heading's entrance: light runs out along the two streaks, "UNCLAIMED" tracks in,
- * "REWARDS" rises letter by letter out of a blur, the badges spin into place, the count
- * runs up and the cards arrive from the right. Plays each time the band comes into view.
+ * The heading coming in: light runs out along the two streaks, "UNCLAIMED" tracks in,
+ * "REWARDS" rises letter by letter out of a blur, the badges spin into place and a sheen
+ * crosses the word. Returns how long it takes, in milliseconds.
  */
-function playIntro(section, count) {
-  const q = (selector) => section.querySelector(selector);
+function headingIn(section) {
   const all = (selector) => [...section.querySelectorAll(selector)];
-  const ease = [0.22, 1, 0.36, 1];
 
   all(".unclaimed__streak").forEach((streak) => {
-    animate(streak, { opacity: [0, 1] }, { duration: 0.8, ease });
-    animate(streak.firstElementChild, { scaleX: [0.15, 1] }, { duration: 1.2, ease });
+    animate(streak, { opacity: [0, 1] }, { duration: 0.9, ease: EASE });
+    animate(streak.firstElementChild, { scaleX: [0.15, 1] }, { duration: 1.3, ease: EASE });
   });
-  animate(q(".unclaimed__eyebrow"), { opacity: [0, 1], letterSpacing: ["9px", "0.56px"], filter: ["blur(4px)", "blur(0px)"] }, { duration: 0.9, delay: 0.1, ease });
+  animate(
+    section.querySelector(".unclaimed__eyebrow"),
+    { opacity: [0, 1], letterSpacing: ["9px", "0.56px"], filter: ["blur(4px)", "blur(0px)"] },
+    { duration: 1, delay: 0.1, ease: EASE },
+  );
   all(".unclaimed__word i").forEach((letter, index) =>
-    animate(
-      letter,
-      { opacity: [0, 1], y: [22, 0], scale: [1.25, 1], filter: ["blur(10px)", "blur(0px)"] },
-      { duration: 0.85, delay: 0.3 + index * 0.075, ease },
-    ),
+    animate(letter, { opacity: [0, 1], y: [22, 0], scale: [1.25, 1], filter: ["blur(10px)", "blur(0px)"] }, { duration: 0.9, delay: 0.3 + index * 0.075, ease: EASE }),
   );
   all(".unclaimed__badge").forEach((badge, index) =>
-    animate(badge, { opacity: [0, 1], scale: [0, 1], rotate: [index ? 200 : -200, 0] }, { type: "spring", visualDuration: 0.7, bounce: 0.35, delay: 0.62 + index * 0.08 }),
+    animate(badge, { opacity: [0, 1], scale: [0, 1], rotate: [index ? 200 : -200, 0] }, { type: "spring", visualDuration: 0.8, bounce: 0.3, delay: 0.7 + index * 0.08 }),
   );
-  animate(q(".unclaimed__text"), { opacity: [0, 1], y: [10, 0] }, { duration: 0.6, delay: 0.75, ease });
-  all(".claim-card").forEach((card, index) => animate(card, { opacity: [0, 1], x: [56, 0] }, { type: "spring", visualDuration: 0.6, bounce: 0.18, delay: 0.8 + index * 0.09 }));
-  const link = q(".unclaimed__all");
-  if (link) animate(link, { opacity: [0, 1] }, { duration: 0.5, delay: 1.2 });
 
-  // The sheen crosses the word once the last letter has landed.
-  const word = q(".unclaimed__word");
+  const word = section.querySelector(".unclaimed__word");
   word.classList.remove("is-shining");
   setTimeout(() => word.classList.add("is-shining"), 1400);
+  return 2900;
+}
 
-  // "6" runs up from zero.
-  const number = q("[data-count]");
-  if (number && count > 0) {
-    const started = performance.now() + 750;
-    (function tick(now) {
-      const progress = Math.min(1, Math.max(0, (now - started) / 700));
-      number.textContent = Math.round(count * (1 - Math.pow(1 - progress, 3)));
-      if (progress < 1 && number.isConnected) requestAnimationFrame(tick);
-    })(performance.now());
-  }
+/** The heading leaving, softly, before the next pass of the loop. */
+function headingOut(section) {
+  const all = (selector) => [...section.querySelectorAll(selector)];
+  const out = { duration: 0.6, ease: [0.4, 0, 0.6, 1] };
+
+  all(".unclaimed__streak").forEach((streak) => animate(streak, { opacity: 0 }, { ...out, duration: 0.8 }));
+  animate(section.querySelector(".unclaimed__eyebrow"), { opacity: 0, letterSpacing: "5px", filter: "blur(3px)" }, out);
+  all(".unclaimed__word i").forEach((letter, index) => animate(letter, { opacity: 0, y: -14, filter: "blur(8px)" }, { ...out, delay: index * 0.045 }));
+  all(".unclaimed__badge").forEach((badge, index) => animate(badge, { opacity: 0, scale: 0, rotate: index ? -160 : 160 }, out));
+  return 950;
+}
+
+/** Once, the first time the band is seen: the count runs up and the cards arrive from the right. */
+function contentIn(section, count) {
+  const all = (selector) => [...section.querySelectorAll(selector)];
+  animate(section.querySelector(".unclaimed__text"), { opacity: [0, 1], y: [10, 0] }, { duration: 0.6, delay: 0.8, ease: EASE });
+  all(".claim-card").forEach((card, index) => animate(card, { opacity: [0, 1], x: [56, 0] }, { type: "spring", visualDuration: 0.6, bounce: 0.18, delay: 0.85 + index * 0.09 }));
+  const link = section.querySelector(".unclaimed__all");
+  if (link) animate(link, { opacity: [0, 1] }, { duration: 0.5, delay: 1.25 });
+
+  const number = section.querySelector("[data-count]");
+  if (!number || count === 0) return;
+  const started = performance.now() + 800;
+  (function tick(now) {
+    const progress = Math.min(1, Math.max(0, (now - started) / 700));
+    number.textContent = Math.round(count * (1 - Math.pow(1 - progress, 3)));
+    if (progress < 1 && number.isConnected) requestAnimationFrame(tick);
+  })(performance.now());
 }
 
 /** The black band of rewards waiting to be claimed. */
@@ -150,8 +166,9 @@ export function Unclaimed() {
     animate(done, { opacity: [0, 1], y: [12, 0] }, transition("reveal"));
   }
 
-  // Play the entrance whenever the band scrolls into view, having been out of it. The first
-  // run waits for the fonts and images, so it is not spent while the page is still loading.
+  // The heading's entrance loops for as long as the band is on screen: in, rest, out, in
+  // again. The cards and the count come in with the first pass only. The first run waits for
+  // the fonts and images, so it is not spent while the page is still loading.
   if (!reducedMotion.matches) {
     const settled = Promise.race([
       Promise.all([document.fonts.ready, new Promise((resolve) => (document.readyState === "complete" ? resolve() : window.addEventListener("load", resolve, { once: true })))]),
@@ -159,26 +176,35 @@ export function Unclaimed() {
     ]).then(() => new Promise((resolve) => setTimeout(resolve, 350)));
 
     let visible = false;
-    const play = () => {
+    let timer = 0;
+    let started = false;
+
+    function loop() {
+      clearTimeout(timer);
       section.classList.remove("is-waiting");
-      playIntro(section, unclaimed().length);
-    };
+      const taken = headingIn(section);
+      timer = setTimeout(() => {
+        timer = setTimeout(loop, headingOut(section));
+      }, taken + LOOP_HOLD);
+    }
+
     section.classList.add("is-waiting");
     new IntersectionObserver(
       async ([entry]) => {
         visible = entry.isIntersecting;
-        if (visible && section.classList.contains("is-waiting")) {
-          await settled;
-          if (visible && section.classList.contains("is-waiting")) play();
-        } else if (!visible) {
-          section.classList.add("is-waiting");
+        if (!visible) {
+          clearTimeout(timer);
+          timer = 0;
+          return;
         }
+        await settled;
+        if (!visible || timer) return;
+        if (!started) contentIn(section, unclaimed().length);
+        started = true;
+        loop();
       },
       { threshold: [0, 0.35] },
     ).observe(section);
-
-    // Tapping the heading plays it again.
-    section.querySelector(".unclaimed__title").addEventListener("click", play);
   }
 
   subscribe((change) => {
