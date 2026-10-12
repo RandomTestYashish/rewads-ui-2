@@ -2168,3 +2168,122 @@
   padding: 12px 16px;
   line-height: 16px;
 }
+
+/* ---------- Airtel Insider, brightened ----------
+   A luminous coral-rose field: two soft clouds of colour drift behind the rays, the centre
+   glows warm, and a gloss catches the top edge. Brighter than the Figma rose, without the
+   earlier hot pink. */
+.insider__card {
+  background: linear-gradient(165deg, #ff5a78 0%, #f23a62 45%, #e02f6e 75%, #ff7a52 120%);
+  box-shadow:
+    0 24px 54px -24px rgba(242, 58, 98, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.insider__aurora {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.insider__aurora--a {
+  left: -90px;
+  top: -110px;
+  background: #ff9a6b;
+  opacity: 0.75;
+  animation: aurora-a 9s ease-in-out infinite alternate;
+}
+
+.insider__aurora--b {
+  right: -110px;
+  bottom: -90px;
+  background: #d92ea0;
+  opacity: 0.6;
+  animation: aurora-b 11s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-a {
+  to {
+    transform: translate(120px, 70px) scale(1.15);
+  }
+}
+
+@keyframes aurora-b {
+  to {
+    transform: translate(-130px, -80px) scale(1.2);
+  }
+}
+
+.insider__rays {
+  background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.14) 0deg 5deg, rgba(255, 255, 255, 0) 5deg 12deg);
+  animation-duration: 56s;
+}
+
+.insider__glow {
+  width: 320px;
+  height: 320px;
+  margin: -160px;
+  background: radial-gradient(closest-side, rgba(255, 244, 214, 0.6), rgba(255, 190, 150, 0.22) 50%, rgba(255, 190, 150, 0) 100%);
+  animation-duration: 4s;
+}
+
+/* A soft highlight across the top of the card */
+.insider__gloss {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 150px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.insider__frame {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: linear-gradient(180deg, rgba(150, 10, 60, 0) 62%, rgba(150, 10, 60, 0.22) 100%);
+}
+
+.insider__ring {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+}
+
+.insider__bubble {
+  box-shadow:
+    0 8px 18px rgba(120, 0, 50, 0.35),
+    0 0 0 2px rgba(255, 255, 255, 0.55);
+}
+
+.insider__pill {
+  background: rgba(255, 255, 255, 0.26);
+  box-shadow:
+    0 12px 28px -10px rgba(150, 10, 60, 0.55),
+    0 0 24px rgba(255, 255, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.insider__pulse {
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.65);
+  animation-duration: 2.8s;
+}
+
+.insider__glint {
+  color: #fff6d6;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+}
+
+.insider__button {
+  color: #e02f6e;
+  box-shadow:
+    0 14px 26px -12px rgba(150, 10, 60, 0.7),
+    inset 0 -2px 0 rgba(224, 47, 110, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insider__aurora {
+    animation: none;
+  }
+}
