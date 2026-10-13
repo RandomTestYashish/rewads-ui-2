@@ -1284,3 +1284,9 @@
     radial-gradient(90% 70% at 85% 20%, rgba(255, 221, 150, 0.75), transparent 65%),
     linear-gradient(165deg, #ff9d3d 0%, #fc8019 40%, #d9480f 78%, #7c2d12 100%);
 }
+
+.o2-top__card.soon-card--apollo {
+  background:
+    radial-gradient(90% 70% at 85% 20%, rgba(120, 230, 220, 0.6), transparent 65%),
+    linear-gradient(165deg, #0f8f9a 0%, #02677a 42%, #02475b 78%, #012a36 100%);
+}

@@ -16,7 +16,15 @@ export const CARDS = [
     // No photo yet: the creative is built from type and a basket, in the cult.fit card's layout.
     art: `<span class="soon-card__brand"><small>Swiggy</small>Instamart</span><i class="soon-card__art" aria-hidden="true"><b>🛒</b><b>🥑</b><b>🥛</b><b>🍎</b></i>`,
   },
-  { id: "read", brand: "Reading", tint: "green", date: "FEB 2027", title: ["Read.", "On us."], text: "Books and magazines, free with your plan" },
+  {
+    id: "apollo",
+    brand: "Apollo 24|7",
+    tint: "apollo",
+    date: "FEB 2027",
+    title: ["Care.", "On us."],
+    text: "Medicines delivered free, with your plan",
+    art: `<span class="soon-card__brand">Apollo<small>24|7</small></span><i class="soon-card__art" aria-hidden="true"><b>🩺</b><b>💊</b><b>🧴</b><b>❤️</b></i>`,
+  },
 ];
 
 const SLOTS = ["center", "right", "left"];

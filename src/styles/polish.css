@@ -2351,3 +2351,16 @@
 .soon-card--instamart .soon-card__eyebrow {
   color: #fff3d6;
 }
+
+/* ---------- Coming soon: the Apollo 24|7 card ---------- */
+.soon-card--apollo {
+  background:
+    radial-gradient(90% 70% at 85% 20%, rgba(120, 230, 220, 0.6), transparent 65%),
+    linear-gradient(165deg, #0f8f9a 0%, #02677a 42%, #02475b 78%, #012a36 100%);
+}
+
+.soon-card--apollo .soon-card__eyebrow,
+.soon-card--apollo .soon-card__brand small {
+  color: #fcb716;
+  opacity: 1;
+}
