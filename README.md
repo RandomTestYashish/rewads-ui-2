@@ -27,7 +27,8 @@ and a floating notice, shortcut button and tab bar. Option 2 lives in `src/compo
 
 ## Partner benefits
 
-Tapping Netflix, Apple TV+ or Google One in Active subscriptions or the plan list opens that partner's
+Tapping a partner's card or row (the unclaimed reward cards, Active subscriptions, the plan list, and Option 2's
+app tiles, marks and subscription cards) opens that partner's
 **Discovery page** (`src/components/PartnerPDP.js`). Its one button follows the entitlement: **Claim Now**
 activates the benefit, **Manage** opens Airtel's white bottom sheet (`src/components/ManageSheet.js`) with the
 plan, validity, benefits, an inline Change Plan with confirmation, account details and a cancel dialog.

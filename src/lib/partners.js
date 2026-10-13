@@ -87,6 +87,48 @@ export const partners = [
     rails: [{ title: "Top on Prime", items: tiles(["Mirzapur: The Movie", "The Family Plan", "Panchayat Returns", "Kings of Kota"], 195) }],
     supports: { changePlan: false, account: true, cancel: true },
   },
+  {
+    id: "xstream",
+    order: 5,
+    name: "Xstream Play",
+    logo: "logo.png",
+    colors: ["#e10203", "#6b0a0c", "#160203"],
+    tagline: "22 OTT apps under one login, free with your plan.",
+    status: "active",
+    planId: "premium",
+    validTill: "3 Jan 2027",
+    activatedOn: "3 Oct 2026",
+    account: null,
+    plans: [{ id: "premium", name: "Xstream Play Premium", delta: 0, perks: ["22 apps in one, including SonyLIV and Lionsgate Play", "Watch on phone, laptop and TV", "One login for everything"] }],
+    rails: [
+      { title: "Popular on Xstream", items: tiles(["Courtroom No. 7", "The Night Bus", "Scam Season", "Hill Station", "Rocket Boys Again"], 355) },
+      { title: "Apps included", items: tiles(["SonyLIV", "Lionsgate Play", "Aha", "Chaupal", "Hoichoi"], 20) },
+    ],
+    supports: { changePlan: false, account: false, cancel: true },
+  },
+  {
+    id: "hotstar",
+    order: 6,
+    name: "JioHotstar",
+    logo: "frame-1.png",
+    colors: ["#7b2ff7", "#2a1a8a", "#0a0624"],
+    tagline: "Live cricket, films and shows on your mobile.",
+    status: "active",
+    planId: "mobile",
+    validTill: "12 Mar 2027",
+    activatedOn: "12 Sep 2026",
+    account: "97163•••65",
+    plans: [
+      { id: "mobile", name: "JioHotstar Mobile", delta: 0, perks: ["720p on 1 mobile device", "Live sport, with ads", "Films and shows"] },
+      { id: "super", name: "JioHotstar Super", delta: 100, perks: ["1080p on 2 devices", "Phone, laptop and TV", "Live sport, with ads"] },
+      { id: "premium", name: "JioHotstar Premium", delta: 250, perks: ["4K on 4 devices", "No ads, except live sport", "Dolby Vision and Atmos"] },
+    ],
+    rails: [
+      { title: "Live and upcoming", items: tiles(["India v Australia", "Pro Kabaddi Finals", "Premier League Sunday", "Wimbledon Classics"], 265) },
+      { title: "Binge-worthy", items: tiles(["Special Unit", "The Great Indian Wedding", "Aarya Returns", "City of Dreams Again"], 290) },
+    ],
+    supports: { changePlan: true, account: true, cancel: true },
+  },
 ];
 
 const listeners = new Set();

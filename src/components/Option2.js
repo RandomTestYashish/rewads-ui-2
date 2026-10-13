@@ -8,6 +8,7 @@ import { BANNERS, Banner } from "./Banner.js";
 import { CARDS } from "./ComingSoon.js";
 import { lockup } from "./Hero.js";
 import { openInsiderOffers } from "./Insider.js";
+import { PARTNER_BY_NAME, openPartner } from "./PartnerPDP.js";
 import { BENEFITS, openBenefit } from "./PlanBenefits.js";
 import { Questions } from "./Questions.js";
 import { SUBSCRIPTIONS } from "./Subscriptions.js";
@@ -170,6 +171,7 @@ function Explore({ scrollToSection }) {
     if (!node) return;
     const item = GROUPS[group][node.dataset.index];
     if (item.go) return item.go();
+    if (PARTNER_BY_NAME[item.label]) return openPartner(PARTNER_BY_NAME[item.label]);
     const benefit = BENEFITS.find((entry) => entry.name === item.benefit);
     if (benefit) openBenefit(benefit);
     else toast(`${item.label} is part of Airtel Insider`);
@@ -320,6 +322,7 @@ function Picks() {
   section.querySelectorAll("[data-sub]").forEach((card) =>
     card.addEventListener("click", () => {
       const item = SUBSCRIPTIONS.find((entry) => entry.name === card.dataset.sub);
+      if (PARTNER_BY_NAME[item.name]) return openPartner(PARTNER_BY_NAME[item.name]);
       openSheet({
         eyebrow: "Active subscription",
         title: item.name,

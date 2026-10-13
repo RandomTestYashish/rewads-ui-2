@@ -218,4 +218,15 @@ export function openPartner(id) {
 }
 
 // Rows on the rewards page that belong to a partner with a PDP
-export const PARTNER_BY_NAME = { "Netflix Mobile": "netflix", "Apple TV+": "appletv", "Google One": "googleone" };
+export const PARTNER_BY_NAME = {
+  Netflix: "netflix",
+  "Netflix Mobile": "netflix",
+  "Netflix Basic": "netflix",
+  "Apple TV": "appletv",
+  "Apple TV+": "appletv",
+  "Google One": "googleone",
+  "Prime Video": "prime",
+  "Xstream Play": "xstream",
+  JioHotstar: "hotstar",
+  "JioHotstar Mobile": "hotstar",
+};

@@ -2,6 +2,7 @@ import { asset, el } from "../lib/dom.js";
 import { enableDragX } from "../lib/dragX.js";
 import { animate, reducedMotion, transition } from "../lib/motion.js";
 import { claim, earn, state, subscribe, unclaimed } from "../lib/store.js";
+import { PARTNER_BY_NAME, openPartner } from "./PartnerPDP.js";
 import { confetti, flyCoin, openSheet, toast } from "./overlays.js";
 
 const ART = {
@@ -216,7 +217,11 @@ export function Unclaimed() {
 
   rail.addEventListener("click", (event) => {
     const button = event.target.closest("[data-claim]");
-    if (button) runClaim(button, button.dataset.claim);
+    if (button) return runClaim(button, button.dataset.claim);
+    // Anywhere else on a card opens that partner's page.
+    const tapped = event.target.closest(".claim-card");
+    const reward = tapped && state.rewards.find((item) => item.id === tapped.dataset.reward);
+    if (reward && PARTNER_BY_NAME[reward.name]) openPartner(PARTNER_BY_NAME[reward.name]);
   });
 
   all.addEventListener("click", () => {

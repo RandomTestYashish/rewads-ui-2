@@ -863,3 +863,8 @@
     corner-shape: squircle;
   }
 }
+
+/* Cards on the rewards page that open a partner's page */
+.claim-card {
+  cursor: pointer;
+}
