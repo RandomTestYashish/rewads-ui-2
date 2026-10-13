@@ -2202,3 +2202,36 @@
 .whats-new__emoji {
   margin-top: -24px;
 }
+
+/* ---------- Insider: partner marks set in type until their logo files arrive ---------- */
+.insider__bubble--brand {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  font-size: 7.5px;
+  font-weight: 800;
+  line-height: 9px;
+  letter-spacing: -0.1px;
+  text-align: center;
+  color: #fff;
+}
+
+.insider__bubble--brand small {
+  display: block;
+  font-size: 6.5px;
+  font-weight: 700;
+}
+
+.insider__bubble--instamart {
+  background: #fc8019;
+}
+
+.insider__bubble--apollo {
+  background: #02475b;
+  font-size: 9px;
+}
+
+.insider__bubble--apollo small {
+  color: #fcb716;
+}

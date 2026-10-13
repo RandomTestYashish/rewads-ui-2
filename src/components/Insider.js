@@ -19,6 +19,8 @@ const OFFERS = [
   { name: "Pocket FM", sub: "3 months of unlimited audio series", bubble: "pocket" },
   { name: "LinkedIn Premium", sub: "2 months of Premium Career", bubble: "linkedin" },
   { name: "Croma", sub: "₹1,000 off on orders above ₹10,000", bubble: "croma" },
+  { name: "Swiggy Instamart", sub: "₹100 off on orders above ₹499", bubble: "instamart" },
+  { name: "Apollo 24|7", sub: "15% off on medicines", bubble: "apollo" },
 ];
 
 /** The sheet of Insider offers, each unlockable. */
@@ -68,9 +70,8 @@ export function Insider() {
             <div class="insider__bubble insider__bubble--pocket"><img src="${asset("screenshot-20261009-at-14232-pm-1.png")}" alt="Pocket FM" /></div>
           </div>
           <div class="insider__orbit insider__orbit--outer">
-            <div class="insider__bubble insider__bubble--small" style="left:-147.5px;top:-77.9px"><img src="${asset("ott-prime.svg")}" alt="Prime Video" /></div>
-            <div class="insider__bubble insider__bubble--small" style="left:75.6px;top:93.3px"><img src="${asset("logo-2.png")}" alt="Google One" /></div>
-            <div class="insider__bubble insider__bubble--small" style="left:71.7px;top:-130.5px"><img src="${asset("logo-adobe.png")}" alt="Adobe Express" /></div>
+            <div class="insider__bubble insider__bubble--brand insider__bubble--instamart" style="left:-153.5px;top:-83.9px"><span><small>Swiggy</small>Instamart</span></div>
+            <div class="insider__bubble insider__bubble--brand insider__bubble--apollo" style="left:69.6px;top:87.3px"><span>Apollo<small>24|7</small></span></div>
           </div>
           <div class="insider__pulse"></div>
           <div class="insider__pill">
