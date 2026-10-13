@@ -2235,3 +2235,119 @@
 .insider__bubble--apollo small {
   color: #fcb716;
 }
+
+/* ---------- Coming soon: the Swiggy Instamart card, laid out like the cult.fit one ---------- */
+.soon-card--instamart {
+  background:
+    radial-gradient(90% 70% at 85% 20%, rgba(255, 221, 150, 0.75), transparent 65%),
+    linear-gradient(165deg, #ff9d3d 0%, #fc8019 40%, #d9480f 78%, #7c2d12 100%);
+}
+
+.soon-card__brand {
+  position: absolute;
+  left: 12.35px;
+  top: 12.35px;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 13px;
+  letter-spacing: -0.3px;
+  color: #fff;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.soon-card__brand small {
+  display: block;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* A basket with groceries tumbling round it, where the cult.fit card has its portrait */
+.soon-card__art {
+  position: absolute;
+  right: 6px;
+  top: 34px;
+  width: 140px;
+  height: 130px;
+  font-style: normal;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.soon-card__art b {
+  position: absolute;
+  font-weight: 400;
+  line-height: 1;
+  filter: drop-shadow(0 10px 12px rgba(90, 30, 0, 0.45));
+  animation: coin-bob 3.4s ease-in-out infinite;
+}
+
+.soon-card__art b:nth-child(1) {
+  right: 8px;
+  top: 24px;
+  font-size: 92px;
+}
+
+.soon-card__art b:nth-child(2) {
+  left: 2px;
+  top: 8px;
+  font-size: 30px;
+  animation-delay: -0.8s;
+}
+
+.soon-card__art b:nth-child(3) {
+  right: 0;
+  top: -8px;
+  font-size: 28px;
+  animation-delay: -1.7s;
+}
+
+.soon-card__art b:nth-child(4) {
+  left: 20px;
+  top: 92px;
+  font-size: 24px;
+  animation-delay: -2.5s;
+}
+
+@keyframes coin-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(6deg);
+  }
+}
+
+.soon-card:not([data-slot="center"]) :is(.soon-card__brand, .soon-card__art) {
+  opacity: 0;
+}
+
+/* The same card in Option 2's numbered rail */
+.o2-top__card .soon-card__brand {
+  left: 10px;
+  top: 10px;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+.o2-top__card .soon-card__brand small {
+  font-size: 6.5px;
+}
+
+.o2-top__card .soon-card__art {
+  right: -22px;
+  top: 6px;
+  transform: scale(0.62);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .soon-card__art b {
+    animation: none;
+  }
+}
+
+.soon-card--instamart .soon-card__eyebrow {
+  color: #fff3d6;
+}

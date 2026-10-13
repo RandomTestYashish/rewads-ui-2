@@ -6,7 +6,16 @@ import { toast } from "./overlays.js";
 // Figma draws the cult.fit card in front of two tinted cards; the copy on those two is ours.
 export const CARDS = [
   { id: "cult", brand: "cult.fit", photo: true, date: "DEC 2026", title: ["Train.", "On us."], text: "Cult membership, free with your plan" },
-  { id: "listen", brand: "Music", tint: "purple", date: "JAN 2027", title: ["Listen.", "On us."], text: "Ad-free music, free with your plan" },
+  {
+    id: "instamart",
+    brand: "Swiggy Instamart",
+    tint: "instamart",
+    date: "JAN 2027",
+    title: ["Groceries.", "On us."],
+    text: "Free Instamart delivery, with your plan",
+    // No photo yet: the creative is built from type and a basket, in the cult.fit card's layout.
+    art: `<span class="soon-card__brand"><small>Swiggy</small>Instamart</span><i class="soon-card__art" aria-hidden="true"><b>🛒</b><b>🥑</b><b>🥛</b><b>🍎</b></i>`,
+  },
   { id: "read", brand: "Reading", tint: "green", date: "FEB 2027", title: ["Read.", "On us."], text: "Books and magazines, free with your plan" },
 ];
 
@@ -14,6 +23,7 @@ const SLOTS = ["center", "right", "left"];
 
 const card = (item) => `
   <article class="soon-card ${item.tint ? `soon-card--${item.tint}` : ""}" data-card="${item.id}">
+    ${item.art ?? ""}
     ${item.photo ? `<img class="soon-card__photo" src="${asset("card-cult-fit.jpg")}" alt="" /><img class="soon-card__logo" src="${asset("cult-fit-logo.png")}" alt="cult.fit" />` : ""}
     <span class="soon-card__date">${item.date}</span>
     <p class="soon-card__eyebrow">COMING SOON</p>

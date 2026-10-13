@@ -343,6 +343,7 @@ function Soon() {
             <div class="o2-top__item">
               <b class="o2-top__rank">${index + 1}</b>
               <article class="o2-top__card ${item.tint ? `soon-card--${item.tint}` : ""}">
+                ${item.art ?? ""}
                 ${item.photo ? `<img class="o2-top__photo" src="${asset("card-cult-fit.jpg")}" alt="" />` : ""}
                 <span class="o2-top__date">${item.date}</span>
                 <p class="o2-top__title">${item.title.join("<br />")}</p>

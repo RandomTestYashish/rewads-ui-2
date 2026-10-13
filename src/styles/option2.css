@@ -1269,3 +1269,18 @@
     animation: none;
   }
 }
+
+/* Tinted Coming soon cards keep their own backgrounds in the numbered rail */
+.o2-top__card.soon-card--green {
+  background: linear-gradient(to bottom, #1e7b3c, #ffe550);
+}
+
+.o2-top__card.soon-card--purple {
+  background: linear-gradient(to bottom, #883699, #2d1233);
+}
+
+.o2-top__card.soon-card--instamart {
+  background:
+    radial-gradient(90% 70% at 85% 20%, rgba(255, 221, 150, 0.75), transparent 65%),
+    linear-gradient(165deg, #ff9d3d 0%, #fc8019 40%, #d9480f 78%, #7c2d12 100%);
+}
