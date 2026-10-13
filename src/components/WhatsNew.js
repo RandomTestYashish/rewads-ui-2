@@ -3,7 +3,7 @@ import { enableDragX } from "../lib/dragX.js";
 import { reducedMotion } from "../lib/motion.js";
 import { BANNERS, Banner } from "./Banner.js";
 
-const BANNER_STEP = 296; // a banner and the gap after it
+const BANNER_STEP = 324; // a banner (308px, at its larger size) and the gap after it
 
 // Emoji that pop up around the title and drift off: [emoji, left, top, delay in seconds]
 const EMOJI = [

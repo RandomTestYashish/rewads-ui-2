@@ -2143,3 +2143,62 @@
   background: #000;
   color: #fff;
 }
+
+/* ---------- What's New without its box: the title on the page, larger banners edge to edge ---------- */
+.phone__screen[data-theme] .whats-new,
+.phone__screen[data-theme="dark"] .whats-new {
+  height: 496px;
+  margin: 48px 0 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.whats-new__blur {
+  display: none !important;
+}
+
+.phone__screen[data-theme] .whats-new__title {
+  top: 8px;
+}
+
+.phone__screen[data-theme] .whats-new__title--glow {
+  top: 11px;
+}
+
+.whats-new .flame--a {
+  left: 318px;
+  top: 4px;
+}
+
+.whats-new .flame--b {
+  left: 292px;
+  top: -10px;
+}
+
+.whats-new .flame--c {
+  left: 6px;
+  top: 22px;
+}
+
+.whats-new__rail {
+  left: 0;
+  top: 72px;
+  bottom: auto;
+  width: 100%;
+  height: 404px;
+}
+
+.whats-new .banner {
+  zoom: 1.1; /* 280 x 364 drawn at 308 x 400 */
+}
+
+.whats-new__dots {
+  bottom: 0;
+}
+
+.whats-new__emoji {
+  margin-top: -24px;
+}
