@@ -7,6 +7,9 @@ let host = null;
 let toastNode = null;
 let toastTimer = 0;
 
+/** The phone screen that sheets and full-screen layers are appended to. */
+export const overlayHost = () => host;
+
 export function setOverlayHost(screen) {
   host = screen;
 }

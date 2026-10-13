@@ -25,6 +25,18 @@ with a toggle, a wide banner, poster rails, centred display headings over round 
 and a floating notice, shortcut button and tab bar. Option 2 lives in `src/components/Option2.js` and
 `src/styles/option2.css` and reuses Option 1's data, sheets and games.
 
+## Partner benefits
+
+Tapping Netflix, Apple TV+ or Google One in Active subscriptions or the plan list opens that partner's
+**Discovery page** (`src/components/PartnerPDP.js`). Its one button follows the entitlement: **Claim Now**
+activates the benefit, **Manage** opens Airtel's white bottom sheet (`src/components/ManageSheet.js`) with the
+plan, validity, benefits, an inline Change Plan with confirmation, account details and a cancel dialog.
+At the end of a page the next partner peeks in from the right; swipe right-to-left (or tap the peek) to move
+on, left-to-right to go back.
+
+Everything is driven by `src/lib/partners.js`. **That file is mock data**: plans, prices, dates and titles are
+placeholders, and `request()` stands in for the backend, so nothing is really activated, changed or cancelled.
+
 ## Layout
 
 `src/styles/page.css` holds the Figma frames' own offsets. `src/styles/polish.css` is loaded after it and

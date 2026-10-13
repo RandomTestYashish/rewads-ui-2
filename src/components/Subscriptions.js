@@ -1,6 +1,7 @@
 import { asset, el, selectOne } from "../lib/dom.js";
 import { enableDragX } from "../lib/dragX.js";
 import { animate, transition } from "../lib/motion.js";
+import { PARTNER_BY_NAME, openPartner } from "./PartnerPDP.js";
 import { sectionHead } from "./PlayAndWin.js";
 import { openSheet, toast } from "./overlays.js";
 
@@ -90,6 +91,7 @@ export function Subscriptions() {
     const button = event.target.closest("[data-sub]");
     if (!button) return;
     const item = SUBSCRIPTIONS.find((entry) => entry.name === button.dataset.sub);
+    if (PARTNER_BY_NAME[item.name]) return openPartner(PARTNER_BY_NAME[item.name]);
     openSheet({
       eyebrow: "Active subscription",
       title: item.name,

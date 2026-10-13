@@ -1,4 +1,5 @@
 import { asset, el, themed } from "../lib/dom.js";
+import { PARTNER_BY_NAME, openPartner } from "./PartnerPDP.js";
 import { sectionHead } from "./PlayAndWin.js";
 import { openSheet, toast } from "./overlays.js";
 
@@ -30,6 +31,8 @@ const tile = (item) => `<span class="logo-strip__tile ${item.inset ? "logo-strip
 const logo = (item, className) => `<span class="${className} ${item.inset ? `${className}--inset` : ""}"><img src="${asset(item.logo)}" alt="" /></span>`;
 
 export function openBenefit(item) {
+  // Partners with a Discovery page open it; the rest keep the summary sheet.
+  if (PARTNER_BY_NAME[item.name]) return openPartner(PARTNER_BY_NAME[item.name]);
   openSheet({
     eyebrow: "Included in your ₹399 plan",
     content: `
