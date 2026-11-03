@@ -32,6 +32,12 @@ function run(partner, from) {
   });
 }
 
+// A rail tile: the partner's own artwork when there is some, a tinted stand-in otherwise.
+const tile = (item) =>
+  item.image
+    ? `<button class="pdp__tile pdp__tile--image" type="button" data-info="${Boolean(item.info)}" data-press="0.96"><img src="${asset(item.image)}" alt="${item.title}" loading="lazy" draggable="false" /></button>`
+    : `<button class="pdp__tile" type="button" style="--hue:${item.hue}" data-press="0.96"><i>${icons.sparkle}</i><span>${item.title}</span></button>`;
+
 /** One partner's Discovery page: hero, content rails, benefits, how it works. */
 function page(partner) {
   const node = el(`
@@ -46,10 +52,10 @@ function page(partner) {
         ${partner.rails
           .map(
             (rail) => `
-              <section class="pdp__rail">
+              <section class="pdp__rail" ${rail.kind ? `data-kind="${rail.kind}"` : ""}>
                 <h2>${rail.title}</h2>
                 <div class="pdp__tiles scroll-x">
-                  ${rail.items.map((item) => `<button class="pdp__tile" type="button" style="--hue:${item.hue}" data-press="0.96"><i>${icons.sparkle}</i><span>${item.title}</span></button>`).join("")}
+                  ${rail.items.map(tile).join("")}
                 </div>
               </section>`,
           )
@@ -103,7 +109,8 @@ function page(partner) {
   node.querySelectorAll(".pdp__tiles").forEach((rail) => {
     enableDragX(rail);
     rail.addEventListener("click", (event) => {
-      if (!event.target.closest(".pdp__tile")) return;
+      const picked = event.target.closest(".pdp__tile");
+      if (!picked || picked.dataset.info === "true") return;
       toast(isClaimed(getPartner(partner.id)) ? `Opens in the ${partner.name} app` : "Claim the benefit to start watching");
     });
   });

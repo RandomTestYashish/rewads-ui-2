@@ -26,9 +26,30 @@ export const partners = [
       { id: "standard", name: "Netflix Standard", delta: 150, perks: ["Full HD (1080p) streaming", "2 screens at a time", "Downloads on 2 devices"] },
       { id: "premium", name: "Netflix Premium", delta: 300, perks: ["4K + HDR streaming", "4 screens at a time", "Downloads on 6 devices"] },
     ],
+    // Artwork cropped from screenshots of netflix.com/in (Trending Now and More reasons to join).
     rails: [
-      { title: "Trending now", items: tiles(["The Last Monsoon", "Paper Kings", "Night Shift", "Delhi After Dark", "Small Town Giants"], 350) },
-      { title: "New this week", items: tiles(["Orbit", "The Long Game", "Masala Heist", "Quiet Hours"], 10) },
+      {
+        title: "Top 10 in India today",
+        kind: "top10",
+        items: [
+          ["Vishwanath & Sons", "top-1-vishwanath-and-sons.png"],
+          ["The Paradise", "top-2-the-paradise.png"],
+          ["KPop Demon Hunters Playlist", "top-3-kpop-demon-hunters-playlist.png"],
+          ["Gajab Raat", "top-4-gajab-raat.png"],
+          ["Baththa", "top-5-baththa.png"],
+          ["Akka", "top-6-akka.png"],
+        ].map(([title, file]) => ({ title, image: `netflix/${file}` })),
+      },
+      {
+        title: "More reasons to enjoy it",
+        kind: "reason",
+        items: [
+          ["Enjoy on your TV", "reason-tv.jpg"],
+          ["Download your shows to watch offline", "reason-download.jpg"],
+          ["Watch everywhere", "reason-everywhere.jpg"],
+          ["Create profiles for kids", "reason-kids.jpg"],
+        ].map(([title, file]) => ({ title, image: `netflix/${file}`, info: true })),
+      },
     ],
     supports: { changePlan: true, account: true, cancel: true },
   },

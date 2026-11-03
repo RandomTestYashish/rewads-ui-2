@@ -35,6 +35,9 @@ plan, validity, benefits, an inline Change Plan with confirmation, account detai
 At the end of a page the next partner peeks in from the right; swipe right-to-left (or tap the peek) to move
 on, left-to-right to go back.
 
+Netflix's page shows a Top 10 row and a "More reasons" row cropped from screenshots of netflix.com/in
+(`src/assets/netflix/`); the other partners still use tinted stand-in tiles.
+
 Everything is driven by `src/lib/partners.js`. **That file is mock data**: plans, prices, dates and titles are
 placeholders, and `request()` stands in for the backend, so nothing is really activated, changed or cancelled.
 
